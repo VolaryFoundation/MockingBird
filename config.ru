@@ -1,9 +1,9 @@
-require './boot'
+require './app/boot'
 
 map "/events" do
-  run SC::API::Events
+  run SC::EventsController
 end
 
 map "/groups" do
-  run SC::API::Groups
+  run SC::GroupsController
 end
