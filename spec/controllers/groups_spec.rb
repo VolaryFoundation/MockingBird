@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SC::API::Groups do
+describe SC::GroupsController do
   include Rack::Test::Methods
 
   def body
@@ -18,7 +18,7 @@ describe SC::API::Groups do
   end
 
   def app
-    SC::API::Groups
+    SC::GroupsController
   end
 
   describe "/" do

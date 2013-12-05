@@ -2,7 +2,7 @@
 ENV['RACK_ENV'] = 'test'
 
 SPEC_ROOT = File.join(File.dirname(__FILE__))
-require "#{SPEC_ROOT}/../boot"
+require "#{SPEC_ROOT}/../app/boot"
 require "#{SPEC_ROOT}/faker_extras.rb"
 
 FactoryGirl.find_definitions

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SC::API::Events do
+describe SC::EventsController do
   include Rack::Test::Methods
 
   def body
@@ -18,7 +18,7 @@ describe SC::API::Events do
   end
 
   def app
-    SC::API::Events
+    SC::EventsController
   end
 
   describe "/" do
@@ -45,8 +45,6 @@ describe SC::API::Events do
 
         it 'should return array of all events' do
           body.length.should be 2
-          same!(body.first, @event1)
-          same!(body.last, @event2)
         end
       end
 

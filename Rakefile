@@ -1,6 +1,6 @@
 require 'rake'
 require "rexml/document"
-require './boot'
+require './app/boot'
 
 task :spec do
   system('rspec --color --format d ./spec')
