@@ -1,5 +1,5 @@
 if ENV['RACK_ENV'] == 'test'
-  ENV['DATABASE_URL'] = 'postgres://dev@localhost:5432/grn_test'
+  ENV['DATABASE_URL'] = 'mongodb://localhost:27017/volary_api_test'
 else
-  ENV['DATABASE_URL'] = 'postgres://dev@localhost:5432/grn_development'
+  ENV['DATABASE_URL'] = 'mongodb://localhost:27017/volary_api_development'
 end
