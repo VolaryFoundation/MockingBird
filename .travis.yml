@@ -10,3 +10,5 @@ deploy:
   app: volary-api
   on:
     repo: VolaryFoundation/API
+env:
+    - DATABASE_URL='mongodb://localhost:27017/volary_api_ci'
