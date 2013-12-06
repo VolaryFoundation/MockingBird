@@ -1,8 +1,8 @@
 module SC
   class BaseController < Sinatra::Base
-    require API_ROOT + "/models/location"
-    require API_ROOT + "/models/tag"
-    require API_ROOT + "/models/link"
+    require APP_ROOT + "/models/location"
+    require APP_ROOT + "/models/tag"
+    require APP_ROOT + "/models/link"
 
     before do
       content_type :json

@@ -1,5 +1,5 @@
-require API_ROOT + "/models/event"
-require "#{API_ROOT}/lib/calendar"
+require APP_ROOT + "/models/event"
+require "#{APP_ROOT}/lib/calendar"
 
 module SC
   class EventsController < BaseController

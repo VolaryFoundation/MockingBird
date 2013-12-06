@@ -1,4 +1,4 @@
-require API_ROOT + "/models/organization"
+require APP_ROOT + "/models/organization"
 
 module SC
   class GroupsController < BaseController
