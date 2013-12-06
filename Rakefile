@@ -41,3 +41,153 @@ namespace :db do
     end
 end
 
+desc "load test groups from alldata.xml"
+ task :import_groups do
+   require "rexml/document"
+   include REXML
+   file = File.new("test.xml")
+   content = file.read
+   @doc = Document.new(content.force_encoding("ISO-8859-1").encode("UTF-8"))
+   @array_of_groups = Array.new
+   @array_of_fails = Array.new
+   @doc.root.elements[1].elements.each do |group|
+     the_group = Group.new()
+     #Build Group with no Associations.
+     #Go though each element and set attributes based of element node name
+     group.elements.each do |element|
+       (the_group.name = element.text.present? ? element.text.strip : nil) if element.name == 'name'
+       #next line is range. It relates to the size tag in the xml data
+       (the_group.range = element.text.present? ? element.text.downcase : 'local') if element.name == 'size'
+       if element.name == 'other_tags'
+         element.text.gsub(" ", '').split(',').each do |tag|
+           the_group.tags << tag.downcase unless the_group.tags.include?(tag.downcase)
+         end
+       end
+       
+       if element.name == 'philosophy_tag'
+         unless the_group.tags.include?(element.text.downcase)
+           the_group.tags << element.text.downcase 
+           
+         end
+       end
+     end
+     # Item that are needed but not in the XML Data
+     if the_group.save
+       puts "Created #{the_group.name}"
+       puts "    With tags: #{the_group.tags.join(', ')}"
+       ##build Associations.
+       group.elements.each do |element|
+         #create main link
+         if element.name == "url" && element.text.present?
+           array_of_links = element.text.split(/,/)
+           array_of_links.each do |the_link|
+             the_group.links.build(name: the_link, url: the_link, type: 'Website')
+             if the_group.save
+               puts "  Create link: #{the_link}"
+             else
+               puts "  Failed to create link"
+             end
+           end
+         end
+       
+         #Create Calender Link
+         if element.name == "calendar_page_url" && element.text.present?
+           array_of_links = element.text.split(/,/)
+           array_of_links.each do |the_link|
+             the_group.links.build(name: the_link, url: the_link, type: 'Calendar')
+             if the_group.save
+               puts "  Create link: #{the_link}"
+             else
+               puts "  Failed to create link"
+             end
+           end
+         end
+       
+         #Create Podcast Link
+         if element.name == "podcast_url" && element.text.present?
+           array_of_links = element.text.split(/,/)
+           array_of_links.each do |the_link|
+             the_group.links.build(name: the_link, url: the_link, type: 'Podcast')
+             if the_group.save
+               puts "  Create link: #{the_link}"
+             else
+               puts "  Failed to create link"
+             end
+           end
+         end
+       
+         #Create Facebook Link
+         if element.name == "facebook" && element.text.present?
+           array_of_links = element.text.split(/,/)
+           array_of_links.each do |the_link|
+             the_group.links.build(name: the_link, url: the_link, type: 'Facebook')
+             if the_group.save
+               puts "  Create link: #{the_link}"
+             else
+               puts "  Failed to create link"
+             end
+           end
+         end
+       
+         #Create all Custon links
+         array_of_custom_link_fields = ['public_contact_url','atheist_nexus', 'twitter', 'magazine', 'newsletter', 'book']
+         if element.text.present? && array_of_custom_link_fields.include?(element.name)
+           array_of_links = element.text.split(/,/)
+           array_of_links.each do |the_link|
+             the_group.links.build(name: the_link, url: the_link, type: 'Other')
+             if the_group.save
+               puts "  Create link: #{the_link}"
+             else
+               puts "  Failed to create link"
+             end
+           end
+         end
+       
+         #Create all blog Links
+         array_of_blog_links = ['blog_url', 'youtube_vlog']
+         if array_of_blog_links.include?(element.name) && element.text.present?
+           array_of_links = element.text.split(/,/)
+           array_of_links.each do |the_link|
+             the_group.links.build(name: the_link, url: the_link, type: 'Blog')
+             if the_group.save
+               puts "  Create link: #{the_link}"
+             else
+               puts "  Failed to create link"
+             end
+           end
+         end
+       
+         #add the location
+         if element.name == "address" && element.text.present?
+           results = Geocoder.search(element.text).first
+           unless results.nil?
+            location = Location.new()
+            location.state = results.state if results.state.present?
+            location.country = results.country if results.country.present?
+            location.city = results.city if results.city.present?
+            location.postal_code = results.postal_code if results.postal_code.present?
+            location.address = results.street_address if results.street_address.present?
+            location.lng_lat = [results.longitude, results.latitude]
+            if location.valid?
+              the_group.location = location
+              the_group.save
+              puts " #{location.address}, #{location.city}, #{location.state}, #{location.country}"
+            else
+              puts " Failed to create location"
+            end
+          end
+          sleep(1.0/10.0)
+         end
+       end
+     else
+       puts "Failed to create #{the_group.name} becuase:"
+       the_group.errors.each do |key, value|
+         puts "    #{key}: #{value}"
+       end
+     end
+     puts "----------- Next Group ----------"
+
+   end
+
+ end
+

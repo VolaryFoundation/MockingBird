@@ -9,6 +9,7 @@ gem "icalendar"
 
 group :development do
   gem "shotgun"
+  gem "geocoder"
 end
 
 group :test do
