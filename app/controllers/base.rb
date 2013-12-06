@@ -6,6 +6,7 @@ module SC
 
     before do
       content_type :json
+      headers['Access-Control-Allow-Origin'] = '*'
     end
 
     def ical data
