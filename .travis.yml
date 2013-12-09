@@ -12,3 +12,12 @@ deploy:
     repo: VolaryFoundation/API
 env:
     - DATABASE_URL='mongodb://localhost:27017/volary_api_ci'
+notifications:
+  email:
+    recipients:
+      - nick@volary.org
+      - lorne@volary.com
+      - brendan@volary.com
+      - michael@volary.com
+    on_success: change
+    on_failure: always
