@@ -11,7 +11,8 @@ describe Event do
 
     it 'should require a name' do
       @event.name = nil
-      @event.should_not be_valid
+      #took not off to break one test
+      @event.should be_valid
     end
   end
 
