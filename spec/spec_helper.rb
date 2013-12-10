@@ -1,6 +1,20 @@
 
 ENV['RACK_ENV'] = 'test'
 
+#suggest to have respect return 1 if test fails
+if defined?(RUBY_ENGINE) && RUBY_ENGINE == "ruby" && RUBY_VERSION >= "1.9"
+  module Kernel
+    alias :__at_exit :at_exit
+    def at_exit(&block)
+      __at_exit do
+        exit_status = $!.status if $!.is_a?(SystemExit)
+        block.call
+        exit exit_status if exit_status
+      end
+    end
+  end
+end
+
 SPEC_ROOT = File.join(File.dirname(__FILE__))
 require "#{SPEC_ROOT}/../app/boot"
 require "#{SPEC_ROOT}/faker_extras.rb"
@@ -21,17 +35,3 @@ RSpec.configure do |config|
   end
 
 end
-
-#suggest to have respect return 1 if test fails
-#if defined?(RUBY_ENGINE) && RUBY_ENGINE == "ruby" && RUBY_VERSION >= "1.9"
-#  module Kernel
-#    alias :__at_exit :at_exit
-#    def at_exit(&block)
-#      __at_exit do
-#        exit_status = $!.status if $!.is_a?(SystemExit)
-#        block.call
-#        exit exit_status if exit_status
-#      end
-#    end
-#  end
-#end
