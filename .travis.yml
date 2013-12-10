@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-- 1.9.3
+- 2.0.0
 script: rake spec
 services: mongodb
 deploy:
@@ -10,7 +10,7 @@ deploy:
   app: volary-api
   on:     
     repo: VolaryFoundation/API
-    ruby: 1.9.3
+    ruby: 2.0.0
 env:
     - DATABASE_URL='mongodb://localhost:27017/volary_api_ci'
 notifications:
