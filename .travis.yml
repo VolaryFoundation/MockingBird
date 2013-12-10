@@ -10,7 +10,7 @@ deploy:
   app: volary-api
   on:     
     repo: VolaryFoundation/API
-    rvm: 1.9.3
+    ruby: 1.9.3
 env:
     - DATABASE_URL='mongodb://localhost:27017/volary_api_ci'
 notifications:
