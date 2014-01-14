@@ -33,7 +33,13 @@ class Group
 
   def self.search params={}
     query = build_query(params)
-    where(query).all
+    skip = params['skip']
+    limit = params['limit']
+    if (skip && limit)
+      where(query).skip(skip.to_i).limit(limit.to_i)
+    else
+      where(query).all
+    end
   end
 
   def self.build_query params
