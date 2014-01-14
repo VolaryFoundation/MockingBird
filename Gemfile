@@ -6,10 +6,10 @@ gem "sinatra"
 gem "mongo_mapper", "0.13.0.beta2"
 gem "bson_ext"
 gem "icalendar"
+gem "geocoder"
 
 group :development do
   gem "shotgun"
-  gem "geocoder"
 end
 
 group :test do
