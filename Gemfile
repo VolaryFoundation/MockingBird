@@ -7,6 +7,7 @@ gem "mongo_mapper", "0.13.0.beta2"
 gem "bson_ext"
 gem "icalendar"
 gem "geocoder"
+gem 'newrelic_rpm'
 
 group :development do
   gem "shotgun"
