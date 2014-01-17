@@ -9,11 +9,11 @@ module SC
     end
     
     get "/:id" do
-      group = Group.find(params[:id])
-      if group
-        ok group
+      @group = Group.find(params[:id])
+      if @group.present?
+        haml :"groups/show"
       else
-        missing
+        haml "%h2 I am sorry but we cant find a group with the id: #{params[:id]}"
       end
     end
   end
