@@ -5,21 +5,16 @@ module SC
   class EventsController < BaseController
   
     get "/" do
-      ical = params.delete('ical')
-      events = Event.search(params)
-      if ical
-        ical SC::Calendar.new(events)
-      else
-        ok events
-      end
+      @events = Event.all
+      haml :"events/index"
     end
     
     get "/:id" do
-      event = Event.find(params[:id])
-      if event
-        ok event
+      @event = Event.find(params[:id])
+      if @event.present?
+        haml :"events/show"
       else
-        missing
+        haml "%h2 I am sorry but we cant find a event with the id: #{params[:id]}"
       end
     end
   end
