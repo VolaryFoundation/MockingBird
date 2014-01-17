@@ -4,6 +4,7 @@ module SC
     require APP_ROOT + "/models/tag"
     require APP_ROOT + "/models/link"
     
+    #Sets the default view under app/views
     set :views, APP_ROOT + '/views'
   
     def ok data

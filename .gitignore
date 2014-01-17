@@ -7,3 +7,4 @@
 env.rb
 *.tmproj
 .DS_store
+log/*.log
