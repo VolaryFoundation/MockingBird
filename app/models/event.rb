@@ -4,7 +4,7 @@ class Event
   before_save :generate_keywords
 
   one :location
-  belongs_to :organization
+  belongs_to :group
   many :links
 
   ensure_index :"location.lng_lat" => '2dsphere'
@@ -24,7 +24,7 @@ class Event
   key :tags, Array
 
   def serializable_hash(options = {})
-    super({ :include => :organization }.merge(options))
+    super({ :include => :group }.merge(options))
   end
 
   def generate_keywords

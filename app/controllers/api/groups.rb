@@ -1,4 +1,4 @@
-require APP_ROOT + "/models/organization"
+require APP_ROOT + "/models/group"
 
 module SC
   module API
