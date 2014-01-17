@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SC::GroupsController do
+describe SC::API::EventsController do
   include Rack::Test::Methods
 
   def body
@@ -18,7 +18,7 @@ describe SC::GroupsController do
   end
 
   def app
-    SC::GroupsController
+    SC::API::EventsController
   end
 
   describe "/" do
@@ -29,7 +29,7 @@ describe SC::GroupsController do
     end
 
     it "should return JSON" do
-      get "/"
+      get "/api/events"
       last_response.headers['Content-Type'].should match /json/
     end
 
@@ -38,12 +38,12 @@ describe SC::GroupsController do
       context 'there are no filters' do
 
         before do
-          create :group
-          create :group
+          @event1 = create :event
+          @event2 = create :event
           get '/'
         end
 
-        it 'should return array of all groups' do
+        it 'should return array of all events' do
           body.length.should be 2
         end
       end
@@ -51,66 +51,66 @@ describe SC::GroupsController do
       context 'there is a keywords filter' do
 
         before do
-          @group = create :group, name: 'foo bar', description: 'bat baz'
+          @event = create :event, name: 'foo bar', description: 'bat baz'
         end
 
-        it 'should return an group that matches in the name' do
+        it 'should return an event that matches in the name' do
           get "/?keywords=foo" 
           body.length.should be 1
-          same!(body.first, @group)
+          same!(body.first, @event)
         end
 
-        it ' should return an group that matches in the description' do
+        it ' should return an event that matches in the description' do
           get "/?keywords=baz" 
           body.length.should be 1
-          same!(body.first, @group)
+          same!(body.first, @event)
         end
       end
 
-      context 'there is a range filter' do
+      context 'there is a price filter' do
 
         before do
-          @group = create :group, range: 'local'
+          @event = create :event, price: '$$$'
         end
         
-        it 'should return an group that has a matching price' do
-          get "/?ranges[]=local"
+        it 'should return an event that has a matching price' do
+          get "/?prices[]=$$$"
           body.length.should be 1
-          same!(body.first, @group)
+          same!(body.first, @event)
         end
       end
 
-      context 'there is a size filter' do
+      context 'there is a attendance filter' do
 
         before do
-          @group = create :group, size: '1-10'
+          @event = create :event, attendance: '1-10'
         end
 
-        it 'should return an group that has a matching size' do
-          get "/?sizes[]=1-10"
+        it 'should return an event that has a matching attendance' do
+          get "/?attendances[]=1-10"
           body.length.should be 1
-          same!(body.first, @group)
+          same!(body.first, @event)
         end
       end
 
       context 'there are tag filters' do
 
         before do
-          @group = create :group, tags: [ 'foo', 'bar', 'bat' ]
+          @event = create :event, tags: [ 'foo', 'bar', 'bat' ]
         end
 
-        it 'should return an group with matching requred tag' do
+        it 'should return an event with matching requred tag' do
           get "/?tags[foo]=require"
           body.length.should be 1
-          same!(body.first, @group)
+          same!(body.first, @event)
         end
 
-        it 'should NOT return an group with matching rejected tag' do
+        it 'should NOT return an event with matching rejected tag' do
           get "/?tags[foo]=reject"
           body.length.should be 0
         end
 
-        it 'should not return an group with both required and rejected tag' do
+        it 'should not return an event with both required and rejected tag' do
           get "/?tags[foo]=require&tags[bar]=reject"
           body.length.should be 0
         end
@@ -119,21 +119,21 @@ describe SC::GroupsController do
       context 'there is a geo filter' do
 
         before do
-          @group1 = create :group_with_loc
-          @group1.location.lng_lat = [ 0.1, -0.1 ]
-          @group1.save
-          @group2 = create :group_with_loc
-          @group2.location.lng_lat = [ 40.1, -40.1 ]
-          @group2.save
+          @event1 = create :event_with_loc
+          @event1.location.lng_lat = [ 0.1, -0.1 ]
+          @event1.save
+          @event2 = create :event_with_loc
+          @event2.location.lng_lat = [ 40.1, -40.1 ]
+          @event2.save
         end
 
         
-        it 'should return an group that fits inside geo query' do
+        it 'should return an event that fits inside geo query' do
           get "/?geo[]=0.1&geo[]=-0.1&geo[]=1000"
           body.length.should be 1
         end
 
-        it 'should not return an group outside of query' do
+        it 'should not return an event outside of query' do
           get "/?geo[]=0.1&geo[]=-0.1&geo[]=10"
           body.length.should be 0
         end
@@ -142,12 +142,12 @@ describe SC::GroupsController do
       context 'there is a key filter' do
 
         before do
-          @group = create :group_with_loc
-          @group.location.country = 'us'
-          @group.save
+          @event = create :event_with_loc
+          @event.location.country = 'us'
+          @event.save
         end
         
-        it 'should return an group that matches basic key/value check' do
+        it 'should return an event that matches basic key/value check' do
           get "/?keys[location.country]=us"
           body.length.should be 1
         end
@@ -158,8 +158,8 @@ describe SC::GroupsController do
   describe "/:id" do
 
     before do
-      @group = create :group
-      get "/#{@group.id.to_s}"
+      @event = create :event
+      get "/#{@event.id.to_s}"
     end
 
     it "should be successful" do
@@ -172,11 +172,10 @@ describe SC::GroupsController do
 
     describe 'response body' do
 
-      it 'should be the requested group' do
-        group = JSON.parse(last_response.body)
-        group['id'].should be == @group.id.to_s
+      it 'should be the requested event' do
+        event = JSON.parse(last_response.body)
+        event['id'].should be == @event.id.to_s
       end
     end
   end
 end
-
