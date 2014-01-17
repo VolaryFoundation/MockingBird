@@ -1,3 +1,12 @@
 %h1= @group.name
-%p= @group.description
-
+%section{id: 'main_info_show'}
+  %p= @group.description
+  %a{href: '#javascript'}Edit
+%section{id: 'main_info_edit'}
+  %form{action: "#{@group.id}", method: :post}
+    %input{type: "text", name: 'group[name]', value: @group.name}
+    %br
+    %textarea{ name: 'group[description]', rows: "10", cols: "70"}=@group.description
+    %br
+    %input{type: "submit", value: "Update Group"}
+  

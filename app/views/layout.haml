@@ -2,4 +2,8 @@
 %head
   %link{rel: "stylesheet", type: "text/css", href: "/stylesheets/application.css"}
 %body
+  - if flash[:notice].present?
+    .notice=flash[:notice]
+  - if flash[:alert].present?
+    .alert=flash[:alert]
   = yield

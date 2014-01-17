@@ -9,6 +9,7 @@ gem "icalendar"
 gem "geocoder"
 gem 'newrelic_rpm'
 gem 'haml'
+gem 'rack-flash3' #for session flash messages
 
 group :development do
   gem "shotgun"
@@ -16,6 +17,7 @@ group :development do
   gem 'sass'
   gem 'rb-fsevent', '~> 0.9'
   ## End Requirement for SASS
+  gem 'debugger'
 end
 
 group :test do

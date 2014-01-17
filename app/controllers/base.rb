@@ -3,6 +3,10 @@ module SC
     require APP_ROOT + "/models/location"
     require APP_ROOT + "/models/tag"
     require APP_ROOT + "/models/link"
+    require 'rack-flash'
+    
+    enable :sessions
+    use Rack::Flash
     
     #Sets the default view under app/views
     set :views, APP_ROOT + '/views'
