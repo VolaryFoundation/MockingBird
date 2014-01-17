@@ -2,9 +2,10 @@ require APP_ROOT + "/models/organization"
 
 module SC
   class GroupsController < BaseController
-
+  
     get "/" do
-      ok Group.search(params)
+      @groups = Group.all
+      haml :"groups/index"
     end
     
     get "/:id" do

@@ -1,5 +1,13 @@
 require './app/boot'
 
+map "/api/events" do
+  run SC::API::EventsController
+end
+
+map "/api/groups" do
+  run SC::API::GroupsController
+end
+
 map "/events" do
   run SC::EventsController
 end

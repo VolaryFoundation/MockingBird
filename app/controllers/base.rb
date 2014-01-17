@@ -3,23 +3,14 @@ module SC
     require APP_ROOT + "/models/location"
     require APP_ROOT + "/models/tag"
     require APP_ROOT + "/models/link"
-
-    before do
-      content_type :json
-      headers['Access-Control-Allow-Origin'] = '*'
-    end
-
-    def ical data
-      content_type :"text/calendar"
-      status 200
-      halt data.to_ical
-    end
-
+    
+    set :views, APP_ROOT + '/views'
+  
     def ok data
       status 200
-      halt data.to_json
+      halt data
     end
-
+  
     def missing
       status 404
       halt

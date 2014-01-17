@@ -3,7 +3,7 @@ require "#{APP_ROOT}/lib/calendar"
 
 module SC
   class EventsController < BaseController
-
+  
     get "/" do
       ical = params.delete('ical')
       events = Event.search(params)

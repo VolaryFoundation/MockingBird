@@ -8,6 +8,7 @@ gem "bson_ext"
 gem "icalendar"
 gem "geocoder"
 gem 'newrelic_rpm'
+gem 'haml'
 
 group :development do
   gem "shotgun"
