@@ -1,5 +1,10 @@
 %h1 Groups
-%ul
+%table
+  %tr
+    %th Name
+    %th Actions
   - @groups.each do |group|
-    %li= group.name
-    
+    %tr
+      %td= group.name
+      %td
+        %a{href: "groups/#{group.id}"}Show

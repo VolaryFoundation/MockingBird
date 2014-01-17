@@ -1,4 +1,10 @@
 %h1 Events
-%ul
+%table
+  %tr
+    %th Name
+    %th Actions
   - @events.each do |event|
-    %li= event.name
+    %tr
+      %td= event.name
+      %td
+        %a{href: "events/#{event.id}"}Show
