@@ -12,6 +12,10 @@ gem 'haml'
 
 group :development do
   gem "shotgun"
+  ## Required for SASS
+  gem 'sass'
+  gem 'rb-fsevent', '~> 0.9'
+  ## End Requirement for SASS
 end
 
 group :test do
