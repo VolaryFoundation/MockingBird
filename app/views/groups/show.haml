@@ -1,12 +1,56 @@
-%h1= @group.name
-%section{id: 'main_info_show'}
-  %p= @group.description
-  %a{href: '#javascript'}Edit
-%section{id: 'main_info_edit'}
-  %form{action: "#{@group.id}", method: :post}
-    %input{type: "text", name: 'group[name]', value: @group.name}
-    %br
-    %textarea{ name: 'group[description]', rows: "10", cols: "70"}=@group.description
-    %br
-    %input{type: "submit", value: "Update Group"}
-  
+#group
+  %h1 {group:name}
+  %section{id: 'main_info_show', 'rv-hide' => "ui:editMode"}
+    %p {group:description}
+    %a{href: '#javascript', "rv-on-click" => 'ui.toggleEdit'}Edit
+  %section{id: 'main_info_edit', 'rv-show' => "ui:editMode"}
+    %form{action: "#{@group.id}", method: :group}
+      %input{type: "text", name: 'group[name]', "rv-value" => "group:name"}
+      %br
+      %textarea{ name: 'group[description]', rows: "10", cols: "70", :'rv-value' => "group:description"}
+      %br
+      %input{type: "submit", value: "Update Group"}
+- content_for :js do   
+  :javascript
+    var Group = Backbone.Model.extend({
+      urlRoot: "/api/groups"
+    })
+    
+    var group = new Group({
+      
+    })
+    
+    group.on('change', function(){
+      group.save(null, {patch: true, silent: true})
+    })
+    
+    
+    
+    var UI = Backbone.Model.extend({
+      defaults: {
+        editMode: false
+      },
+      toggleEdit: function() {
+        this.set("editMode", !this.get('editMode'))
+      }
+    })
+    
+    new (Backbone.Router.extend({
+        routes: {
+            "groups/:id": "getGroup"
+        },
+        getGroup: function (id) {
+           group.set("id", id)
+           group.fetch()
+        }
+    }));
+
+    Backbone.history.start({pushState: true});
+    
+    var ui = new UI
+    
+    rivets.bind(document.getElementById('group'), {
+      group: group,
+      ui: ui
+    })
+    

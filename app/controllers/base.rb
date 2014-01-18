@@ -5,6 +5,8 @@ module SC
     require APP_ROOT + "/models/link"
     require 'rack-flash'
     
+    helpers Sinatra::ContentFor
+    
     enable :sessions
     use Rack::Flash
     

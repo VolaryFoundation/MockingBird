@@ -18,7 +18,8 @@ module SC
     
       def ok data
         status 200
-        halt data.to_json
+        return halt data.to_json if data
+        halt
       end
     
       def missing
