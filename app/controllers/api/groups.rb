@@ -18,15 +18,15 @@ module SC
         end
       end
       
-      patch "/:id" do
-        group = Group.find(params[:id])
-        if group.update_attributes(params[:group])
-          ok group
-        else
-          group.attributes = params[:group]
-          ok group
-        end
-      end
+      #patch "/:id" do
+      #  group = Group.find(params[:id])
+      #  if group.update_attributes(params[:group])
+      #    ok group
+      #  else
+      #    group.attributes = params[:group]
+      #    ok group
+      #  end
+      #end
     end
   end
 end

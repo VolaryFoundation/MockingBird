@@ -17,16 +17,16 @@ module SC
       end
     end
     
-    post "/:id" do
-      @group = Group.find(params[:id])
-      if @group.update_attributes(params[:group])
-        flash[:notice] = "Your group has been updated"
-        haml :"groups/show"
-      else
-        @group.attributes = params[:group]
-        flash[:alert] = "Failed to update group"
-        haml :"groups/show"
-      end
-    end
+    #post "/:id" do
+    #  @group = Group.find(params[:id])
+    #  if @group.update_attributes(params[:group])
+    #    flash[:notice] = "Your group has been updated"
+    #    haml :"groups/show"
+    #  else
+    #    @group.attributes = params[:group]
+    #    flash[:alert] = "Failed to update group"
+    #    haml :"groups/show"
+    #  end
+    #end
   end
 end

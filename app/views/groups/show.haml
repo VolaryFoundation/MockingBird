@@ -1,15 +1,43 @@
-#group
-  %h1 {group:name}
-  %section{id: 'main_info_show', 'rv-hide' => "ui:editMode"}
-    %p {group:description}
-    %a{href: '#javascript', "rv-on-click" => 'ui.toggleEdit'}Edit
-  %section{id: 'main_info_edit', 'rv-show' => "ui:editMode"}
-    %form{action: "#{@group.id}", method: :group}
-      %input{type: "text", name: 'group[name]', "rv-value" => "group:name"}
-      %br
-      %textarea{ name: 'group[description]', rows: "10", cols: "70", :'rv-value' => "group:description"}
-      %br
-      %input{type: "submit", value: "Update Group"}
+#frame
+  #page_title
+    %h1 {group:name}
+  #main
+    %section{id: 'main_info_show', 'rv-hide' => "ui:editMode"}
+      %h2 About this Group
+      %img{src: "http://placehold.it/180x125.png"}
+      #main-info-details
+        %ul
+          %li
+            <span class='label important'>This is the location</span>
+          %li 
+            <span class='label'>Number of Members: </span>13
+          %li 
+            <span class='label'>Last Updated: </span>13 Dev 2013
+          %li Share Buttons Go here
+      #main-info-description    
+        %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque venenatis porta libero in congue. Morbi fringilla laoreet erat et blandit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer luctus vitae lorem nec rutrum. Maecenas pharetra dui urna, nec mollis est gravida non. Quisque urna arcu, adipiscing et volutpat vitae, tempus quis nibh. Suspendisse sed dictum ipsum.
+        %p Sed dapibus tempus nulla nec semper. Aliquam vitae nunc eu massa malesuada facilisis eu at velit. Aenean vestibulum nisl mi, eget vehicula tortor pulvinar sit amet. Sed eget nisl ut nibh ultrices vulputate et nec felis. Vestibulum ac erat risus. Proin auctor odio ac malesuada auctor. Nulla adipiscing, sem non laoreet tincidunt, nisl dui condimentum nunc, et sodales erat erat ut libero. Suspendisse convallis dui diam, vitae interdum mauris imperdiet id. Sed vehicula augue et justo malesuada, vel tempor mauris porttitor. Nullam vestibulum ante nec lorem aliquet, non gravida ligula molestie.
+        %p Donec sit amet arcu dolor. Praesent adipiscing metus id enim volutpat, quis lacinia eros elementum. Maecenas a elit quis enim luctus mollis. Ut semper sollicitudin consequat. Integer congue est quis semper pharetra. Mauris felis nisl, elementum sit amet nibh a, dictum commodo eros. Maecenas quis est et sem rhoncus tempus.
+      #main-info-keywords
+        %ul
+          %li <span class='label'>Keywords: </span>
+          %li Some
+          %li Random
+          %li Words
+          %li Placed
+          %li Here
+
+        
+    %section{id: 'main_info_show', 'rv-hide' => "ui:editMode"}
+      %h2 URL Info
+      %p Some links go here
+  #sidebar
+    %section
+      Some side text. I am going to pust some random stuff here so that is fills out the space. I mean I don't need anything all that important so just random stuff. A little bit more but I think this is enough.
+    %section
+      Some side text. I am going to pust some random stuff here so that is fills out the space. I mean I don't need anything all that important so just random stuff. A little bit more but I think this is enough.
+
+
 - content_for :js do   
   :javascript
     var Group = Backbone.Model.extend({
@@ -20,9 +48,9 @@
       
     })
     
-    group.on('change', function(){
-      group.save(null, {patch: true, silent: true})
-    })
+    //group.on('change', function(){
+    //  group.save(null, {patch: true, silent: true})
+    //})
     
     
     

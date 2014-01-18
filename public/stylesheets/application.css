@@ -1,2 +1,203 @@
+@font-face {
+  font-family: 'reklame_bold';
+  src: url("/fonts/reklamescript-bold-webfont.eot");
+  src: url("/fonts/reklamescript-bold-webfont.eot?#iefix") format("embedded-opentype"), url("/fonts/reklamescript-bold-webfont.woff") format("woff"), url("/fonts/reklamescript-bold-webfont.ttf") format("truetype"), url("/fonts/reklamescript-bold-webfont.svg#reklame_script_boldregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'reklame_medium';
+  src: url("/fonts/reklamescript-medium-webfont.eot");
+  src: url("/fonts/reklamescript-medium-webfont.eot?#iefix") format("embedded-opentype"), url("/fonts/reklamescript-medium-webfont.woff") format("woff"), url("/fonts/reklamescript-medium-webfont.ttf") format("truetype"), url("/fonts/reklamescript-medium-webfont.svg#reklame_script_mediumregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'reklame_regular';
+  src: url("/fonts/reklamescript-regular-webfont.eot");
+  src: url("/fonts/reklamescript-regular-webfont.eot?#iefix") format("embedded-opentype"), url("/fonts/reklamescript-regular-webfont.woff") format("woff"), url("/fonts/reklamescript-regular-webfont.ttf") format("truetype"), url("/fonts/reklamescript-regular-webfont.svg#reklame_script_regularregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'cabinregular';
+  src: url("/fonts/cabin-regular-webfont.eot");
+  src: url("/fonts/cabin-regular-webfont.eot?#iefix") format("embedded-opentype"), url("/fonts/cabin-regular-webfont.woff") format("woff"), url("/fonts/cabin-regular-webfont.ttf") format("truetype"), url("/fonts/cabin-regular-webfont.svg#cabinregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'cabinsemibold';
+  src: url("/fonts/cabin-semibold-webfont.eot");
+  src: url("/fonts/cabin-semibold-webfont.eot?#iefix") format("embedded-opentype"), url("/fonts/cabin-semibold-webfont.woff") format("woff"), url("/fonts/cabin-semibold-webfont.ttf") format("truetype"), url("/fonts/cabin-semibold-webfont.svg#cabinsemibold") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'droid_sansregular';
+  src: url("/fonts/DroidSans-webfont.eot");
+  src: url("/fonts/DroidSans-webfont.eot?#iefix") format("embedded-opentype"), url("/fonts/DroidSans-webfont.woff") format("woff"), url("/fonts/DroidSans-webfont.ttf") format("truetype"), url("/fonts/DroidSans-webfont.svg#droid_sansregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'droid_sansbold';
+  src: url("/fonts/droidsans-bold-webfont.eot");
+  src: url("/fonts/droidsans-bold-webfont.eot?#iefix") format("embedded-opentype"), url("/fonts/droidsans-bold-webfont.woff") format("woff"), url("/fonts/droidsans-bold-webfont.ttf") format("truetype"), url("/fonts/droidsans-bold-webfont.svg#droid_sansbold") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'icomoon';
+  src: url("/fonts/icomoon.eot");
+  src: url("/fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("/fonts/icomoon.woff") format("woff"), url("/fonts/icomoon.ttf") format("truetype"), url("/fonts/icomoon.svg#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'grn';
+  src: url("/fonts/grn.eot");
+  src: url("/fonts/grn.eot?#iefix") format("embedded-opentype"), url("/fonts/grn.woff") format("woff"), url("/fonts/grn.ttf") format("truetype"), url("/fonts/grn.svg#grn") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+* {
+  margin: 0;
+  padding: 0; }
+
 body {
-  background-color: white; }
+  background-color: RGBa(23, 144, 197, 1);
+  color: white;
+  width: 100%; }
+
+h2 {
+  width: 100%;
+  border-bottom: 1px solid #d6d6d6;
+  padding-bottom: 7px;
+  color: RGB(83, 83, 83);
+  font-family: cabinsemibold, sans-serif;
+  text-shadow: rgba(0, 0, 0, 0.14902) 0px -1px 0px;
+  line-height: 24.00002px;
+  font-size: 22px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal; }
+
+.label {
+  font-weight: bold;
+  font-size: 0.9em; }
+  .label.important {
+    font-size: 1.1em; }
+
+ul {
+  list-style: none; }
+  ul li {
+    padding-bottom: 7px; }
+    ul li:last-child {
+      padding-bottom: 0; }
+
+p {
+  padding-bottom: 14px; }
+
+#page {
+  margin: 0 auto;
+  width: 800px; }
+
+header {
+  margin: 0 auto;
+  height: 100px;
+  width: 100%; }
+
+footer {
+  margin: 0 auto;
+  height: 100px;
+  width: 100%; }
+
+#content {
+  overflow: auto;
+  width: 100%; }
+  #content #frame {
+    width: 100%;
+    overflow: auto; }
+    #content #frame #main {
+      background-color: white;
+      width: 60%;
+      color: black;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      padding: 14px;
+      margin: 0 0 14px 0;
+      float: left; }
+    #content #frame #sidebar {
+      width: 30%;
+      float: left;
+      margin-left: 1%; }
+      #content #frame #sidebar section {
+        background-color: white;
+        width: 100%;
+        color: black;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        padding: 14px;
+        margin: 0 0 14px 0; }
+
+@media all and (max-width: 800px) {
+  #page {
+    width: 100%; }
+    #page #content #frame #main {
+      width: 90%;
+      float: none;
+      margin-left: auto;
+      margin-right: auto; }
+    #page #content #frame #sidebar {
+      width: 100%;
+      margin: 0 auto;
+      float: none; }
+      #page #content #frame #sidebar section {
+        width: 90%;
+        margin: 0 auto;
+        margin-bottom: 14px; } }
+section#main_info_show {
+  margin-bottom: 14px;
+  overflow: auto; }
+  section#main_info_show img {
+    padding: 14px;
+    float: left; }
+  section#main_info_show #main-info-details {
+    position: relative;
+    float: left;
+    padding: 14px;
+    height: 111px; }
+    section#main_info_show #main-info-details ul li:last-child {
+      position: absolute;
+      bottom: 0;
+      left: 14px; }
+  section#main_info_show #main-info-description {
+    clear: both;
+    padding: 14px; }
+  section#main_info_show #main-info-keywords li {
+    float: left;
+    padding-left: 7px; }
+
+@media all and (max-width: 510px) {
+  section#main_info_show img {
+    display: block;
+    float: none;
+    width: 180px;
+    margin: 0 auto; }
+  section#main_info_show #main-info-details {
+    position: relative;
+    float: none;
+    text-align: center;
+    padding: 14px;
+    height: 100%; }
+    section#main_info_show #main-info-details ul li:last-child {
+      position: static; }
+  section#main_info_show #main-info-description {
+    clear: both;
+    padding: 14px; }
+  section#main_info_show #main-info-keywords li {
+    float: left;
+    padding-left: 7px; } }
