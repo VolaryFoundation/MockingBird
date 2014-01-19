@@ -1,10 +1,20 @@
-%h1 Groups
-%table
-  %tr
-    %th Name
-    %th Actions
-  - @groups.each do |group|
-    %tr
-      %td= group.name
-      %td
-        %a{href: "groups/#{group.id}"}Show
+#frame
+  #page_title
+    %h1 Groups
+  #main
+    #list-index
+      %ul.list
+        - @groups.each do |group|
+          %li 
+            %img{src: "http://placehold.it/180x125.png"}
+            .main_info
+              %a{href: "groups/#{group.id}"}= group.name
+              %p location is place here
+              
+              
+
+  #sidebar
+    %section
+      Some side text. I am going to pust some random stuff here so that is fills out the space. I mean I don't need anything all that important so just random stuff. A little bit more but I think this is enough.
+    %section
+      Some side text. I am going to pust some random stuff here so that is fills out the space. I mean I don't need anything all that important so just random stuff. A little bit more but I think this is enough.

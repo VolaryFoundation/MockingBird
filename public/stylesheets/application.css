@@ -96,6 +96,11 @@ ul {
     ul li:last-child {
       padding-bottom: 0; }
 
+ul.list li:nth-child(odd) {
+  background: RGB(231, 231, 231); }
+ul.list li:nth-child(even) {
+  background: RGB(247, 247, 247); }
+
 p {
   padding-bottom: 14px; }
 
@@ -192,10 +197,6 @@ section#main_url_show ul {
     border-top: 1px solid RGB(205, 205, 205);
     border-left: 1px solid RGB(205, 205, 205);
     border-right: 1px solid RGB(205, 205, 205); }
-    section#main_url_show ul li:nth-child(odd) {
-      background: RGB(231, 231, 231); }
-    section#main_url_show ul li:nth-child(even) {
-      background: RGB(247, 247, 247); }
 
 @media all and (max-width: 510px) {
   section#main_info_show img {
@@ -217,3 +218,14 @@ section#main_url_show ul {
   section#main_info_show #main-info-keywords li {
     float: left;
     padding-left: 7px; } }
+#list-index li {
+  overflow: auto; }
+  #list-index li .main_info {
+    float: left;
+    width: 65%;
+    padding-top: 14px; }
+  #list-index li img {
+    float: left;
+    width: 25%;
+    padding: 14px;
+    margin: 0; }
