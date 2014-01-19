@@ -66,6 +66,7 @@
   padding: 0; }
 
 body {
+  font-family: "Lato", sans-serif;
   background-color: RGBa(23, 144, 197, 1);
   color: white;
   width: 100%; }

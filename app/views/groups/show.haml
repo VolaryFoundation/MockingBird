@@ -1,20 +1,20 @@
 #frame
   #page_title
-    %h1 The Group Name (Works okay for even longer names)
+    %h1 { group:name }
   #main
     %section{id: 'main_info_show', 'rv-hide' => "ui:editMode"}
       %h2 About this Group
-      %img{src: "http://placehold.it/180x125.png"}
+      %img{ src: "http://placehold.it/180x125.png" }
       #main-info-details
         %ul
           %li
-            <span class='label important'>This is the location</span>
+            <span class='label' rv-html="group:location | asAddress"></span>
           %li 
-            <span class='label'>Number of Members: </span>13
+            <span class='label'>Number of Members: { group:memberCount }</span>
           %li 
             <span class='label'>Last Updated: </span>13 Dev 2013
           %li Share Buttons Go here
-      #main-info-description    
+      #main-info-description
         %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque venenatis porta libero in congue. Morbi fringilla laoreet erat et blandit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer luctus vitae lorem nec rutrum. Maecenas pharetra dui urna, nec mollis est gravida non. Quisque urna arcu, adipiscing et volutpat vitae, tempus quis nibh. Suspendisse sed dictum ipsum.
         %p Sed dapibus tempus nulla nec semper. Aliquam vitae nunc eu massa malesuada facilisis eu at velit. Aenean vestibulum nisl mi, eget vehicula tortor pulvinar sit amet. Sed eget nisl ut nibh ultrices vulputate et nec felis. Vestibulum ac erat risus. Proin auctor odio ac malesuada auctor. Nulla adipiscing, sem non laoreet tincidunt, nisl dui condimentum nunc, et sodales erat erat ut libero. Suspendisse convallis dui diam, vitae interdum mauris imperdiet id. Sed vehicula augue et justo malesuada, vel tempor mauris porttitor. Nullam vestibulum ante nec lorem aliquet, non gravida ligula molestie.
         %p Donec sit amet arcu dolor. Praesent adipiscing metus id enim volutpat, quis lacinia eros elementum. Maecenas a elit quis enim luctus mollis. Ut semper sollicitudin consequat. Integer congue est quis semper pharetra. Mauris felis nisl, elementum sit amet nibh a, dictum commodo eros. Maecenas quis est et sem rhoncus tempus.
@@ -45,48 +45,5 @@
     %section
       Some side text. I am going to pust some random stuff here so that is fills out the space. I mean I don't need anything all that important so just random stuff. A little bit more but I think this is enough.
 
-
 - content_for :js do   
-  :javascript
-    var Group = Backbone.Model.extend({
-      urlRoot: "/api/groups"
-    })
-    
-    var group = new Group({
-      
-    })
-    
-    //group.on('change', function(){
-    //  group.save(null, {patch: true, silent: true})
-    //})
-    
-    
-    
-    var UI = Backbone.Model.extend({
-      defaults: {
-        editMode: false
-      },
-      toggleEdit: function() {
-        this.set("editMode", !this.get('editMode'))
-      }
-    })
-    
-    new (Backbone.Router.extend({
-        routes: {
-            "groups/:id": "getGroup"
-        },
-        getGroup: function (id) {
-           group.set("id", id)
-           group.fetch()
-        }
-    }));
-
-    Backbone.history.start({pushState: true});
-    
-    var ui = new UI
-    
-    rivets.bind(document.getElementById('group'), {
-      group: group,
-      ui: ui
-    })
-    
+  %script{ src: '/javascript/groups.js' }

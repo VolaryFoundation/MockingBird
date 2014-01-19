@@ -1,0 +1,25 @@
+/*
+Errno::ENOENT: No such file or directory - app/assets/application.scss
+
+Backtrace:
+/Users/bbarr/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.13/lib/sass/plugin/compiler.rb:360:in `read'
+/Users/bbarr/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.13/lib/sass/plugin/compiler.rb:360:in `update_stylesheet'
+/Users/bbarr/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.13/lib/sass/plugin/compiler.rb:203:in `block in update_stylesheets'
+/Users/bbarr/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.13/lib/sass/plugin/compiler.rb:201:in `each'
+/Users/bbarr/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.13/lib/sass/plugin/compiler.rb:201:in `update_stylesheets'
+/Users/bbarr/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.13/lib/sass/plugin/compiler.rb:235:in `watch'
+/Users/bbarr/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.13/lib/sass/plugin.rb:107:in `method_missing'
+/Users/bbarr/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.13/lib/sass/exec.rb:463:in `watch_or_update'
+/Users/bbarr/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.13/lib/sass/exec.rb:326:in `process_result'
+/Users/bbarr/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.13/lib/sass/exec.rb:41:in `parse'
+/Users/bbarr/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.13/lib/sass/exec.rb:21:in `parse!'
+/Users/bbarr/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.13/bin/sass:13:in `<top (required)>'
+/Users/bbarr/.rvm/gems/ruby-2.0.0-p195/bin/sass:23:in `load'
+/Users/bbarr/.rvm/gems/ruby-2.0.0-p195/bin/sass:23:in `<main>'
+/Users/bbarr/.rvm/gems/ruby-2.0.0-p195/bin/ruby_noexec_wrapper:14:in `eval'
+/Users/bbarr/.rvm/gems/ruby-2.0.0-p195/bin/ruby_noexec_wrapper:14:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Errno::ENOENT: No such file or directory - app/assets/application.scss"; }

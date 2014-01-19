@@ -18,3 +18,8 @@ rivets.configure({
     this.call(binding.model, event, binding.view.models)
   }
 })
+
+rivets.formatters.asAddress = function(val) {
+  if (!val) return ''
+  return val.address + '<br />' + val.city + ', ' + val.state
+}
