@@ -23,6 +23,20 @@ section
       li
         float: left
         padding-left: 7px
+  &#main_url_show
+    ul
+      border-top: 1px solid RGB(181, 181, 181)
+      border-bottom: 4px solid RGB(205, 205, 205)
+      li
+        padding-left: 7px * 5
+        border-top: 1px solid RGB(205, 205, 205)
+        border-left: 1px solid RGB(205, 205, 205)
+        border-right: 1px solid RGB(205, 205, 205)
+        &:nth-child(odd)
+          background: $dark-list-color
+        &:nth-child(even)
+          background: $light-list-color
+
 @media all and (max-width: 510px)
   section
     &#main_info_show

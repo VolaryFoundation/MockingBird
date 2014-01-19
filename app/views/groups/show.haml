@@ -1,6 +1,6 @@
 #frame
   #page_title
-    %h1 {group:name}
+    %h1 The Group Name (Works okay for even longer names)
   #main
     %section{id: 'main_info_show', 'rv-hide' => "ui:editMode"}
       %h2 About this Group
@@ -28,9 +28,17 @@
           %li Here
 
         
-    %section{id: 'main_info_show', 'rv-hide' => "ui:editMode"}
+    %section{id: 'main_url_show'}
       %h2 URL Info
-      %p Some links go here
+      %ul
+        %li 
+          %a{href: 'https://twitter.com'}Groups Twitter Account
+        %li 
+          %a{href: 'https://facebook.com'} Groups Facebook Account
+        %li 
+          %a{href: 'https://website.com'}Groups Main Site
+        %li 
+          %a{href: 'https://facebook.com/about'} Groups Facebook About Page
   #sidebar
     %section
       Some side text. I am going to pust some random stuff here so that is fills out the space. I mean I don't need anything all that important so just random stuff. A little bit more but I think this is enough.

@@ -99,6 +99,10 @@ ul {
 p {
   padding-bottom: 14px; }
 
+a {
+  color: RGB(60, 159, 201);
+  text-decoration: none; }
+
 #page {
   margin: 0 auto;
   width: 800px; }
@@ -180,6 +184,18 @@ section#main_info_show {
   section#main_info_show #main-info-keywords li {
     float: left;
     padding-left: 7px; }
+section#main_url_show ul {
+  border-top: 1px solid RGB(181, 181, 181);
+  border-bottom: 4px solid RGB(205, 205, 205); }
+  section#main_url_show ul li {
+    padding-left: 35px;
+    border-top: 1px solid RGB(205, 205, 205);
+    border-left: 1px solid RGB(205, 205, 205);
+    border-right: 1px solid RGB(205, 205, 205); }
+    section#main_url_show ul li:nth-child(odd) {
+      background: RGB(231, 231, 231); }
+    section#main_url_show ul li:nth-child(even) {
+      background: RGB(247, 247, 247); }
 
 @media all and (max-width: 510px) {
   section#main_info_show img {
