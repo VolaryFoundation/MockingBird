@@ -1,3 +1,4 @@
+use Rack::Static, :urls => ['/stylesheets', '/javascripts'], :root => 'public'
 require './app/boot'
 
 map "/api/events" do
