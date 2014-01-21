@@ -1,23 +1,26 @@
 #frame
   #page_title
-    %h1 { group:name }
+    %h1 Mocked Group's Name
   #main
-    %section{id: 'main_info_show', 'rv-hide' => "ui:editMode"}
+    %section{id: 'composit_view'}
       %h2 About this Group
-      %img{ src: "http://placehold.it/180x125.png" }
       #main-info-details
+        %img{ src: "http://placehold.it/180x125.png" }
         %ul
           %li
-            <span class='label' rv-html="group:location | asAddress"></span>
+            <span class='label'>MOCKED Colorado Springs Co</span>
           %li 
-            <span class='label'>Number of Members: { group:memberCount }</span>
+            <span class='label'>Number of Members:</span> MOCKED 13
           %li 
-            <span class='label'>Last Updated: </span>13 Dev 2013
-          %li Share Buttons Go here
-      #main-info-description { group:description }
+            <span class='label'>Last Updated: </span>MOCKED 13 Dev 2013
+          %li 
+      #main-info-description
+        %p MOCKED Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque venenatis porta libero in congue. Morbi fringilla laoreet erat et blandit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer luctus vitae lorem nec rutrum. Maecenas pharetra dui urna, nec mollis est gravida non. Quisque urna arcu, adipiscing et volutpat vitae, tempus quis nibh. Suspendisse sed dictum ipsum.
+        %p MOCKED Sed dapibus tempus nulla nec semper. Aliquam vitae nunc eu massa malesuada facilisis eu at velit. Aenean vestibulum nisl mi, eget vehicula tortor pulvinar sit amet. Sed eget nisl ut nibh ultrices vulputate et nec felis. Vestibulum ac erat risus. Proin auctor odio ac malesuada auctor. Nulla adipiscing, sem non laoreet tincidunt, nisl dui condimentum nunc, et sodales erat erat ut libero. Suspendisse convallis dui diam, vitae interdum mauris imperdiet id. Sed vehicula augue et justo malesuada, vel tempor mauris porttitor. Nullam vestibulum ante nec lorem aliquet, non gravida ligula molestie.
       #main-info-keywords
         %ul
           %li <span class='label'>Keywords: </span>
+          %li MOCKED
           %li Some
           %li Random
           %li Words
@@ -25,19 +28,39 @@
           %li Here
 
         
-    %section{id: 'main_url_show'}
-      %h2 URL Info
-      %ul.list
-        %li 
-          %a{href: 'https://twitter.com'}Groups Twitter Account
-        %li 
-          %a{href: 'https://facebook.com'} Groups Facebook Account
-        %li 
-          %a{href: 'https://website.com'}Groups Main Site
-        %li 
-          %a{href: 'https://facebook.com/about'} Groups Facebook About Page
+      #main-info-description
+        %h2 URL Info
+        %ul.list
+          %li 
+            %a{href: 'https://twitter.com'}MOCKED Groups Twitter Account
+          %li 
+            %a{href: 'https://facebook.com'}MOCKED Groups Facebook Account
+          %li 
+            %a{href: 'https://website.com'}MOCKED Groups Main Site
+          %li 
+            %a{href: 'https://facebook.com/about'}MOCKED Groups Facebook About Page
+    %section{id: 'mockingbird_view'}
+      %h2 MockingBird Info
+      %a{href: '#mockingbird', class: 'edit_link'}Edit fields here
+      %p This is there the MockingBird info is to go
+      %p This is there the MockingBird info is to go
+      %p This is there the meeMockingBirdtup info is to go
+    %section{id: 'meetup_view'}
+      %h2 Meetup Info
+      %a{href: '#meetup', class: 'edit_link'}Edit on Meetup.com
+      %p This is there the meetup info is to go
+      %p This is there the meetup info is to go
+      %p This is there the meetup info is to go
+    %section{id: 'facebook_view'}
+      %h2 Facebook Info
+      %a{href: '#facebook', class: 'edit_link'}Edit on Facebook.com
+      %p This is there the facebook info is to go
+      %p This is there the facebook info is to go
+      %p This is there the facebook info is to go
+            
   #sidebar
     %section
-      Some side text. I am going to pust some random stuff here so that is fills out the space. I mean I don't need anything all that important so just random stuff. A little bit more but I think this is enough.
+      Some side text. I am going to put some random stuff here so that is fills out the space. I mean I don't need anything all that important so just random stuff. A little bit more but I think this is enough.
     %section
-      Some side text. I am going to pust some random stuff here so that is fills out the space. I mean I don't need anything all that important so just random stuff. A little bit more but I think this is enough.
+      Some side text. I am going to put some random stuff here so that is fills out the space. I mean I don't need anything all that important so just random stuff. A little bit more but I think this is enough.
+
