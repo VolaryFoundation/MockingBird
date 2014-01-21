@@ -158,7 +158,7 @@ desc "load test groups from alldata.xml"
          end
        
          #add the location
-         if false && element.name == "address" && element.text.present?
+         if element.name == "address" && element.text.present?
            results = Geocoder.search(element.text).first
            unless results.nil?
             location = Location.new()
