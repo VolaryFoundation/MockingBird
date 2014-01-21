@@ -1,5 +1,4 @@
 class Group
-  require 'debugger'
   require 'rest_client'
   
   include MongoMapper::Document

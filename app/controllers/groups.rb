@@ -1,5 +1,4 @@
 require APP_ROOT + "/models/group"
-require 'debugger'
 
 module SC
   class GroupsController < BaseController
