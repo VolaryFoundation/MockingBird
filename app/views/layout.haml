@@ -16,11 +16,4 @@
         - if flash[:alert].present?
           .alert=flash[:alert]
         = yield
-        %script{ src: "/bower_components/jquery/jquery.js"}
-        %script{ src: "/bower_components/rivets/dist/rivets.js"}
-        %script{ src: "/bower_components/lodash/dist/lodash.js"}
-        %script{ src: "/bower_components/backbone/backbone.js"}
-        %script{ src: "/javascript/hub.js"}
-        %script{ src: "/javascript/rivets_config.js"}
-        = yield_content :js
     %footer
