@@ -1,4 +1,5 @@
-class SC::Calendar
+module SC
+  class Calendar
   include Icalendar
 
   def initialize events
