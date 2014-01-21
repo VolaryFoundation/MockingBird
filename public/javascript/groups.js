@@ -1,8 +1,6 @@
 
 var Group = Backbone.Model.extend({
-
-  urlRoot: "/api/groups",
-
+  urlRoot: "http:///api/groups",
   initialize: function() { }
 })
 

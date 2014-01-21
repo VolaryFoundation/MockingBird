@@ -39,7 +39,7 @@ class Group
     end
     object_to_send = [{mockingbird: self._id}, grab_urls(self.links)]
     puts object_to_send.to_json
-    uri = 'http://localhost:3000/refsets'
+    uri = 'http://localhost:3000/refs'
     begin
       response = RestClient.post uri, object_to_send.to_json, :content_type => :json, :accept => :json
     rescue => e

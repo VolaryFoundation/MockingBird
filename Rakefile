@@ -158,7 +158,7 @@ desc "load test groups from alldata.xml"
          end
        
          #add the location
-         if element.name == "address" && element.text.present?
+         if false && element.name == "address" && element.text.present?
            results = Geocoder.search(element.text).first
            unless results.nil?
             location = Location.new()
@@ -189,5 +189,32 @@ desc "load test groups from alldata.xml"
 
    end
 
+ end
+
+ task :sync_to_eagle do
+  refsets = Group.all.to_a.inject([]) do |groups, group|
+
+    data = {}
+
+    # facebook
+    fb_link = group.links.select { |l| l.type == 'Facebook' }.first
+    if fb_link
+      data[:facebook] = fb_link[:url]
+    end
+
+    # meetup
+    meetup_link = group.links.select { |l| l.to_json.contains('Meetup') }.first
+    if meetup_link
+      data[:meetup] = meetup_link[:url]
+    end
+
+    # mockingbird
+    data[:mockingbird] = group.id
+
+    groups << data
+
+    groups
+  end
+  
  end
 
