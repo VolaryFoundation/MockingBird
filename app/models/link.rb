@@ -4,5 +4,6 @@ class Link
   key :url, required: true
   key :name, required: true
   key :type
+
   
 end

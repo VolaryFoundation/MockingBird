@@ -11,6 +11,7 @@ gem 'newrelic_rpm'
 gem 'haml'
 gem 'rack-flash3' #for session flash messages
 gem 'sinatra-contrib'
+gem 'rest-client'
 
 group :development do
   gem "shotgun"

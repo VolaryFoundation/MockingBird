@@ -1,11 +1,18 @@
 class Group
+  require 'debugger'
+  require 'rest_client'
+  
   include MongoMapper::Document
 
   before_save :generate_keywords
+  
+  after_save :send_to_eagle
 
   one :location
   many :events
   many :links
+  
+  attr_accessor :skip_send_to_eagle
 
   ensure_index :"location.lng_lat" => '2dsphere'
   
@@ -22,6 +29,41 @@ class Group
   key :keywords, Array
   key :range, range: true, :in => RANGE_OPTIONS
   key :tags, Array
+  key :eagle_id
+
+  
+  def send_to_eagle
+    if skip_send_to_eagle 
+      self.skip_send_to_eagle = false 
+      return
+    end
+    object_to_send = [{mockingbird: self._id}, grab_urls(self.links)]
+    puts object_to_send.to_json
+    uri = 'http://localhost:3000/refsets'
+    begin
+      response = RestClient.post uri, object_to_send.to_json, :content_type => :json, :accept => :json
+    rescue => e
+      puts e.response
+    end
+    if response.present?
+      self.skip_send_to_eagle = true
+      add_ref_to_group(JSON.parse(response.body)['_id'])
+      puts response 
+    end
+  end
+    
+  def add_ref_to_group(id)
+    self.eagle_id = id
+    save
+  end
+  
+  def grab_urls(array)
+    new_array = Array.new
+    array.each do |item|
+      new_array << item.url
+    end
+    return new_array
+  end
 
   def self.keywordize str
     str.downcase.split.uniq
