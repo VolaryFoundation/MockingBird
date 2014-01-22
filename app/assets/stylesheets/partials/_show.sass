@@ -1,16 +1,21 @@
 section
-  &#main_info_show
-    margin-bottom: 14px
-    overflow: auto
-    img
-      padding: 14px
-      float: left
+  position: relative
+  .edit_link
+    position: absolute
+    top: 14px
+    right: 7px
+  &#composit_view
     #main-info-details
-      position: relative
-      float: left
-      padding: 14px
-      height: 125px - 14px // Height of the image minus the padding to make last line even
+      margin-bottom: 14px
+      overflow: auto
+      img
+        padding: 14px
+        float: left  
       ul
+        position: relative
+        float: left
+        padding: 14px
+        height: 125px - 14px // Height of the image minus the padding to make last line even
         li
           &:last-child
             position: absolute
@@ -23,16 +28,16 @@ section
       li
         float: left
         padding-left: 7px
-  &#main_url_show
-    ul
-      border-top: 1px solid RGB(181, 181, 181)
-      border-bottom: 4px solid RGB(205, 205, 205)
-      li
-        padding-left: 7px * 5
-        border-top: 1px solid RGB(205, 205, 205)
-        border-left: 1px solid RGB(205, 205, 205)
-        border-right: 1px solid RGB(205, 205, 205)
-
+    #main_url_show
+      ul
+        border-top: 1px solid RGB(181, 181, 181)
+        border-bottom: 4px solid RGB(205, 205, 205)
+        li
+          padding-left: 7px * 5
+          border-top: 1px solid RGB(205, 205, 205)
+          border-left: 1px solid RGB(205, 205, 205)
+          border-right: 1px solid RGB(205, 205, 205)
+    
 @media all and (max-width: 510px)
   section
     &#main_info_show
