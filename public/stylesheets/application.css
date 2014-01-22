@@ -148,9 +148,9 @@ footer {
     #content #frame #sidebar {
       overflow: auto;
       margin: 0;
-      width: 30%;
+      width: 35%;
       float: left;
-      margin-left: 4%; }
+      margin-left: 2%; }
       #content #frame #sidebar section {
         width: 90%; }
 
