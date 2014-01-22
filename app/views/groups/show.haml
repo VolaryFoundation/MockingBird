@@ -80,7 +80,7 @@
     %section{id: 'meetup_view'}
       %h2 Meetup Info
       - if @meetup_group.kind_of?(Hash) && @meetup_group.any?
-        %a{href: '#meetup', class: 'edit_link'}Edit on Meetup.com
+        %a{href: "#{@eagle_group['refs']['meetup']}", class: 'edit_link', target: '_blank'}Edit on Meetup.com
         %ul
           - @meetup_group.each do |key, value|
             %li
@@ -94,7 +94,7 @@
     %section{id: 'facebook_view'}
       %h2 Facebook Info
       - if @facebook_group.kind_of?(Hash) && !@facebook_group.empty?
-        %a{href: '#facebook', class: 'edit_link'}Edit on Facebook.com
+        %a{href: "#{@eagle_group['refs']['facebook']}", class: 'edit_link', target: '_blank'}Edit on Facebook.com
         %ul
           - @facebook_group.each do |key, value|
             %li
