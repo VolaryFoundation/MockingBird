@@ -159,7 +159,6 @@ footer {
     width: 100%; }
     #page #content #frame #main {
       overflow: auto;
-      border: 1px solid black;
       width: 80%;
       float: none;
       padding: 0;
@@ -167,7 +166,6 @@ footer {
       margin-left: auto;
       margin-right: auto; }
     #page #content #frame #sidebar {
-      border: 1px solid black;
       width: 80%;
       float: none;
       margin: 0 auto;
@@ -208,7 +206,7 @@ section {
       border-left: 1px solid RGB(205, 205, 205);
       border-right: 1px solid RGB(205, 205, 205); }
 
-@media all and (max-width: 510px) {
+@media all and (max-device-width: 510px) and (max-width: 510px) {
   section#main_info_show img {
     display: block;
     float: none;
