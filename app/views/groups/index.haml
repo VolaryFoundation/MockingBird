@@ -8,7 +8,7 @@
           %li 
             %img{src: "http://placehold.it/180x125.png"}
             .main_info
-              %a{href: "#{group['_id']}"}= group['props']['name'][0]['value']
+              %a{href: "/groups/#{group['_id']}"}= group['props']['name'][0]['value']
               %p="#{group['props']['location'][0]['value']['city']}, #{group['props']['location'][0]['value']['state']}, #{group['props']['location'][0]['value']['country']}"
               
               
