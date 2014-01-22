@@ -1,6 +1,6 @@
 #frame
   #page_title
-    %h1 Mocked Group's Name
+    %h1= @eagle_group['name']
   #main
     %section{id: 'composit_view'}
       %h2 About this Group
@@ -8,56 +8,103 @@
         %img{ src: "http://placehold.it/180x125.png" }
         %ul
           %li
-            <span class='label'>MOCKED Colorado Springs Co</span>
+            - if @eagle_group['location'].present?
+              %span{ class:'label'}= location_to_html(@eagle_group['location'])
+            - else
+              %span{ class:'label'}Location Unknown
+              
           %li 
-            <span class='label'>Number of Members:</span> MOCKED 13
+            %span{class:'label'}Number of Members:
+            = @eagle_group['size'].present? ?  @eagle_group['size'] : 'Unknown'
           %li 
-            <span class='label'>Last Updated: </span>MOCKED 13 Dev 2013
+            %span{class: 'label'}Last Updated: 
+            = @mb_group.updated_at.present? ? @mb_group.updated_at : 'Unknown'
           %li 
       #main-info-description
-        %p MOCKED Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque venenatis porta libero in congue. Morbi fringilla laoreet erat et blandit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer luctus vitae lorem nec rutrum. Maecenas pharetra dui urna, nec mollis est gravida non. Quisque urna arcu, adipiscing et volutpat vitae, tempus quis nibh. Suspendisse sed dictum ipsum.
-        %p MOCKED Sed dapibus tempus nulla nec semper. Aliquam vitae nunc eu massa malesuada facilisis eu at velit. Aenean vestibulum nisl mi, eget vehicula tortor pulvinar sit amet. Sed eget nisl ut nibh ultrices vulputate et nec felis. Vestibulum ac erat risus. Proin auctor odio ac malesuada auctor. Nulla adipiscing, sem non laoreet tincidunt, nisl dui condimentum nunc, et sodales erat erat ut libero. Suspendisse convallis dui diam, vitae interdum mauris imperdiet id. Sed vehicula augue et justo malesuada, vel tempor mauris porttitor. Nullam vestibulum ante nec lorem aliquet, non gravida ligula molestie.
+        -if @eagle_group['description']
+          = @eagle_group['description']
       #main-info-keywords
         %ul
-          %li <span class='label'>Keywords: </span>
-          %li MOCKED
-          %li Some
-          %li Random
-          %li Words
-          %li Placed
-          %li Here
-
-        
+          %li <span class='label'>Tags: </span>
+          -if @mb_group.present? && @mb_group.present?
+            - @mb_group.tags.each do |word|
+              %li=word.titleize
+          -else
+            %li This group has no tags
+          
       #main-info-description
-        %h2 URL Info
-        %ul.list
-          %li 
-            %a{href: 'https://twitter.com'}MOCKED Groups Twitter Account
-          %li 
-            %a{href: 'https://facebook.com'}MOCKED Groups Facebook Account
-          %li 
-            %a{href: 'https://website.com'}MOCKED Groups Main Site
-          %li 
-            %a{href: 'https://facebook.com/about'}MOCKED Groups Facebook About Page
+        %h2 Links
+        - if @mb_group.links.present?
+          %ul.list
+            - @mb_group.links.each do |link|
+              %li 
+                %a{href: "#{link.url}"}= link.name
+            
+        -else
+          This group has no links.
     %section{id: 'mockingbird_view'}
       %h2 MockingBird Info
-      %a{href: '#mockingbird', class: 'edit_link'}Edit fields here
-      %p This is there the MockingBird info is to go
-      %p This is there the MockingBird info is to go
-      %p This is there the meeMockingBirdtup info is to go
+      - if @mb_group.present?
+        %a{href: '#mockingbird', class: 'edit_link'}Edit fields here
+        %ul
+          %li
+            %span.label Name: 
+            = @mb_group.name if @mb_group.name
+          %li
+            %span.label Location:
+            = location_to_html(@mb_group.location) if @mb_group.location.present?
+          %li
+            %span.label Range: 
+            = @mb_group.range if @mb_group.range.present?
+          %li
+            %span.label Tags: 
+            = @mb_group.tags.join(', ').titleize if @mb_group.tags.present?
+          %li
+            %span.label Description:
+            %br
+            = @mb_group.description if @mb_group.description.present?
+          - if @mb_group.links.present?
+            %li
+              %span.label Links:
+              %ul.list
+                - @mb_group.links.each do |link|
+                  %li 
+                    %a{href: "#{link.url}"}= link.name
+          -else
+            %li
+              %span.label Links:
+              This group has no links.
+          
+      -else
+        %p We do not have a MockingBird link for this group
     %section{id: 'meetup_view'}
       %h2 Meetup Info
-      %a{href: '#meetup', class: 'edit_link'}Edit on Meetup.com
-      %p This is there the meetup info is to go
-      %p This is there the meetup info is to go
-      %p This is there the meetup info is to go
+      - if @meetup_group.kind_of?(Hash) && @meetup_group.any?
+        %a{href: '#meetup', class: 'edit_link'}Edit on Meetup.com
+        %ul
+          - @meetup_group.each do |key, value|
+            %li
+              %span.label="#{key.titleize}:"
+              =attribute_seperator(value, key)
+      -elsif @meetup_group == nil
+        %p We do not have a Meetup link for this group
+      -elsif @meetup_group.kind_of?(Hash) && @meetup_group.empty?
+        %p We have a link to the Meetup Group but no data could be collected
+      
     %section{id: 'facebook_view'}
       %h2 Facebook Info
-      %a{href: '#facebook', class: 'edit_link'}Edit on Facebook.com
-      %p This is there the facebook info is to go
-      %p This is there the facebook info is to go
-      %p This is there the facebook info is to go
-            
+      - if @facebook_group.kind_of?(Hash) && !@facebook_group.empty?
+        %a{href: '#facebook', class: 'edit_link'}Edit on Facebook.com
+        %ul
+          - @facebook_group.each do |key, value|
+            %li
+              %span.label="#{key.titleize}:"
+              =attribute_seperator(value, key)
+      -elsif @facebook_group == nil
+        %p We do not have a Facebook link for this group
+      -elsif @facebook_group.kind_of?(Hash) && @facebook_group.empty?
+        %p We have a link to the Facebook Group but no data could be collected
+      
   #sidebar
     %section
       Some side text. I am going to put some random stuff here so that is fills out the space. I mean I don't need anything all that important so just random stuff. A little bit more but I think this is enough.
