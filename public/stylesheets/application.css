@@ -144,6 +144,13 @@ footer {
   height: 100px;
   width: 65%; }
 
+#content #frame #map_view #page_title {
+  width: 800px;
+  margin: 0 auto; }
+#content #frame #map_view #main {
+  width: 800px;
+  margin: 0 auto; }
+
 #content {
   overflow: auto;
   width: 100%; }

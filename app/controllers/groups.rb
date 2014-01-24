@@ -4,16 +4,18 @@ require APP_ROOT + "/helpers/dynamic_attribute_helper.rb"
 
 module SC
   class GroupsController < BaseController
-    # Helper
-    def request_type?
-      return :mobile  if mobile_request?
-      return :ajax    if request.xhr?
-      return :normal
-    end
   
     get "/" do
       @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups", {:params => {:limit => 30, :page => 0}})
       haml :"groups/index"
+    end
+    
+    get "/map" do
+      results = Geocoder.search(request.ip)
+      state = results.first.state
+      debugger
+      @url = "http://volary-pigeon.herokuapp.com/groups-map.html?filters[subject]=groups&filters[keys][location.state]=#{state}"
+      haml :'groups/map'
     end
     
     get "/:id" do
