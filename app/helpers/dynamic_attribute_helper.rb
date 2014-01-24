@@ -1,6 +1,8 @@
 def attribute_seperator(attribute, key)
   if attribute.kind_of?(Array)
-    attribute = array_to_html(attribute) 
+    attribute = array_to_html(attribute)
+  elsif  key == 'website'
+    attribute = website_link_creator(attribute)
   elsif attribute.kind_of?(Hash) && key == 'location'
     attribute = location_to_html(attribute)
   elsif  attribute.kind_of?(Hash)
@@ -25,6 +27,10 @@ def hash_to_html(attribute)
 end
 
 def object_to_html(attribute)
+end
+
+def website_link_creator(attribute)
+  return "<a href=#{attribute}>#{attribute}</a>"
 end
 
 def location_to_html(attribute)

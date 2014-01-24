@@ -111,7 +111,7 @@
     %section{id: 'meetup_view'}
       %h2 Meetup Info
       - if @meetup_group.kind_of?(Hash) && @meetup_group.any?
-        %a{href: "#{@eagle_group['refs']['meetup']}manage", class: 'edit_link', target: '_blank'}Edit on Meetup.com
+        %a{href: "#{@eagle_group['refs']['meetup']}/manage", class: 'edit_link', target: '_blank'}Edit on Meetup.com
         %ul
           - @meetup_group.each do |key, value|
             %li
