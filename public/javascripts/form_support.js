@@ -1,17 +1,19 @@
 $(document).ready(function() {
-  //Add google map to blank image. 
-  if ($("#main-info-details img").attr('src') == 'http://placehold.it/180x125.png') {
-	if ($("#main-info-details img").attr('extra_info_city')) {
-		city = $("#main-info-details img").attr('extra_info_city')
-		state = $("#main-info-details img").attr('extra_info_state')
-		$("#main-info-details img").attr('src', "https://maps.googleapis.com/maps/api/staticmap?center=" + city +',' + state + '&size=180x125&sensor=false')
-	}
-	else if ($("#main-info-details img").attr('extra_info_state')) {
-		state = $("#main-info-details img").attr('extra_info_state')
-		$("#main-info-details img").attr('src', "https://maps.googleapis.com/maps/api/staticmap?center=" + state + '&size=180x125&sensor=false')
-	}
-	
-  }
+  //Add google map to blank image.
+  $(".group_img").each(function(image) {
+    if (this.getAttribute('src') == 'http://placehold.it/180x125.png') {
+      if (this.getAttribute('extra_info_city')) {
+      	city = this.getAttribute('extra_info_city')
+      	state = this.getAttribute('extra_info_state')
+      	this.setAttribute('src', "https://maps.googleapis.com/maps/api/staticmap?center=" + city +',' + state + '&size=180x125&sensor=false')
+      }
+      else if (this.getAttribute('extra_info_state')) {
+      	state = this.getAttribute('extra_info_state')
+      	this.setAttribute('src', "https://maps.googleapis.com/maps/api/staticmap?center=" + state + '&size=180x125&sensor=false')
+      }
+      
+    }
+  });
 https://maps.googleapis.com/maps/api/staticmap?center=#{city},#{state}&size=180x125
   $("a.edit_link", $('section#mockingbird_view')).click(function(e) {
 	e.preventDefault();
@@ -28,7 +30,7 @@ https://maps.googleapis.com/maps/api/staticmap?center=#{city},#{state}&size=180x
   $(function() {
     $("form#submit_groups").submit(function(e){
       e.preventDefault();
-  
+      $("#group_error").hide().text("");
       $.ajax({
         type: "POST",
         url: "/api/groups/" + $("form#submit_groups").attr('action'),
@@ -55,7 +57,7 @@ https://maps.googleapis.com/maps/api/staticmap?center=#{city},#{state}&size=180x
 		  $('section#mockingbird_edit').hide();
         },
         error: function(data){
-          alert("Failure: " + data)
+	      $("#group_error").text("Was unable to update the from. please check your fields and try again").show();
         }
       });
     });

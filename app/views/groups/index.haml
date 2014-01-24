@@ -7,7 +7,7 @@
       %ul.list
         - @groups.each do |group|
           %li 
-            %img{src: "http://placehold.it/180x125.png"}
+            %img.group_img{src: "http://placehold.it/180x125.png", extra_info_state: group['location']['state'], extra_info_city: group['location']['city']}
             .main_info
               %a{href: "/groups/#{group['_id']}"}= group['props']['name'][0]['value']
-              %p="#{group['props']['location'][0]['value']['city']}, #{group['props']['location'][0]['value']['state']}, #{group['props']['location'][0]['value']['country']}"
+              %p= location_to_html(group['location'])

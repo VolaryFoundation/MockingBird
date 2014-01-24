@@ -5,7 +5,7 @@
     %section{id: 'composit_view'}
       %h2 About this Group
       #main-info-details
-        %img{ src: "http://placehold.it/180x125.png", extra_info_state: @eagle_group['location']['state'], extra_info_city: @eagle_group['location']['city'] }
+        %img.group_img{ src: "http://placehold.it/180x125.png", extra_info_state: @eagle_group['location']['state'], extra_info_city: @eagle_group['location']['city'] }
         %ul
           %li
             - if @eagle_group['location'].present?
@@ -77,6 +77,7 @@
     %section{id: 'mockingbird_edit', class: 'hidden'}
       %h2 Edit MockingBird Info
       %a{href: '#mockingbird', class: 'edit_link cancel'}Cancel
+      #group_error.hidden
       %form#submit_groups{action: "#{@mb_group.id}", method: :post}
         %label Name:
         %input{type: "text", name: 'group[name]', value: @mb_group.name}
