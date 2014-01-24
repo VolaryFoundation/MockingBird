@@ -11,8 +11,12 @@
 %body{onload: "initialize()"}
   #page
     %header
-      %img#mainlogo{src:'/images/main-logo.png'}
+      %a{href: '/'}
+        %img#mainlogo{src:'/images/main-logo.png'}
       %nav
+        %a{href: '/groups'}Groups
+        |
+        %a{href: '/groups/map'}Map View
     #columns
       #title
       #content
@@ -22,4 +26,4 @@
           .alert=flash[:alert]
         = yield
     %footer
-      Contact Us
+      %a{href: "mailto:admin@volary.org", target: "_top"}Contact Us

@@ -1,6 +1,10 @@
 use Rack::Static, :urls => ['/stylesheets', '/javascripts', '/fonts', '/bower_components', '/images'], :root => 'public'
 require './app/boot'
 
+map "/" do
+  run SC::BaseController
+end
+
 map "/api/events" do
   run SC::API::EventsController
 end

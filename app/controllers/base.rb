@@ -10,7 +10,11 @@ module SC
     
     #Sets the default view under app/views
     set :views, APP_ROOT + '/views'
-  
+    
+    get "/" do
+      redirect to('/groups')
+    end
+        
     def ok data
       status 200
       halt data

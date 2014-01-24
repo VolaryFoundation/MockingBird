@@ -138,11 +138,20 @@ header {
   margin: 0 auto;
   height: 100px;
   width: 65%; }
+  header nav {
+    float: right;
+    margin-top: 21px; }
+    header nav a {
+      color: white;
+      margin: 14px; }
 
 footer {
   margin: 0 auto;
   height: 100px;
-  width: 65%; }
+  width: 65%;
+  margin-top: 21px; }
+  footer a {
+    color: white; }
 
 #content #frame #map_view #page_title {
   width: 800px;
