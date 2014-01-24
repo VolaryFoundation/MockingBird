@@ -1,20 +1,26 @@
 require APP_ROOT + "/models/group"
 require APP_ROOT + "/helpers/json_source_puller.rb"
 require APP_ROOT + "/helpers/dynamic_attribute_helper.rb"
+require APP_ROOT + "/helpers/abbreviation_helper.rb"
 
 module SC
   class GroupsController < BaseController
   
     get "/" do
-      @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups", {:params => {:limit => 30, :page => 0}})
+      if params[:state].present?
+        @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups?keys[location.state]=#{params[:state]}")
+      elsif params[:city].present?
+        @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups=#{params[:city]}")
+      else
+        @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups", {:params => {:limit => 30, :page => 0}})
+      end
       haml :"groups/index"
     end
     
     get "/map" do
       results = Geocoder.search(request.ip)
-      state = results.first.state
-      debugger
-      @url = "http://volary-pigeon.herokuapp.com/groups-map.html?filters[subject]=groups&filters[keys][location.state]=#{state}"
+      state = (results.first.state.present? ? results.first.state : 'California')
+      @url = "http://volary-pigeon.herokuapp.com/groups-map.html?filters[subject]=groups&filters[keys][location.state]=#{abbreviate(state)}"
       haml :'groups/map'
     end
     
