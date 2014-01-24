@@ -134,14 +134,15 @@ section {
   width: 1000px; }
 
 header {
+  padding-top: 14px;
   margin: 0 auto;
   height: 100px;
-  width: 100%; }
+  width: 65%; }
 
 footer {
   margin: 0 auto;
   height: 100px;
-  width: 100%; }
+  width: 65%; }
 
 #content {
   overflow: auto;
@@ -149,9 +150,12 @@ footer {
   #content #frame {
     width: 100%;
     overflow: auto; }
+    #content #frame #page_title {
+      width: 65%;
+      margin: 0 auto; }
     #content #frame #main {
-      width: 60%;
-      float: left; }
+      width: 65%;
+      margin: 0 auto; }
     #content #frame #sidebar {
       overflow: auto;
       margin: 0;

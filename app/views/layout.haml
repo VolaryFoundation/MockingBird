@@ -11,6 +11,7 @@
 %body{onload: "initialize()"}
   #page
     %header
+      %img#mainlogo{src:'/images/main-logo.png'}
       %nav
     #columns
       #title
@@ -21,3 +22,4 @@
           .alert=flash[:alert]
         = yield
     %footer
+      Contact Us
