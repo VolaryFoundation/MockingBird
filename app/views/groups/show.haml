@@ -5,7 +5,7 @@
     %section{id: 'composit_view'}
       %h2 About this Group
       #main-info-details
-        %img{ src: "http://placehold.it/180x125.png" }
+        %img{ src: "http://placehold.it/180x125.png", extra_info_state: @eagle_group['location']['state'], extra_info_city: @eagle_group['location']['city'] }
         %ul
           %li
             - if @eagle_group['location'].present?
