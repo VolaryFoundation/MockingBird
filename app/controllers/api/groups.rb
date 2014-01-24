@@ -17,15 +17,19 @@ module SC
         end
       end
       
-      #patch "/:id" do
-      #  group = Group.find(params[:id])
-      #  if group.update_attributes(params[:group])
-      #    ok group
-      #  else
-      #    group.attributes = params[:group]
-      #    ok group
-      #  end
-      #end
+      post "/:id" do
+        @group = Group.find(params[:id])
+        if params['group']['location'].present? 
+          result = Geocoder.search(location_to_html(params[:group][:location])).first
+          params[:group][:location][:lng_lat] = [result.longitude, result.latitude]
+        end
+        if @group.update_attributes(params[:group])
+          ok @group.to_json
+        else
+          @group.attributes = params[:group]
+          no_post @group.to_json
+        end
+      end
     end
   end
 end

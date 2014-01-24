@@ -46,23 +46,23 @@
       %h2 MockingBird Info
       - if @mb_group.present?
         %a{href: '#mockingbird', class: 'edit_link'}Edit fields here
-        %ul
-          %li
+        %ul.mocking_bird_details
+          %li.name
             %span.label Name: 
-            = @mb_group.name if @mb_group.name
-          %li
+            %span.text= @mb_group.name if @mb_group.name
+          %li.location
             %span.label Location:
-            = location_to_html(@mb_group.location) if @mb_group.location.present?
-          %li
+            %span.text= location_to_html(@mb_group.location) if @mb_group.location.present?
+          %li.range
             %span.label Range: 
-            = @mb_group.range if @mb_group.range.present?
-          %li
+            %span.text= @mb_group.range if @mb_group.range.present?
+          %li.tags
             %span.label Tags: 
-            = @mb_group.tags.join(', ').titleize if @mb_group.tags.present?
-          %li
+            %span.text= @mb_group.tags.join(', ').titleize if @mb_group.tags.present?
+          %li.description
             %span.label Description:
             %br
-            = @mb_group.description if @mb_group.description.present?
+            %span.text= @mb_group.description if @mb_group.description.present?
           - if @mb_group.links.present?
             %li
               %span.label Links:
@@ -74,13 +74,44 @@
             %li
               %span.label Links:
               This group has no links.
-          
-      -else
-        %p We do not have a MockingBird link for this group
+    %section{id: 'mockingbird_edit', class: 'hidden'}
+      %h2 Edit MockingBird Info
+      %a{href: '#mockingbird', class: 'edit_link cancel'}Cancel
+      %form#submit_groups{action: "#{@mb_group.id}", method: :post}
+        %label Name:
+        %input{type: "text", name: 'group[name]', value: @mb_group.name}
+        %br
+        -#############Location Field####################
+        %label Location:
+        %input#autocomplete{placeholder: "#{location_to_html(@mb_group.location)}", onFocus: "geolocate()", type:"text"}
+        %br
+        -#############Google Crap Field####################
+        .hidden
+          %input.field#address{disabled: "true", name: "group[location][address]"}
+          %input.field#street_number{disabled: "true", name: "group[location][street_num]"}
+          %input.field#route{disabled: "true", name: "group[location][street_address]"}
+          %input.field#locality{disabled: "true", name: "group[location][city]"}
+          %input.field#administrative_area_level_1{disabled: "true", name: "group[location][state]"}
+          %input.field#postal_code{disabled: "true", name: "group[location][postal_code]"}
+          %input.field#country{disabled: "true", name: "group[location][country]"}
+        -#############End Google Crap#####################
+        %label Range:
+        %select{name: 'group[range]'}
+          %option{value: 'local', :selected => @mb_group.range == "local"} Local
+          %option{value: 'regional', :selected => @mb_group.range == "regional"} Regional
+          %option{value: 'nationwide', :selected => @mb_group.range == "nationwide"} Nationwide
+          %option{value: 'international', :selected => @mb_group.range == "international"} International
+        %br
+        %label Description:
+        %textarea{ name: 'group[description]', rows: "10", cols: "70"}=@mb_group.description
+        %br
+        %input{type: "submit", value: "Update Group"}
+        %a{href: '#mockingbird', class: 'cancel'}Cancel
+
     %section{id: 'meetup_view'}
       %h2 Meetup Info
       - if @meetup_group.kind_of?(Hash) && @meetup_group.any?
-        %a{href: "#{@eagle_group['refs']['meetup']}", class: 'edit_link', target: '_blank'}Edit on Meetup.com
+        %a{href: "#{@eagle_group['refs']['meetup']}manage", class: 'edit_link', target: '_blank'}Edit on Meetup.com
         %ul
           - @meetup_group.each do |key, value|
             %li
@@ -90,7 +121,7 @@
         %p We do not have a Meetup link for this group
       -elsif @meetup_group.kind_of?(Hash) && @meetup_group.empty?
         %p We have a link to the Meetup Group but no data could be collected
-      
+
     %section{id: 'facebook_view'}
       %h2 Facebook Info
       - if @facebook_group.kind_of?(Hash) && !@facebook_group.empty?
@@ -110,4 +141,3 @@
       Some side text. I am going to put some random stuff here so that is fills out the space. I mean I don't need anything all that important so just random stuff. A little bit more but I think this is enough.
     %section
       Some side text. I am going to put some random stuff here so that is fills out the space. I mean I don't need anything all that important so just random stuff. A little bit more but I think this is enough.
-

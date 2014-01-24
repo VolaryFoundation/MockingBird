@@ -21,6 +21,11 @@ module SC
         return halt data.to_json if data
         halt
       end
+      
+      def no_save data
+        status 422
+        halt data
+      end
     
       def missing
         status 404

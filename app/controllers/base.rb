@@ -15,6 +15,11 @@ module SC
       status 200
       halt data
     end
+    
+    def no_post data
+      status 500
+      halt data
+    end
   
     def missing
       status 404
