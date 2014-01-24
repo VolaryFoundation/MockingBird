@@ -1,5 +1,7 @@
 def attribute_seperator(attribute, key)
-  if attribute.kind_of?(Array)
+  if attribute.kind_of?(Array) && key == 'links'
+    attribute = links_to_html(attribute)
+  elsif attribute.kind_of?(Array)
     attribute = array_to_html(attribute)
   elsif  key == 'website'
     attribute = website_link_creator(attribute)
@@ -31,6 +33,31 @@ end
 
 def website_link_creator(attribute)
   return "<a href=#{attribute}>#{attribute}</a>"
+end
+
+def links_to_html(attribute)
+  if attribute.present? && !attribute.empty?
+    array = ["<ul class='list'>"]
+    if attribute.class == Hash
+      attribute.each do |link|
+        if link['url'].present? && link['name'].present?
+          array << "<li><a href=#{link['url']}>#{link['name']}</a></li>"
+        elsif link['url'].present?
+          array << "<li><a href=#{link['url']}>#{link['url']}</a></li>"
+        end
+      end
+    elsif attribute.class == Array
+      attribute.each do |link|
+        link = link.split(' ')
+        link.each do |real_link|
+          array << "<li><a href=#{real_link}>#{real_link}</a></li>"
+        end
+      end
+    end
+      
+    array << "</ul>"
+    return array.join("")
+  end
 end
 
 def location_to_html(attribute)

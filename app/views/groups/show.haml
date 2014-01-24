@@ -15,7 +15,9 @@
               %span{ class:'label'}= location_to_html(@eagle_group['location'])
             - else
               %span{ class:'label'}Location Unknown
-              
+          %li 
+            %span{class:'label'}Range of Operation:
+            = @eagle_group['range'].present? ?  @eagle_group['range'] : 'Local'    
           %li 
             %span{class:'label'}Number of Members:
             = @eagle_group['size'].present? ?  @eagle_group['size'] : 'Unknown'
@@ -118,9 +120,10 @@
         %a{href: "#{@eagle_group['refs']['meetup']}/manage", class: 'edit_link', target: '_blank'}Edit on Meetup.com
         %ul
           - @meetup_group.each do |key, value|
-            %li
-              %span.label="#{key.titleize}:"
-              =attribute_seperator(value, key)
+            - unless key == 'keywords' || key == 'images'
+              %li
+                %span.label="#{key.titleize}:"
+                =attribute_seperator(value, key)
       -elsif @meetup_group == nil
         %p We do not have a Meetup link for this group
       -elsif @meetup_group.kind_of?(Hash) && @meetup_group.empty?
@@ -132,9 +135,10 @@
         %a{href: "#{@eagle_group['refs']['facebook']}", class: 'edit_link', target: '_blank'}Edit on Facebook.com
         %ul
           - @facebook_group.each do |key, value|
-            %li
-              %span.label="#{key.titleize}:"
-              =attribute_seperator(value, key)
+            - unless key == 'keywords' || key == 'images'
+              %li
+                %span.label="#{key.titleize}:"
+                =attribute_seperator(value, key)
       -elsif @facebook_group == nil
         %p We do not have a Facebook link for this group
       -elsif @facebook_group.kind_of?(Hash) && @facebook_group.empty?
