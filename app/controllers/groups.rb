@@ -10,7 +10,7 @@ module SC
       if params[:state].present?
         @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups?keys[location.state]=#{params[:state]}")
       elsif params[:city].present?
-        @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups=#{params[:city]}")
+        @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups?keys[location.state]=#{params[:city]}")
       else
         @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups", {:params => {:limit => 30, :page => 0}})
       end
