@@ -71,8 +71,8 @@ def location_to_html(attribute)
   attribute_as_array = Array.new
   attribute_as_array << "#{attribute["address"]}".titleize if attribute.has_key?("address") && attribute["address"].present?
   attribute_as_array << "#{attribute["city"].titleize}".titleize if attribute.has_key?("city") && attribute["city"].present?
-  attribute_as_array << "#{attribute["state"].titleize}".titleize if attribute.has_key?("state") && attribute["state"].present?
+  attribute_as_array << "#{attribute["state"].titleize}".upcase if attribute.has_key?("state") && attribute["state"].present?
   attribute_as_array << "#{attribute["postal_code"]}" if attribute.has_key?("postal_code") && attribute["postal_code"].present?
-  attribute_as_array << "#{attribute["country"].titleize}".titleize if attribute.has_key?("country") && attribute["country"].present?
+  attribute_as_array << "#{attribute["country"].titleize}".upcase if attribute.has_key?("country") && attribute["country"].present?
   return attribute_as_array.join(', ')
 end
