@@ -2,6 +2,8 @@
   #map_view
     #page_title
       %h1 Groups Map
+      :css
+        iframe { border none; margin-top: 10px; overflow: hidden; }
     #main
       %div.volary-widget{:'data-src' => @url}
       <script src="http://volary-pigeon.herokuapp.com/js/widget_loader.js"></script>
