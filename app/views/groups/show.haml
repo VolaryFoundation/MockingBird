@@ -41,7 +41,7 @@
         %h2 Links
         - if @mb_group.links.present?
           %ul.list
-            - @mb_group.links.select { |l| not l.include? "?op=leaders" }.each do |link|
+            - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
               %li 
                 %a{href: "#{link.url}"}= link.name
             
@@ -72,7 +72,7 @@
             %li
               %span.label Links:
               %ul.list
-                - @mb_group.links.select { |l| not l.include? "?op=leaders" }.each do |link|
+                - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
                   %li 
                     %a{href: "#{link.url}"}= link.name
           -else
