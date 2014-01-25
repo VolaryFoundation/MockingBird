@@ -61,8 +61,37 @@
   font-weight: normal;
   font-style: normal; }
 
-form input {
-  width: 300px;
+form {
+  overflow: auto;
+  background-color: RGB(231, 231, 231);
+  padding: 14px; }
+  form label {
+    width: 100%; }
+  form input {
+    width: 100%;
+    height: 20px;
+    margin-bottom: 7px; }
+    form input[type="submit"] {
+      width: 70px;
+      height: 25px;
+      background-color: RGB(69, 185, 6);
+      color: white;
+      float: right;
+      margin-top: 7px;
+      font-size: 0.85em; }
+  form select {
+    margin-bottom: 7px; }
+  form textarea {
+    width: 100%;
+    border-shadow: none; }
+  form a {
+    float: right;
+    margin-top: 7px;
+    padding-right: 14px; }
+
+#group_error {
+  background-color: #ff8080;
+  text-align: center;
   height: 20px; }
 
 * {

@@ -57,7 +57,7 @@ https://maps.googleapis.com/maps/api/staticmap?center=#{city},#{state}&size=180x
 		  $('section#mockingbird_edit').hide();
         },
         error: function(data){
-	      $("#group_error").text("Was unable to update the from. please check your fields and try again").show();
+	      $("#group_error").text("Unable to update the group. Please check the fields and try again").show();
         }
       });
     });
