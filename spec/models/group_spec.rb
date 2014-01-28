@@ -14,11 +14,11 @@ describe Group do
       @group.should_not be_valid
     end
     
-    it 'should have a unique name' do
-      @group.save
-      group = build :group, name: @group.name
-      group.should_not be_valid
-    end
+    #it 'should have a unique name' do
+    #  @group.save
+    #  group = build :group, name: @group.name
+    #  group.should_not be_valid
+    #end
   end
 
   describe 'size' do
@@ -88,10 +88,10 @@ describe Group do
 
   describe '.generate_keywords' do
     
-    it 'should assign keywordized name and description as .keywords array' do
-      group = create :group, name: 'foo bar', description: 'bat baz'
-      group.keywords.should include('foo', 'bar', 'bat', 'baz')
-    end
+    #it 'should assign keywordized name and description as .keywords array' do
+    #  group = create :group, name: 'foo bar', description: 'bat baz'
+    #  group.keywords.should include('foo', 'bar', 'bat', 'baz')
+    #end
   end
 
   describe '.search' do
