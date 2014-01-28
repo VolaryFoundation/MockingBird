@@ -21,7 +21,7 @@ Update the file with database information if you want a non-standard setup
 *Load the ruby gems:*  
     `bundle install`
     
-*create database* !IMPORTANT You most have Eagle running before performing this step
+*create database* !IMPORTANT You most have Eagle running before performing this step  
     `rake db:seed`
 
 *Load the server*  
@@ -47,5 +47,5 @@ For Testing
 ---------------
 We are using rspec to do unit testing.
 
-to run test:
+to run test: rake spec
 
