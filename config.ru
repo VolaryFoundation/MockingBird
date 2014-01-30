@@ -3,7 +3,7 @@ require './app/boot'
 Rack::MethodOverride
 
 map "/" do
-  run SC::BaseController
+  run SC::MainController
 end
 
 map "/api/events" do
