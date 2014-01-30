@@ -94,6 +94,19 @@ form {
   text-align: center;
   height: 20px; }
 
+.no_form {
+  display: inline;
+  background-color: RGBa(23, 144, 197, 1);
+  margin: 0px;
+  padding: 0px; }
+  .no_form .link {
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: in-line;
+    margin: -21px 0 0 0;
+    padding: 0px; }
+
 * {
   margin: 0;
   padding: 0; }
