@@ -11,6 +11,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     atomic (1.1.14)
+    bcrypt-ruby (3.0.1)
     bson (1.9.2)
     bson_ext (1.9.2)
       bson (~> 1.9.2)
@@ -74,11 +75,14 @@ GEM
       atomic
     tilt (1.4.1)
     tzinfo (0.3.38)
+    warden (1.2.3)
+      rack (>= 1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt-ruby
   bson_ext
   debugger
   factory_girl
@@ -96,3 +100,4 @@ DEPENDENCIES
   sass
   shotgun
   sinatra
+  warden

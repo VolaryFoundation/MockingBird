@@ -11,6 +11,8 @@ gem 'newrelic_rpm'
 gem 'haml'
 gem 'rack-flash3' #for session flash messages
 gem 'rest-client'
+gem 'warden'
+gem 'bcrypt-ruby', :require => "bcrypt"
 
 group :development do
   gem "shotgun"
