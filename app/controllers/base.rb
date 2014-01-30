@@ -1,5 +1,6 @@
 module SC
   class BaseController < Sinatra::Base
+    require APP_ROOT + "/models/user"
     require APP_ROOT + "/models/location"
     require APP_ROOT + "/models/tag"
     require APP_ROOT + "/models/link"
