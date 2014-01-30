@@ -1,5 +1,6 @@
 use Rack::Static, :urls => ['/stylesheets', '/javascripts', '/fonts', '/bower_components', '/images'], :root => 'public'
 require './app/boot'
+Rack::MethodOverride
 
 map "/" do
   run SC::BaseController
@@ -19,4 +20,8 @@ end
 
 map "/groups" do
   run SC::GroupsController
+end
+
+map "/users" do
+  run SC::UsersController
 end

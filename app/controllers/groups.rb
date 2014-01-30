@@ -8,11 +8,23 @@ module SC
   
     get "/" do
       if params[:state].present?
-        @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups?keys[location.state]=#{params[:state]}")
+        begin
+          @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups?keys[location.state]=#{params[:state]}")
+        rescue
+          @group = nil
+        end
       elsif params[:city].present?
-        @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups?keys[location.state]=#{params[:city]}")
+        begin
+          @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups?keys[location.state]=#{params[:city]}")
+        rescue
+          @group = nil
+        end
       else
-        @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups", {:params => {:limit => 30, :page => 0}})
+        begin
+          @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups", {:params => {:limit => 30, :page => 0}})
+        rescue
+          @group = nil
+        end
       end
       haml :"groups/index"
     end
@@ -25,10 +37,16 @@ module SC
     end
     
     get "/:id" do
-      @eagle_group = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups/#{params[:id]}")
-      @mb_group = Group.find(@eagle_group['refs']['mockingbird'])
-      @meetup_group = (@eagle_group['refs'].has_key?('meetup') ? @meetup_group = source_puller('meetup', @eagle_group) : nil)
-      @facebook_group = (@eagle_group['refs'].has_key?('facebook') ? @facebook_group = source_puller('facebook', @eagle_group) : nil)
+      begin
+        @eagle_group = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups/#{params[:id]}")
+      rescue
+        @eagle_group = nil
+      end
+      if @eagle_group.present?
+        @mb_group = Group.find(@eagle_group['refs']['mockingbird']) 
+        @meetup_group = (@eagle_group['refs'].has_key?('meetup') ? @meetup_group = source_puller('meetup', @eagle_group) : nil)
+        @facebook_group = (@eagle_group['refs'].has_key?('facebook') ? @facebook_group = source_puller('facebook', @eagle_group) : nil)
+      end
       if @eagle_group.present?
         haml :"groups/show"
       else

@@ -1,0 +1,10 @@
+%form#create_user{action: '/users/create', method: :post}
+  %input{type: 'hidden', name: "_method", value: "put"}
+  %label Email:
+  %input{type: "text", name: 'user[email]', value: "#{@user.email.present? ? @user.email : ''}"}
+  %br
+  %label Password:
+  %input{type:"password", name: 'user[password]'}
+  %br
+  %input{type: "submit", value: "Save"}
+  %a{href: '#mockingbird', class: 'cancel'}Cancel
