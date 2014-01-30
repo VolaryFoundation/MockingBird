@@ -17,6 +17,17 @@
         %a{href: '/groups'}Groups
         |
         %a{href: '/groups/map'}Map View
+        |
+        -if current_user
+          =@current_user.email
+          |
+          %form.no_form{action: '/logout', method: 'post'}
+            %input{:name => "_method", type: "hidden", value: "delete"}
+            %input.link{type: 'submit', :value => 'logout'}
+        -else
+          %a{href: '/login'}Login
+          |
+          %a{href: '/users/signup'}Signup
     #columns
       #title
       #content

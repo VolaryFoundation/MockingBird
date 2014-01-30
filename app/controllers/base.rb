@@ -4,14 +4,17 @@ module SC
     require APP_ROOT + "/models/location"
     require APP_ROOT + "/models/tag"
     require APP_ROOT + "/models/link"
+    require APP_ROOT + "/helpers/user_helper.rb"
     require 'rack-flash'
     
     enable :sessions
+    set :session_secret, "something random"
     enable :method_override
     use Rack::Flash
     
     #Sets the default view under app/views
     set :views, APP_ROOT + '/views'
+    
         
     def ok data
       status 200
