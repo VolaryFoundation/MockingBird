@@ -7,6 +7,7 @@ module SC
     require 'rack-flash'
     
     enable :sessions
+    enable :method_override
     use Rack::Flash
     
     #Sets the default view under app/views
