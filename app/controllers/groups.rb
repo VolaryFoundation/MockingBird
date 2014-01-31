@@ -54,5 +54,18 @@ module SC
       end
     end
     
+    post "/:id/claim" do
+      group = Group.find(params[:id])
+      user = current_user
+      if user.present? && group.present?
+        group.claim_group(user)
+        flash[:notice] = "A claim has been put in and and admin will contact you soon."
+        redirect back
+      else
+        flash[:notice] = "Unable to make claim"
+        redirect back
+      end
+    end
+    
   end
 end

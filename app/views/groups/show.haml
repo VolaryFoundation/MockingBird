@@ -50,7 +50,12 @@
     %section{id: 'mockingbird_view'}
       %h2 Secular Connect Info
       - if @mb_group.present?
-        %a{href: '#mockingbird', class: 'edit_link'}Edit fields here
+        -debugger
+        -if (current_user == @mb_group.user) || (current_user.role == 'admin')
+          %a{href: '#mockingbird', class: 'edit_link'}Edit fields here
+        -elsif current_user.present? && @mb_group.pending_user.blank?
+          %form.no_form{action: "/groups/#{@mb_group.id}/claim", method: 'post'}
+            %input.link{type: 'submit', :value => 'Claim Group'}
         %ul.mocking_bird_details
           %li.name
             %span.label Name: 

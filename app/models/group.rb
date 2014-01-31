@@ -8,6 +8,7 @@ class Group
   after_save :send_to_eagle
 
   one :location
+  belongs_to :user
   many :events
   many :links
   
@@ -29,7 +30,27 @@ class Group
   key :range, range: true, :in => RANGE_OPTIONS
   key :tags, Array
   key :eagle_id
+  key :user_id
+  key :pending_user
 
+
+  def claim_group(user)
+    self.pending_user = user.id
+    if self.save!
+      return self
+    else
+      return nil
+    end
+  end
+  
+  def approve_claim()
+    self.user = User.find(self.pending_user)
+    if self.save!
+      return self
+    else
+      return nil
+    end
+  end
   
   def send_to_eagle
     if skip_send_to_eagle 

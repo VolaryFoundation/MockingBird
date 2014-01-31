@@ -25,8 +25,5 @@ module SC
       flash[:notice] = "You are loged out"
       redirect "../groups"
     end
-
-
-    
   end
 end

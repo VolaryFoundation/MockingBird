@@ -3,6 +3,8 @@ class User
   include BCrypt
   include MongoMapper::Document
   
+  many :group
+  
   attr_accessible :email, :password, :password_confirmation
   attr_accessor :password
   
@@ -12,6 +14,7 @@ class User
   key :email, required: true, unique: true
   key :password_hash, required: true
   key :password_salt, required: true
+  key :role
   
   def self.authenticate(email, password)
     user = User.find_by_email(email)
