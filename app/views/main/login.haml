@@ -1,10 +1,14 @@
-%form#login_user{action: '/login', method: :post}
-  %input{type: 'hidden', name: "_method", value: "put"}
-  %label Email:
-  %input{type: "text", name: 'user[email]'}
-  %br
-  %label Password:
-  %input{type:"password", name: 'user[password]'}
-  %br
-  %input{type: "submit", value: "Login"}
-  %a{href: '#mockingbird', class: 'cancel'}Cancel
+#frame
+  #page_title
+    %h1 Login
+  #main
+    %section
+      %form#login_user{action: '/login', method: :post}
+        %input{type: 'hidden', name: "_method", value: "put"}
+        %label Email:
+        %input{type: "text", name: 'user[email]', :required => true}
+        %br
+        %label Password:
+        %input{type:"password", name: 'user[password]', :required => true}
+        %br
+        %input{type: "submit", value: "Login"}
