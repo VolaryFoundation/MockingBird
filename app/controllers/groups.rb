@@ -59,12 +59,30 @@ module SC
       user = current_user
       if user.present? && group.present?
         group.claim_group(user)
-        flash[:notice] = "A claim has been put in and and admin will contact you soon."
+        flash[:notice] = "You have made a claim to this group. An admin will contact you soon via email."
         redirect back
       else
-        flash[:notice] = "Unable to make claim"
+        flash[:notice] = "Unable to make the claim"
         redirect back
       end
+    end
+    
+    post "/:id/approve" do
+      if current_user.present? && current_user.role == 'admin'
+        group = Group.find(params[:id])
+        if group.present?
+          group.approve_claim
+          flash[:notice] = "Claim was approved. Dont forget to email the user to let them know."
+          redirect back
+        else
+          flash[:notice] = "Unable to approve the claim"
+          redirect back
+        end
+      else
+        flash[:alert] = "You are not authrized to submit this command"
+        redirect back
+      end
+        
     end
     
   end
