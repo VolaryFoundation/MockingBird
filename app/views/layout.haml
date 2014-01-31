@@ -32,9 +32,11 @@
       #title
       #content
         - if flash[:notice].present?
-          .notice=flash[:notice]
+          .flash
+            .notice=flash[:notice]
         - if flash[:alert].present?
-          .alert=flash[:alert]
+          .flash
+            .alert=flash[:alert]
         = yield
     %footer
       %a{href: "mailto:admin@volary.org", target: "_top"}Contact Us

@@ -16,7 +16,7 @@ module SC
         redirect "../groups"
       else
         flash[:alert] = "Invalid email or password"
-        haml :"main/login"
+        redirect "/login"
       end
     end 
     

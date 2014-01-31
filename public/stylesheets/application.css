@@ -208,6 +208,25 @@ footer {
   footer a {
     color: white; }
 
+.flash {
+  width: 65%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: larger;
+  height: 115%; }
+  .flash .notice {
+    background-color: RGB(69, 185, 6);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding: 7px 0; }
+  .flash .alert {
+    background-color: red;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding: 7px 0; }
+
 #content #frame #map_view #page_title {
   width: 800px;
   margin: 0 auto; }
