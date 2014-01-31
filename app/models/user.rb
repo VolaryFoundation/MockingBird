@@ -6,7 +6,7 @@ class User
   many :group
   
   attr_accessible :email, :password, :password_confirmation
-  attr_accessor :password
+  attr_accessor :password, :password_confirmation
   
   before_validation :encrypt_password
 
