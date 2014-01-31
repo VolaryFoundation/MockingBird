@@ -51,17 +51,18 @@
       %h2 Secular Connect Info
       - if @mb_group.present?
         .edit_links
-          -if (current_user.role == 'admin')
-            %a{href: '#mockingbird', class: 'edit_link'}Edit
-            -if @mb_group.pending_user.present? && @mb_group.user.nil?
-              |
-              %form.no_form{action: "/groups/#{@mb_group.id}/approve", method: 'post'}
-                %input#approve_claim_link.link.on_white{type: 'submit', :value => 'Approve'}
-          - elsif (current_user == @mb_group.user)
-            %a{href: '#mockingbird', class: 'edit_link'}Edit fields here
-          -elsif current_user.present? && @mb_group.pending_user.blank?
-            %form.no_form{action: "/groups/#{@mb_group.id}/claim", method: 'post'}
-              %input#claim_group_link.link.on_white{type: 'submit', :value => 'Claim Group'}
+          -if current_user.present?
+            -if (current_user.role == 'admin')
+              %a{href: '#mockingbird', class: 'edit_link'}Edit
+              -if @mb_group.pending_user.present? && @mb_group.user.nil?
+                |
+                %form.no_form{action: "/groups/#{@mb_group.id}/approve", method: 'post'}
+                  %input#approve_claim_link.link.on_white{type: 'submit', :value => 'Approve'}
+            - elsif (current_user == @mb_group.user)
+              %a{href: '#mockingbird', class: 'edit_link'}Edit fields here
+            -elsif current_user.present? && @mb_group.pending_user.blank?
+              %form.no_form{action: "/groups/#{@mb_group.id}/claim", method: 'post'}
+                %input#claim_group_link.link.on_white{type: 'submit', :value => 'Claim Group'}
         %ul.mocking_bird_details
           %li.name
             %span.label Name: 
@@ -90,43 +91,44 @@
             %li
               %span.label Links:
               This group has no links.
-    %section{id: 'mockingbird_edit', class: 'hidden'}
-      %h2 Edit MockingBird Info
-      .edit_links
-        %a{href: '#mockingbird', class: 'edit_link cancel'}Cancel
-      #group_error.hidden
-      %form#submit_groups{action: "#{@mb_group.id}", method: :post}
-        %label Name:
-        %input{type: "text", name: 'group[name]', value: @mb_group.name}
-        %br
-        -#############Location Field####################
-        %label Location:
-        %input#autocomplete{placeholder: "#{location_to_html(@mb_group.location)}", onFocus: "geolocate()", type:"text"}
-        %br
-        -#############Google Crap Field####################
-        .hidden
-          %input.field#address{disabled: "true", name: "group[location][address]"}
-          %input.field#street_number{disabled: "true", name: "group[location][street_num]"}
-          %input.field#route{disabled: "true", name: "group[location][street_address]"}
-          %input.field#locality{disabled: "true", name: "group[location][city]"}
-          %input.field#administrative_area_level_1{disabled: "true", name: "group[location][state]"}
-          %input.field#postal_code{disabled: "true", name: "group[location][postal_code]"}
-          %input.field#country{disabled: "true", name: "group[location][country]"}
-        -#############End Google Crap#####################
-        %label Range:
-        %select{name: 'group[range]'}
-          %option{value: 'local', :selected => @mb_group.range == "local"} Local
-          %option{value: 'regional', :selected => @mb_group.range == "regional"} Regional
-          %option{value: 'nationwide', :selected => @mb_group.range == "nationwide"} Nationwide
-          %option{value: 'international', :selected => @mb_group.range == "international"} International
-        %br
-        %label Description:
-        %textarea{ name: 'group[description]', rows: "10", cols: "70"}=@mb_group.description
-        %br
-        %input{type: "submit", value: "Save"}
-        %a{href: '#mockingbird', class: 'cancel'}Cancel
-        
-
+    -if current_user.present? && (current_user == @mb_group.user || current_user.role == 'admin')
+      %section{id: 'mockingbird_edit', class: 'hidden'}
+        %h2 Edit MockingBird Info
+        .edit_links
+          %a{href: '#mockingbird', class: 'edit_link cancel'}Cancel
+        #group_error.hidden
+        %form#submit_groups{action: "#{@mb_group.id}", method: :post}
+          %label Name:
+          %input{type: "text", name: 'group[name]', value: @mb_group.name}
+          %br
+          -#############Location Field####################
+          %label Location:
+          %input#autocomplete{placeholder: "#{location_to_html(@mb_group.location)}", onFocus: "geolocate()", type:"text"}
+          %br
+          -#############Google Crap Field####################
+          .hidden
+            %input.field#address{disabled: "true", name: "group[location][address]"}
+            %input.field#street_number{disabled: "true", name: "group[location][street_num]"}
+            %input.field#route{disabled: "true", name: "group[location][street_address]"}
+            %input.field#locality{disabled: "true", name: "group[location][city]"}
+            %input.field#administrative_area_level_1{disabled: "true", name: "group[location][state]"}
+            %input.field#postal_code{disabled: "true", name: "group[location][postal_code]"}
+            %input.field#country{disabled: "true", name: "group[location][country]"}
+          -#############End Google Crap#####################
+          %label Range:
+          %select{name: 'group[range]'}
+            %option{value: 'local', :selected => @mb_group.range == "local"} Local
+            %option{value: 'regional', :selected => @mb_group.range == "regional"} Regional
+            %option{value: 'nationwide', :selected => @mb_group.range == "nationwide"} Nationwide
+            %option{value: 'international', :selected => @mb_group.range == "international"} International
+          %br
+          %label Description:
+          %textarea{ name: 'group[description]', rows: "10", cols: "70"}=@mb_group.description
+          %br
+          %input{type: "submit", value: "Save"}
+          %a{href: '#mockingbird', class: 'cancel'}Cancel
+          
+      
     %section{id: 'meetup_view'}
       %h2 Meetup Info
       - if @meetup_group.kind_of?(Hash) && @meetup_group.any?
