@@ -50,12 +50,18 @@
     %section{id: 'mockingbird_view'}
       %h2 Secular Connect Info
       - if @mb_group.present?
-        -debugger
-        -if (current_user == @mb_group.user) || (current_user.role == 'admin')
-          %a{href: '#mockingbird', class: 'edit_link'}Edit fields here
-        -elsif current_user.present? && @mb_group.pending_user.blank?
-          %form.no_form{action: "/groups/#{@mb_group.id}/claim", method: 'post'}
-            %input.link{type: 'submit', :value => 'Claim Group'}
+        .edit_links
+          -if (current_user.role == 'admin')
+            %a{href: '#mockingbird', class: 'edit_link'}Edit
+            -if @mb_group.pending_user.present? && @mb_group.user.nil?
+              |
+              %form.no_form{action: "/groups/#{@mb_group.id}/approve", method: 'post'}
+                %input#approve_claim_link.link.on_white{type: 'submit', :value => 'Approve'}
+          - elsif (current_user == @mb_group.user)
+            %a{href: '#mockingbird', class: 'edit_link'}Edit fields here
+          -elsif current_user.present? && @mb_group.pending_user.blank?
+            %form.no_form{action: "/groups/#{@mb_group.id}/claim", method: 'post'}
+              %input#claim_group_link.link.on_white{type: 'submit', :value => 'Claim Group'}
         %ul.mocking_bird_details
           %li.name
             %span.label Name: 
@@ -86,7 +92,8 @@
               This group has no links.
     %section{id: 'mockingbird_edit', class: 'hidden'}
       %h2 Edit MockingBird Info
-      %a{href: '#mockingbird', class: 'edit_link cancel'}Cancel
+      .edit_links
+        %a{href: '#mockingbird', class: 'edit_link cancel'}Cancel
       #group_error.hidden
       %form#submit_groups{action: "#{@mb_group.id}", method: :post}
         %label Name:
@@ -123,7 +130,8 @@
     %section{id: 'meetup_view'}
       %h2 Meetup Info
       - if @meetup_group.kind_of?(Hash) && @meetup_group.any?
-        %a{href: "#{@eagle_group['refs']['meetup']}/manage", class: 'edit_link', target: '_blank'}Edit on Meetup.com
+        .edit_links
+          %a{href: "#{@eagle_group['refs']['meetup']}/manage", class: 'edit_link', target: '_blank'}Edit on Meetup.com
         %ul
           - @meetup_group.each do |key, value|
             - unless key == 'keywords' || key == 'images'
@@ -138,7 +146,8 @@
     %section{id: 'facebook_view'}
       %h2 Facebook Info
       - if @facebook_group.kind_of?(Hash) && !@facebook_group.empty?
-        %a{href: "#{@eagle_group['refs']['facebook']}", class: 'edit_link', target: '_blank'}Edit on Facebook.com
+        .edit_links
+          %a{href: "#{@eagle_group['refs']['facebook']}", class: 'edit_link', target: '_blank'}Edit on Facebook.com
         %ul
           - @facebook_group.each do |key, value|
             - unless key == 'keywords' || key == 'images'
