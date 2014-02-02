@@ -4,6 +4,7 @@ class User
   include MongoMapper::Document
   
   many :group
+  many :pending_claims, foreign_key: 'pending_user', class_name: 'Group'
   
   attr_accessible :email, :password, :password_confirmation
   attr_accessor :password, :password_confirmation
