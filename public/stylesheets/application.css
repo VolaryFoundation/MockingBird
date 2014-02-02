@@ -72,7 +72,7 @@ form {
     height: 20px;
     margin-bottom: 7px; }
     form input[type="submit"] {
-      width: 70px;
+      width: 90px;
       height: 25px;
       background-color: RGB(69, 185, 6);
       color: white;
@@ -97,24 +97,10 @@ form {
 .no_form {
   display: inline;
   background-color: RGBa(23, 144, 197, 1);
-  margin: 0px;
+  margin: 0;
   padding: 0px; }
-  .no_form .link {
-    border: none;
-    background: none;
-    cursor: pointer;
-    display: in-line;
-    margin: -21px 0 0 0;
-    padding: 0px; }
-  .no_form .on_white {
-    color: RGB(60, 159, 201);
-    width: 115px;
-    margin-top: -35px; }
-  .no_form #approve_claim_link {
-    margin-top: -20px;
-    margin-left: -7px; }
-  .no_form #claim_group_link {
-    margin-top: 0px; }
+  .no_form input[type="submit"] {
+    margin: -7px 0 0 0; }
 
 * {
   margin: 0;

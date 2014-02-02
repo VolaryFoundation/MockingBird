@@ -71,7 +71,7 @@ module SC
       if current_user.present? && current_user.role == 'admin'
         group = Group.find(params[:id])
         if group.present?
-          group.approve_claim
+          group.respond_to_claim('approve')
           flash[:notice] = "Claim was approved. Dont forget to email the user to let them know."
           redirect back
         else

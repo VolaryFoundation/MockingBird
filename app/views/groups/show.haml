@@ -52,15 +52,9 @@
       - if @mb_group.present?
         .edit_links
           -if current_user.present?
-            -if (current_user.role == 'admin')
-              %a{href: '#mockingbird', class: 'edit_link'}Edit
-              -if @mb_group.pending_user.present? && @mb_group.user.nil?
-                |
-                %form.no_form{action: "/groups/#{@mb_group.id}/approve", method: 'post'}
-                  %input#approve_claim_link.link.on_white{type: 'submit', :value => 'Approve'}
-            - elsif (current_user == @mb_group.user)
+            -if (current_user.role == 'admin') || (current_user == @mb_group.user)
               %a{href: '#mockingbird', class: 'edit_link'}Edit fields here
-            -elsif current_user.present? && @mb_group.pending_user.blank?
+            -elsif @mb_group.pending_user.blank?
               %form.no_form{action: "/groups/#{@mb_group.id}/claim", method: 'post'}
                 %input#claim_group_link.link.on_white{type: 'submit', :value => 'Claim Group'}
         %ul.mocking_bird_details
@@ -93,7 +87,7 @@
               This group has no links.
     -if current_user.present? && (current_user == @mb_group.user || current_user.role == 'admin')
       %section{id: 'mockingbird_edit', class: 'hidden'}
-        %h2 Edit MockingBird Info
+        %h2 Edit Secular Connect Info
         .edit_links
           %a{href: '#mockingbird', class: 'edit_link cancel'}Cancel
         #group_error.hidden
@@ -127,6 +121,12 @@
           %br
           %input{type: "submit", value: "Save"}
           %a{href: '#mockingbird', class: 'cancel'}Cancel
+        - if current_user.role == 'admin' && @mb_group.pending_user.present? && @mb_group.user.nil?
+          %form{action: "#{@mb_group.id}/approve", method: :post}
+            %label User Claim
+            %input{type: "text", name: 'group[name]', value: @mb_group.pending_user.email, :disabled => true}
+            %input{type: "submit", value: "Approve"}
+
           
       
     %section{id: 'meetup_view'}

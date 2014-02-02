@@ -93,6 +93,32 @@ describe Group do
     #  group.keywords.should include('foo', 'bar', 'bat', 'baz')
     #end
   end
+  
+  describe 'claim a group' do
+    
+    before do
+      @user = build(:user) 
+    end
+    
+    it 'should set pedding user when group is claimed' do
+      @group.claim_group(@user)
+      @group.pending_user.should eq(@user)
+    end
+    
+    it 'should be able to approve a claim' do
+      @group.claim_group(@user)
+      @group.respond_to_claim('approve')
+      @group.user.should eq(@user)
+    end
+    
+    it 'should be able to reject a claim' do
+      @group.claim_group(@user)
+      @group.respond_to_claim('reject')
+      @group.user.should be_nil
+      @group.pending_user.should be_nil
+    end
+    
+  end
 
   describe '.search' do
 

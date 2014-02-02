@@ -9,6 +9,7 @@ class Group
 
   one :location
   belongs_to :user
+  belongs_to :pending_user, class_name: 'User'
   many :events
   many :links
   
@@ -35,21 +36,13 @@ class Group
 
 
   def claim_group(user)
-    self.pending_user = user.id
-    if self.save!
-      return self
-    else
-      return nil
-    end
+    self.pending_user = user
+    self.save! ? (return self) : (return nil)
   end
   
-  def approve_claim()
-    self.user = User.find(self.pending_user)
-    if self.save!
-      return self
-    else
-      return nil
-    end
+  def respond_to_claim(responce)
+    responce == 'approve' ? (self.user = self.pending_user) : (self.pending_user = nil)
+    self.save! ? (return self) : (return nil)
   end
   
   def send_to_eagle
