@@ -10,6 +10,7 @@ $(document).ready(function() {
 		window.location.href = JSON.parse(data)
       },
       error: function(data){
+	    //TODO add in a failure option. Right now this should not fail.
       }
     })
   })
