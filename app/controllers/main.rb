@@ -1,5 +1,7 @@
 module SC
   class MainController < BaseController
+    require 'uri'
+    
     get "/" do
       redirect to('/groups')
     end
@@ -23,7 +25,9 @@ module SC
     delete "/logout" do
       session[:user_id] = nil
       flash[:notice] = "You are loged out"
-      redirect "../groups"
+      uri = URI::parse(request.referer).path
+      ok uri.to_json
+      #redirect "../groups"
     end
   end
 end

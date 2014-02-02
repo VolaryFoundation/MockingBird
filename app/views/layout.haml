@@ -7,6 +7,7 @@
   %script{type: "text/javascript", src: "http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"}
   %script{type: "text/javascript", src: "/javascripts/places_autocomplete.js"}
   %script{type: "text/javascript", src: "/javascripts/form_support.js"}
+  %script{type: "text/javascript", src: "/javascripts/nav.js"}
 
 %body{onload: "initialize()"}
   #page
@@ -14,20 +15,25 @@
       %a{href: '/'}
         %img#mainlogo{src:'/images/main-logo.png'}
       %nav
-        %a{href: '/groups'}Groups
-        |
-        %a{href: '/groups/map'}Map View
-        |
-        -if current_user
-          =@current_user.email
-          |
-          %form.no_form{action: '/logout', method: 'post'}
-            %input{:name => "_method", type: "hidden", value: "delete"}
-            %input.link{type: 'submit', :value => 'logout'}
-        -else
-          %a{href: '/login'}Login
-          |
-          %a{href: '/users/new'}Signup
+        %ul
+          %li.main_nav
+            Groups
+            %ul.sub_nav.hidden
+              %li.sub_nav
+                %a{href: '/groups/map'}Map View
+              %li.sub_nav
+                %a{href: '/groups'}List View
+          -if current_user
+            %li.main_nav
+              =@current_user.email
+              %ul.sub_nav.hidden
+                %li.sub_nav
+                  %a.act_as_form{href: '/logout', _method: 'delete'}Logout
+          -else
+            %li.main_nav.no_dropdown
+              %a{href: '/login'}Login
+            %li.main_nav.no_dropdown
+              %a{href: '/users/new'}Signup
     #columns
       #title
       #content
