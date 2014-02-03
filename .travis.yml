@@ -18,7 +18,6 @@ branches:
     - master
 env:
     - DATABASE_URL='mongodb://localhost:27017/volary_api_ci'
-    - EAGLE_SERVER='http://volary-eagle-staging.herokuapp.com/'
 notifications:
   email:
     recipients:
