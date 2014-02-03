@@ -3,6 +3,7 @@ rvm:
 - 2.0.0
 script: bundle exec rspec spec
 services: mongodb
+
 deploy:
   provider: heroku
   api_key:
@@ -11,8 +12,13 @@ deploy:
   on:     
     repo: VolaryFoundation/MockingBird
     ruby: 2.0.0
+# whitelist
+branches:
+  only:
+    - master
 env:
     - DATABASE_URL='mongodb://localhost:27017/volary_api_ci'
+    - EAGLE_SERVER='http://volary-eagle-staging.herokuapp.com/'
 notifications:
   email:
     recipients:
