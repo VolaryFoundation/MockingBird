@@ -13,6 +13,7 @@ gem 'rack-flash3' #for session flash messages
 gem 'rest-client'
 gem 'warden'
 gem 'bcrypt-ruby', :require => "bcrypt"
+gem 'pony'
 
 group :development do
   gem "shotgun"

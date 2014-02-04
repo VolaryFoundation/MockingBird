@@ -1,0 +1,15 @@
+#frame
+  #page_title
+    %h1 Reset Password
+  #main
+    %section
+      %form#create_user{action: "/password_reset/#{@user.password_reset_token}/update", method: :post}
+        %input{type: 'hidden', name: "_method", value: "put"}
+        %label= "Email:  #{@user.email}"
+        %br
+        %label Password:
+        %input{type:"password", name: 'user[password]', :required => true}
+        %label Password Confirmation:
+        %input{type:"password", name: 'user[password_confirmation]', :required => true}
+        %br
+        %input{type: "submit", value: "Save"}

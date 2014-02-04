@@ -17,3 +17,4 @@ require "#{APP_ROOT}/controllers/api/base.rb"
 Dir["#{APP_ROOT}/controllers/api/*.rb"].each {|file| require file }
 require "#{APP_ROOT}/controllers/base.rb"
 Dir["#{APP_ROOT}/controllers/*.rb"].each {|file| require file }
+require "#{ROOT}/config/email.rb"

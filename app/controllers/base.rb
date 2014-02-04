@@ -14,7 +14,6 @@ module SC
     
     #Sets the default view under app/views
     set :views, APP_ROOT + '/views'
-    
         
     def ok data
       status 200

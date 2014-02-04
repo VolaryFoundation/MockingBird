@@ -25,3 +25,7 @@ end
 map "/users" do
   run SC::UsersController
 end
+
+map "/password_reset" do
+  run SC::PasswordResetController
+end
