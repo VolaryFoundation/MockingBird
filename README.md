@@ -14,9 +14,8 @@ Setup:
 *Change the Direcotry*
     `cd MockingBird-API`  
     
-*Copy and update database yml file*  
-    `cp example_env.rb env.rb`
-Update the file with database information if you want a non-standard setup
+*Copy and update database yml file if personal env is needed*  
+    `cp env.rb env_personal.rb`
     
 *Load the ruby gems:*  
     `bundle install`
