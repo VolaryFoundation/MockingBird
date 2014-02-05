@@ -3,25 +3,23 @@ rvm:
 - 2.0.0
 script: bundle exec rspec spec
 services: mongodb
-
 deploy:
   provider: heroku
   api_key:
-    secure: ZvohGFV7m2ANUfd8J5s+fPR/fGQs3CWHXmNZHH1aRVGEPkAB5IO4XaYQJMyaJGwqkz3TSuR8o4NJm/BBy9/9z+N/9ihkqeLdbUcF9LjCyKJuColvQ0nhfuLthkFvToO+27FCce3qt7JqaE8uGURccPpYke1+nc6Z7LpVbb/AVrY=
+    secure: mif3W/hD/BCP8v1WG+HPS2rNCzACmf55rnfWHldDltvXCY3T42aviwV+nOTqe2oDyd9PNoc6/wlbkpAXyaV2HVT2ZTYpLgb6YCGG1LJqnWSvcTLQNCQ3vh9vZ0Pu4YSNThNd9ulEJM2ATKSiC+ySFHoIwvoWT2gOCTRx2os+Hl0=
   app: volary-mockingbird-staging
-  on:     
+  on:
     repo: VolaryFoundation/MockingBird
     ruby: 2.0.0
-# whitelist
 branches:
   only:
-    - master
+  - master
 notifications:
   email:
     recipients:
-      - nick@volary.org
-      - lorne@volary.org
-      - brendan@volary.org
-      - michael@volary.org
+    - nick@volary.org
+    - lorne@volary.org
+    - brendan@volary.org
+    - michael@volary.org
     on_success: change
     on_failure: always
