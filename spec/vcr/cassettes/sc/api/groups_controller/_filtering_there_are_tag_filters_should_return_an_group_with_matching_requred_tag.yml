@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://volary-eagle-staging.herokuapp.com/groups/refs
+    body:
+      encoding: UTF-8
+      string: '[{"mockingbird":"52f2cf8c370d9354de00001d"},[]]'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate
+      content-type:
+      - application/json
+      content-length:
+      - '47'
+      user-agent:
+      - Ruby
+  response:
+    status:
+      code: 503
+      message: Service Unavailable
+    headers:
+      content-type:
+      - text/html; charset=utf-8
+      date:
+      - Wed, 05 Feb 2014 23:55:57 GMT
+      server:
+      - MochiWeb/1.0 (Any of you quaids got a smint?)
+      content-length:
+      - '409'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        <!DOCTYPE html>
+            <html>
+            <head>
+              <style type="text/css">
+                html, body, iframe { margin: 0; padding: 0; height: 100%; }
+                iframe { display: block; width: 100%; border: none; }
+              </style>
+            <title>Application Error</title>
+            </head>
+            <body>
+              <iframe src="//s3.amazonaws.com/heroku_pages/error.html">
+                <p>Application Error</p>
+              </iframe>
+            </body>
+            </html>
+    http_version: '1.1'
+  recorded_at: Wed, 05 Feb 2014 23:55:57 GMT
+recorded_with: VCR 2.8.0

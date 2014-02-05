@@ -32,7 +32,7 @@ module SC
     get "/map" do
       results = Geocoder.search(request.ip)
       state = (results.first.state.present? ? results.first.state : 'Colorado')
-      @url = "http://volary-pigeon.herokuapp.com/groups-map.html?filters[subject]=groups&filters[keys][location.state]=#{abbreviate(state)}"
+      @url = "#{ENV['WIDGET_SERVER']}groups-map.html?filters[subject]=groups&filters[keys][location.state]=#{abbreviate(state)}"
       haml :'groups/map'
     end
     
