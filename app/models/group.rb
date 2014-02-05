@@ -56,7 +56,7 @@ class Group
     begin
       response = RestClient.post uri, object_to_send.to_json, :content_type => :json, :accept => :json
     rescue => e
-      puts e.response
+      puts e
     end
     if response.present?
       self.skip_send_to_eagle = true

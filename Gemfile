@@ -29,4 +29,6 @@ group :test do
   gem "rack-test", require: "rack/test"
   gem "factory_girl"
   gem "faker"
+  gem "vcr"
+  gem "fakeweb"
 end
