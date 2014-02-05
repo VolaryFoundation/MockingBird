@@ -8,7 +8,7 @@ ROOT = File.join(File.dirname(__FILE__), '..')
 APP_ROOT = File.join(File.dirname(__FILE__))
 
 require "#{ROOT}/env" 
-require "#{ROOT}/env_personal" if File.exists?("#{ROOT}/env.rb")
+require "#{ROOT}/env_personal" if File.exists?("#{ROOT}/env_personal.rb")
 
 MongoMapper.connection = Mongo::MongoClient.from_uri(ENV['DATABASE_URL'])
 db_name = ENV['DATABASE_URL'][%r{/([^/\?]+)(\?|$)}, 1]
