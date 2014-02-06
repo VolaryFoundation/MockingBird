@@ -62,7 +62,7 @@
   font-style: normal; }
 
 form {
-  overflow: auto;
+  overflow: hidden;
   background-color: RGB(231, 231, 231);
   padding: 14px; }
   form label {
