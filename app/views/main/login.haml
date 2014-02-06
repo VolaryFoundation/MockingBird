@@ -4,7 +4,6 @@
   #main
     %section
       %form#login_user{action: '/login', method: :post}
-        %input{type: 'hidden', name: "_method", value: "put"}
         %label Email:
         %input{type: "text", name: 'user[email]', :required => true}
         %br

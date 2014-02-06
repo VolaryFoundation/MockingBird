@@ -266,6 +266,9 @@ footer {
         width: 90%; }
 
 @media all and (max-width: 945px) {
+  header {
+    width: 80%; }
+
   #page {
     width: 100%; }
     #page #content #frame #main {

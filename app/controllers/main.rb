@@ -7,18 +7,19 @@ module SC
     end
     
     get "/login" do ##new
+      session[:request_url] = request.referer
       haml :"main/login"
     end
     
-    put "/login" do
+    post "/login" do
       user = User.authenticate(params[:user][:email], params[:user][:password])
       if user.present?
         session[:user_id] = user.id
         flash[:notice] = "You are now loged in"
-        redirect "../groups"
+        redirect (session[:request_url] || '/')
       else
         flash[:alert] = "Invalid email or password"
-        redirect "/login"
+        redirect back
       end
     end 
     
