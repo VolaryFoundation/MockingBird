@@ -13,14 +13,14 @@ module SC
       if params[:user][:password] == params[:user][:password_confirmation]
         if @user.save
           session[:user_id] = @user.id
-          flash[:notice] = "You have signup and have been logged in."
+          flash[:notice] = "You have signed up and are now logged in."
           redirect "../groups"
         else
-          flash[:alert] = "User was unable to be created"
+          flash[:alert] = "Unable to sign you up"
           haml :"users/new"
         end
       else
-        flash[:alert] = "Password must match the confirmation"
+        flash[:alert] = "Password must match the confirmation password"
         redirect "users/new"
       end
     end 
