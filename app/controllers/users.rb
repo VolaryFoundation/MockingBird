@@ -20,7 +20,7 @@ module SC
           haml :"users/new"
         end
       else
-        flash[:alert] = "Password must match the confirmation password"
+        flash[:alert] = "Password must match the confirmation"
         redirect "users/new"
       end
     end 

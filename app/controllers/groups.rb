@@ -50,7 +50,7 @@ module SC
       if @eagle_group.present?
         haml :"groups/show"
       else
-        haml "%h2 I am sorry but we cant find a group with the id: #{params[:id]}"
+        haml "%h2 I am sorry but we can not find a group with the id: #{params[:id]}"
       end
     end
     
@@ -59,10 +59,10 @@ module SC
       user = current_user
       if user.present? && group.present?
         group.claim_group(user)
-        flash[:notice] = "You have made a claim to this group. An admin will contact you soon via email."
+        flash[:notice] = "You are attempting to claim this group. An admin will contact you via email as soon as possible."
         redirect back
       else
-        flash[:notice] = "Unable to make the claim"
+        flash[:notice] = "Unable to claim this group"
         redirect back
       end
     end

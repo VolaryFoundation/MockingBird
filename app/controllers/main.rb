@@ -25,7 +25,7 @@ module SC
     
     delete "/logout" do
       session[:user_id] = nil
-      flash[:notice] = "You are loged out"
+      flash[:notice] = "You are now loged out"
       uri = URI::parse(request.referer).path
       ok uri.to_json
       #redirect "../groups"

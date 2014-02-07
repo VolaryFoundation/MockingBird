@@ -14,7 +14,7 @@ module SC
         token = @user.request_reset_token
         @url = "#{request.host_with_port()}/password_reset/#{token}"
         Pony.mail(:to => @user.email, :subject => 'Password Reset Request', :body => haml(:'email/password_reset', layout: false))
-        flash[:notice] = "Reset token has been sent"
+        flash[:notice] = "Reset token has been sent to the requested email"
         redirect "/"
       else
         flash[:alert] = "Email not found"
@@ -46,7 +46,7 @@ module SC
               #success
               session[:user_id] = @user.id
               @user.clear_token
-              flash[:notice] = "You have changed your password and have been logged in."
+              flash[:notice] = "Your password has been changed and you have been logged in."
               redirect "/"
             else
               #failed falied validation?
