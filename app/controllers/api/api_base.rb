@@ -1,9 +1,6 @@
 module SC
   module API
-    class BaseController < Sinatra::Base
-      require APP_ROOT + "/models/location"
-      require APP_ROOT + "/models/tag"
-      require APP_ROOT + "/models/link"
+    class ApiBaseController < SC::BaseController
     
       before do
         content_type :json
@@ -19,16 +16,6 @@ module SC
       def ok data
         status 200
         return halt data.to_json if data
-        halt
-      end
-      
-      def no_save data
-        status 422
-        halt data
-      end
-    
-      def missing
-        status 404
         halt
       end
     end

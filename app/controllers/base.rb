@@ -24,6 +24,11 @@ module SC
       status 500
       halt data
     end
+    
+    def no_save data=''
+      status 422
+      halt data
+    end
   
     def missing
       status 404

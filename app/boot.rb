@@ -14,8 +14,9 @@ MongoMapper.connection = Mongo::MongoClient.from_uri(ENV['DATABASE_URL'])
 db_name = ENV['DATABASE_URL'][%r{/([^/\?]+)(\?|$)}, 1]
 MongoMapper.database = db_name
 
-require "#{APP_ROOT}/controllers/api/base.rb"
-Dir["#{APP_ROOT}/controllers/api/*.rb"].each {|file| require file }
+
 require "#{APP_ROOT}/controllers/base.rb"
+require "#{APP_ROOT}/controllers/api/api_base.rb"
+Dir["#{APP_ROOT}/controllers/api/*.rb"].each {|file| require file }
 Dir["#{APP_ROOT}/controllers/*.rb"].each {|file| require file }
 require "#{ROOT}/config/email.rb"
