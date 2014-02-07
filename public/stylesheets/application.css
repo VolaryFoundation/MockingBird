@@ -271,6 +271,12 @@ footer {
 
   #page {
     width: 100%; }
+    #page footer {
+      width: 80%; }
+    #page #content .flash {
+      width: 80%; }
+    #page #content #frame #page_title {
+      width: 80%; }
     #page #content #frame #main {
       overflow: auto;
       width: 80%;
