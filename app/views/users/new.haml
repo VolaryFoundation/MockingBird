@@ -4,6 +4,11 @@
   #main
     %section
       %form#create_user{action: '/users/create', method: :post}
+        -if @user.errors.present?
+          .form_errors
+            - @user.errors.each do |key, value|
+              ="#{key.capitalize} #{value}"
+              %br
         %input{type: 'hidden', name: "_method", value: "put"}
         %label Email:
         %input{type: "text", name: 'user[email]', value: "#{@user.email.present? ? @user.email : ''}", :required => true}

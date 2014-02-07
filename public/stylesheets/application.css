@@ -102,6 +102,12 @@ form {
   .no_form input[type="submit"] {
     margin: -7px 0 0 0; }
 
+.form_errors {
+  width: 100%;
+  text-align: center;
+  color: red;
+  font-weight: 1.5; }
+
 * {
   margin: 0;
   padding: 0; }

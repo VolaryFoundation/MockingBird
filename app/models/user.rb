@@ -9,15 +9,17 @@ class User
   attr_accessible :email, :password, :password_confirmation
   attr_accessor :password, :password_confirmation
   
-  before_validation :encrypt_password
+  after_validation :encrypt_password
 
   timestamps!
   key :email, required: true, unique: true
-  key :password_hash, required: true
-  key :password_salt, required: true
+  key :password_hash
+  key :password_salt
   key :role
   key :password_reset_token
   key :password_reset_expiration
+  
+  validates :password, :length => { :in => 6..28 }
   
   
   def self.authenticate(email, password)

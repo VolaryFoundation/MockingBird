@@ -18,7 +18,6 @@ module SC
       end
       
       post "/:id" do
-        debugger
         user = User.find(session[:user_id])
         @group = Group.find(params[:id])
         if user.present? && (@group.user == @user || user.role = 'admin')
