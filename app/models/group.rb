@@ -33,11 +33,53 @@ class Group
   key :eagle_id
   key :user_id
   key :pending_user
+  key :cor_id
+  key :email
+  key :memebership
+  key :founded
 
 
   def claim_group(user)
     self.pending_user = user
     self.save! ? (return self) : (return nil)
+  end
+
+  def self.match_group(group)
+    record = Group.all('name' => group.name)
+    if record.count == 1
+      return record.first
+    elsif record.count == 0
+      possible_links = Array.new
+      group.links.each do |link|
+        possible_links << link.url
+        possible_links << (link.url.match('https') ? link.url.gsub('https', 'http') : link.url.gsub('http', 'https'))
+        possible_links << (possible_links[0][-1] == '/' ? possible_links[0][0..-2] : "#{possible_links[0]}/")
+        possible_links << (possible_links[1][-1] == '/' ? possible_links[1][0..-2] : "#{possible_links[1]}/")
+        records = Group.all( {'links.url' => { :$in => possible_links } } )
+        return records.first if records.count == 1
+      end
+    else
+      possible_links = Array.new
+      group.links.each do |link|
+        possible_links << link.url
+        possible_links << (link.url.match('https') ? link.url.gsub('https', 'http') : link.url.gsub('http', 'https'))
+        possible_links << (possible_links[0][-1] == '/' ? possible_links[0][0..-2] : "#{possible_links[0]}/")
+        possible_links << (possible_links[1][-1] == '/' ? possible_links[1][0..-2] : "#{possible_links[1]}/")
+        debugger
+        records = Group.where('name' => group.name).where({'links.url' => { :$in => possible_links } } ).all
+        return records.first if records.count == 1
+      end
+    end
+    return false
+  end
+
+  def add_tags(tags)
+    tags = [tags] if tags.is_a?(String)
+    newTags = self.tags
+    tags.each do |tag|
+      newTags << tag unless newTags.include?(tag.downcase)
+    end
+    return newTags
   end
   
   def respond_to_claim(responce)
