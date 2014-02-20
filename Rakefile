@@ -68,7 +68,6 @@ task :import_groups do
         the_group.memebership element.text.strip if element_name == 'current_memebership'
         the_group.founded = element.text.strip if element_name == 'date_founded'
         the_group.description = element.text.strip if element_name == 'description'
-
         #Range
         the_group.range = element.text.downcase if element_name == 'size'
         #Tags

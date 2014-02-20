@@ -15,16 +15,16 @@
               %span{ class:'label'}= location_to_html(@eagle_group['location'])
             - else
               %span{ class:'label'}Location Unknown
-          %li 
+          %li
             %span{class:'label'}Range of Operation:
-            = @eagle_group['range'].present? ?  @eagle_group['range'] : 'Local'    
-          %li 
+            = @eagle_group['range'].present? ?  @eagle_group['range'] : 'Local'
+          %li
             %span{class:'label'}Number of Members:
             = @eagle_group['size'].present? ?  @eagle_group['size'] : 'Unknown'
-          %li 
-            %span{class: 'label'}Last Updated: 
+          %li
+            %span{class: 'label'}Last Updated:
             = @mb_group.updated_at.present? ? @mb_group.updated_at : 'Unknown'
-          %li 
+          %li
       #main-info-description
         -if @eagle_group['description']
           = @eagle_group['description']
@@ -36,15 +36,13 @@
               %li=word.titleize
           -else
             %li This group has no tags
-          
       #main-info-description
         %h2 Links
         - if @mb_group.links.present?
           %ul.list
             - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
-              %li 
+              %li
                 %a{href: "#{link.url}"}= link.name
-            
         -else
           This group has no links.
     %section{id: 'mockingbird_view'}
@@ -59,16 +57,16 @@
                 %input#claim_group_link.link.on_white{type: 'submit', :value => 'Claim Group'}
         %ul.mocking_bird_details
           %li.name
-            %span.label Name: 
+            %span.label Name:
             %span.text= @mb_group.name if @mb_group.name
           %li.location
             %span.label Location:
             %span.text= location_to_html(@mb_group.location) if @mb_group.location.present?
           %li.range
-            %span.label Range: 
+            %span.label Range:
             %span.text= @mb_group.range if @mb_group.range.present?
           %li.tags
-            %span.label Tags: 
+            %span.label Tags:
             %span.text= @mb_group.tags.join(', ').titleize if @mb_group.tags.present?
           %li.description
             %span.label Description:
@@ -79,7 +77,7 @@
               %span.label Links:
               %ul.list
                 - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
-                  %li 
+                  %li
                     %a{href: "#{link.url}"}= link.name
           -else
             %li
@@ -90,8 +88,18 @@
         %h2 Edit Secular Connect Info
         .edit_links
           %a{href: '#mockingbird', class: 'edit_link cancel'}Cancel
+        %ul.form_nav.hidden
+          %li
+            %a.form_nav_link#submit_groups.active{href: "#"} Main Info
+          %li
+            %a.form_nav_link#submit_url{href: "#"} URL
+          %li
+            %a.form_nav_link#submit_tags{href: "#"} Tags
+          %li
+            %a.form_nav_link#submit_admin{href: "#"} Admin
+
         #group_error.hidden
-        %form#submit_groups{action: "#{@mb_group.id}", method: :post}
+        %form#submit_groups.submit_groups{action: "#{@mb_group.id}", method: :post}
           %label Name:
           %input{type: "text", name: 'group[name]', value: @mb_group.name}
           %br
@@ -121,14 +129,31 @@
           %br
           %input{type: "submit", value: "Save"}
           %a{href: '#mockingbird', class: 'cancel'}Cancel
-        - if current_user.role == 'admin' && @mb_group.pending_user.present? && @mb_group.user.nil?
-          %form{action: "#{@mb_group.id}/approve", method: :post}
+        -# Admin edit form
+        %form.submit_admin.hidden{action: "#{@mb_group.id}/approve", method: :post}
+          %h2 This is where admin controls go.
+          - if current_user.role == 'admin' && @mb_group.pending_user.present? && @mb_group.user.nil?
             %label User Claim
             %input{type: "text", name: 'group[name]', value: @mb_group.pending_user.email, :disabled => true}
             %input{type: "submit", value: "Approve"}
+        -# URL Edit Form
+        %form.submit_url.hidden{action: "#{@mb_group.id}/url", method: :post}
+          - if @mb_group.links.present?
+            %ul.list
+              - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
+                %li
+                  %a{href: "#{link.url}"}= link.name
+                  .url_action_links
+                    %a{href: "#{link.id}/edit"}Edit
+                    |
+                    %a{href: "#{link.id}/delete"}Delete
 
-          
-      
+
+        -# Tags Edit Form
+        %form.submit_tags.hidden{action: "#{@mb_group.id}/url", method: :post}
+          %h2 This is where tags go.
+
+
     %section{id: 'meetup_view'}
       %h2 Meetup Info
       - if @meetup_group.kind_of?(Hash) && @meetup_group.any?
@@ -160,5 +185,3 @@
         %p We do not have a Facebook link for this group
       -elsif @facebook_group.kind_of?(Hash) && @facebook_group.empty?
         %p We have a link to the Facebook Group but no data could be collected
-      
-  

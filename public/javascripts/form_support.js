@@ -11,22 +11,35 @@ $(document).ready(function() {
       	state = this.getAttribute('extra_info_state')
       	this.setAttribute('src', "https://maps.googleapis.com/maps/api/staticmap?center=" + state + '&size=180x125&sensor=false')
       }
-      
     }
   });
-https://maps.googleapis.com/maps/api/staticmap?center=#{city},#{state}&size=180x125
+  //Event Listenr for Edit form
   $("a.edit_link", $('section#mockingbird_view')).click(function(e) {
-	e.preventDefault();
-	$('section#mockingbird_view').hide();
-	$('section#mockingbird_edit').show();
+    e.preventDefault();
+    $('section#mockingbird_view').hide();
+    $('section#mockingbird_edit').show();
+    $('form#submit_groups').addClass('active_form');
   })
 
-  $("a.cancel", $('section#mockingbird_edit')).click(function(e) {
-	e.preventDefault();
-	$('section#mockingbird_view').show();
-	$('section#mockingbird_edit').hide();
-	 $("form#submit_groups")[0].reset()
+  //Event listener for link to form show proccess
+  $("a.form_nav_link").click(function(e) {
+    e.preventDefault();
+    $('form.active_form').hide().removeClass('active_form')
+    $('a.active').removeClass('active')
+    $(e.currentTarget).addClass('active')
+    $('.' + e.currentTarget.id).show().addClass('active_form')
+    console.log(e)
   })
+
+  //Event listen for canel edit form
+  $("a.cancel", $('section#mockingbird_edit')).click(function(e) {
+    e.preventDefault();
+    $('section#mockingbird_view').show();
+    $('section#mockingbird_edit').hide();
+    $("form#submit_groups")[0].reset()
+    resetFroms()
+  })
+  //AJAX Main Info Submit
   $(function() {
     $("form#submit_groups").submit(function(e){
       e.preventDefault();
@@ -44,25 +57,34 @@ https://maps.googleapis.com/maps/api/staticmap?center=#{city},#{state}&size=180x
           //Update range
           rangeLI = $('li.range', detailsUL)
           $('span.text', rangeLI).text(data.range)
-		  //Update name
+          //Update name
           nameLI = $('li.name', detailsUL)
           $('span.text', nameLI).text(data.name)
-		//Update tags
+          //Update tags
           descriptionLI = $('li.description', detailsUL)
           $('span.text', descriptionLI).text(data.description)
           //Update tags
           tagsLI = $('li.tags', detailsUL)
           $('span.text', tagsLI).text(data.tags.join(", "))
-		  $('section#mockingbird_view').show();
-		  $('section#mockingbird_edit').hide();
+          $('section#mockingbird_view').show();
+          $('section#mockingbird_edit').hide();
         },
         error: function(data){
-	      $("#group_error").text("Unable to update the group. Please check the fields and try again").show();
+          $("#group_error").text("Unable to update the group. Please check the fields and try again").show();
         }
       });
     });
   });
 })
+
+function resetFroms() {
+  $('form.active_form').removeClass('active_form');
+  $('form.submit_groups').show();
+  $('form.submit_url').hide();
+  $('form.submit_url').hide();
+  $('form.submit_url').hide();
+};
+
 
 function locationHelper(locationObject) {
 	var locationArray = []

@@ -62,6 +62,7 @@
   font-style: normal; }
 
 form {
+  clear: both;
   overflow: hidden;
   background-color: RGB(231, 231, 231);
   padding: 14px; }
@@ -88,6 +89,14 @@ form {
     float: right;
     margin-top: 7px;
     padding-right: 14px; }
+  form ul.list li {
+    float: none; }
+    form ul.list li:nth-child(odd) {
+      background: white; }
+    form ul.list li:nth-child(even) {
+      background: RGB(247, 247, 247); }
+    form ul.list li a {
+      float: none; }
 
 #group_error {
   background-color: #ff8080;
@@ -107,6 +116,21 @@ form {
   text-align: center;
   color: red;
   font-weight: 1.5; }
+
+ul {
+  margin-top: 14px; }
+  ul.form_nav li {
+    margin-right: 3px;
+    float: left;
+    text-align: center; }
+    ul.form_nav li a {
+      background-color: RGB(247, 247, 247);
+      padding: 7px 14px;
+      -webkit-border-radius: 7px 7px 0 0;
+      -moz-border-radius: 7px 7px 0 0;
+      border-radius: 7px 7px 0 0; }
+      ul.form_nav li a.active {
+        background-color: RGB(231, 231, 231); }
 
 * {
   margin: 0;

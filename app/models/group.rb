@@ -65,7 +65,6 @@ class Group
         possible_links << (link.url.match('https') ? link.url.gsub('https', 'http') : link.url.gsub('http', 'https'))
         possible_links << (possible_links[0][-1] == '/' ? possible_links[0][0..-2] : "#{possible_links[0]}/")
         possible_links << (possible_links[1][-1] == '/' ? possible_links[1][0..-2] : "#{possible_links[1]}/")
-        debugger
         records = Group.where('name' => group.name).where({'links.url' => { :$in => possible_links } } ).all
         return records.first if records.count == 1
       end

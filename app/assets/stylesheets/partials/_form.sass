@@ -1,4 +1,5 @@
 form
+  clear: both
   overflow: hidden
   background-color: $dark-list-color
   padding: 14px
@@ -21,10 +22,20 @@ form
   textarea
     width: 100%
     border-shadow: none
-  a 
+  a
     float: right
     margin-top: 7px
     padding-right: 14px
+  ul
+    &.list
+      li
+        float: none
+        &:nth-child(odd)
+          background: $section-background-color
+        &:nth-child(even)
+          background: $light-list-color
+        a
+          float: none
 #group_error
   background-color: #ff8080
   text-align: center
@@ -43,5 +54,19 @@ form
   color: red
   font-weight: 1.5
 
+ul
+  margin-top: 14px
+  &.form_nav
+    li
+      margin-right: 3px
+      float: left
+      text-align: center
+      a
+        background-color: $light-list-color
+        padding: 7px 14px
+        -webkit-border-radius: 7px 7px 0 0
+        -moz-border-radius: 7px 7px 0 0
+        border-radius: 7px 7px 0 0
+        &.active
+          background-color: $dark-list-color
 
-    
