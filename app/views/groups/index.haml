@@ -6,7 +6,7 @@
       %ul.list
         - if @groups.present?
           - @groups.each do |group|
-            %li 
+            %li{id: "#{group['_id']}"}
               -if group['images'].present? && group['images'][0].present? && !group['images'][0].empty?
                 %img.group_img.resize{src: group['images'][0]}
               -elsif group['location'].present? && group['location']['state'].present? && group['location']['city'].present?
