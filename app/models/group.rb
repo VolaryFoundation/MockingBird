@@ -92,17 +92,15 @@ class Group
       return
     end
     object_to_send = [{mockingbird: self._id}, grab_urls(self.links)]
-    puts object_to_send.to_json
     uri = "#{ENV['EAGLE_SERVER']}groups/refs"
     begin
-      response = RestClient.post uri, object_to_send.to_json, :content_type => :json, :accept => :json
+      response = RestClient.put uri, object_to_send.to_json, :content_type => :json, :accept => :json
     rescue => e
       puts e
     end
     if response.present?
       self.skip_send_to_eagle = true
       add_ref_to_group(JSON.parse(response.body)['_id'])
-      puts response 
     end
   end
     
