@@ -1,14 +1,27 @@
-form
+.form
   clear: both
   overflow: hidden
   background-color: $dark-list-color
   padding: 14px
+  form
+    &.submit_url
+      padding: 14px
+  select
+    height: 100px
+    &.url
+      float: left
+      width: 20%
   label
     width: 100%
   input
     width: 100%
     height: 20px
     margin-bottom: 7px
+    &.url
+      &[type="text"]
+        float: right
+        width: 79%
+        clear: right
     &[type="submit"]
       width: 90px
       height: 25px
@@ -30,12 +43,21 @@ form
     &.list
       li
         float: none
+        overflow: auto
+        padding: 7px
+        &.active
+          border: 3px solid orange
         &:nth-child(odd)
           background: $section-background-color
         &:nth-child(even)
           background: $light-list-color
         a
           float: none
+          margin-left: 14px
+        .url_link
+          float: left
+        .url_action_links
+          float: right
 #group_error
   background-color: #ff8080
   text-align: center

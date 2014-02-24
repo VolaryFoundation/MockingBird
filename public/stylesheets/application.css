@@ -61,18 +61,29 @@
   font-weight: normal;
   font-style: normal; }
 
-form {
+.form {
   clear: both;
   overflow: hidden;
   background-color: RGB(231, 231, 231);
   padding: 14px; }
-  form label {
+  .form form.submit_url {
+    padding: 14px; }
+  .form select {
+    height: 100px; }
+    .form select.url {
+      float: left;
+      width: 20%; }
+  .form label {
     width: 100%; }
-  form input {
+  .form input {
     width: 100%;
     height: 20px;
     margin-bottom: 7px; }
-    form input[type="submit"] {
+    .form input.url[type="text"] {
+      float: right;
+      width: 79%;
+      clear: right; }
+    .form input[type="submit"] {
       width: 90px;
       height: 25px;
       background-color: RGB(69, 185, 6);
@@ -80,23 +91,32 @@ form {
       float: right;
       margin-top: 7px;
       font-size: 0.85em; }
-  form select {
+  .form select {
     margin-bottom: 7px; }
-  form textarea {
+  .form textarea {
     width: 100%;
     border-shadow: none; }
-  form a {
+  .form a {
     float: right;
     margin-top: 7px;
     padding-right: 14px; }
-  form ul.list li {
-    float: none; }
-    form ul.list li:nth-child(odd) {
+  .form ul.list li {
+    float: none;
+    overflow: auto;
+    padding: 7px; }
+    .form ul.list li.active {
+      border: 3px solid orange; }
+    .form ul.list li:nth-child(odd) {
       background: white; }
-    form ul.list li:nth-child(even) {
+    .form ul.list li:nth-child(even) {
       background: RGB(247, 247, 247); }
-    form ul.list li a {
-      float: none; }
+    .form ul.list li a {
+      float: none;
+      margin-left: 14px; }
+    .form ul.list li .url_link {
+      float: left; }
+    .form ul.list li .url_action_links {
+      float: right; }
 
 #group_error {
   background-color: #ff8080;

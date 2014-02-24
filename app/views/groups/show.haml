@@ -78,7 +78,7 @@
               %ul.list
                 - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
                   %li
-                    %a{href: "#{link.url}"}= link.name
+                    %a{href: "#{link.url}", object_id: "#{link.id}"}= link.name
           -else
             %li
               %span.label Links:
@@ -88,70 +88,84 @@
         %h2 Edit Secular Connect Info
         .edit_links
           %a{href: '#mockingbird', class: 'edit_link cancel'}Cancel
-        %ul.form_nav.hidden
+        %ul.form_nav
           %li
-            %a.form_nav_link#submit_groups.active{href: "#"} Main Info
+            %a.form_nav_link#main_info_area{href: "#"} Main Info
           %li
-            %a.form_nav_link#submit_url{href: "#"} URL
-          %li
-            %a.form_nav_link#submit_tags{href: "#"} Tags
-          %li
-            %a.form_nav_link#submit_admin{href: "#"} Admin
-
-        #group_error.hidden
-        %form#submit_groups.submit_groups{action: "#{@mb_group.id}", method: :post}
-          %label Name:
-          %input{type: "text", name: 'group[name]', value: @mb_group.name}
-          %br
-          -#############Location Field####################
-          %label Location:
-          %input#autocomplete{placeholder: "#{location_to_html(@mb_group.location)}", onFocus: "geolocate()", type:"text"}
-          %br
-          -#############Google Crap Field####################
-          .hidden
-            %input.field#address{disabled: "true", name: "group[location][address]"}
-            %input.field#street_number{disabled: "true", name: "group[location][street_num]"}
-            %input.field#route{disabled: "true", name: "group[location][street_address]"}
-            %input.field#locality{disabled: "true", name: "group[location][city]"}
-            %input.field#administrative_area_level_1{disabled: "true", name: "group[location][state]"}
-            %input.field#postal_code{disabled: "true", name: "group[location][postal_code]"}
-            %input.field#country{disabled: "true", name: "group[location][country]"}
-          -#############End Google Crap#####################
-          %label Range:
-          %select{name: 'group[range]'}
-            %option{value: 'local', :selected => @mb_group.range == "local"} Local
-            %option{value: 'regional', :selected => @mb_group.range == "regional"} Regional
-            %option{value: 'nationwide', :selected => @mb_group.range == "nationwide"} Nationwide
-            %option{value: 'international', :selected => @mb_group.range == "international"} International
-          %br
-          %label Description:
-          %textarea{ name: 'group[description]', rows: "10", cols: "70"}=@mb_group.description
-          %br
-          %input{type: "submit", value: "Save"}
-          %a{href: '#mockingbird', class: 'cancel'}Cancel
-        -# Admin edit form
-        %form.submit_admin.hidden{action: "#{@mb_group.id}/approve", method: :post}
-          %h2 This is where admin controls go.
-          - if current_user.role == 'admin' && @mb_group.pending_user.present? && @mb_group.user.nil?
-            %label User Claim
-            %input{type: "text", name: 'group[name]', value: @mb_group.pending_user.email, :disabled => true}
-            %input{type: "submit", value: "Approve"}
+            %a.form_nav_link#url_area{href: "#"} URL
+          %li.hidden
+            %a.form_nav_link#tags_area{href: "#"} Tags
+          %li.hidden
+            %a.form_nav_link#admin_area{href: "#"} Admin
+        .form.main_info_area
+          #group_error.hidden
+          %form#submit_groups.submit_groups{action: "#{@mb_group.id}", method: :post}
+            %label Name:
+            %input{type: "text", name: 'group[name]', value: @mb_group.name}
+            %br
+            -#############Location Field####################
+            %label Location:
+            %input#autocomplete{placeholder: "#{location_to_html(@mb_group.location)}", onFocus: "geolocate()", type:"text"}
+            %br
+            -#############Google Crap Field####################
+            .hidden
+              %input.field#address{disabled: "true", name: "group[location][address]"}
+              %input.field#street_number{disabled: "true", name: "group[location][street_num]"}
+              %input.field#route{disabled: "true", name: "group[location][street_address]"}
+              %input.field#locality{disabled: "true", name: "group[location][city]"}
+              %input.field#administrative_area_level_1{disabled: "true", name: "group[location][state]"}
+              %input.field#postal_code{disabled: "true", name: "group[location][postal_code]"}
+              %input.field#country{disabled: "true", name: "group[location][country]"}
+            -#############End Google Crap#####################
+            %label Range:
+            %select{name: 'group[range]'}
+              %option{value: 'local', :selected => @mb_group.range == "local"} Local
+              %option{value: 'regional', :selected => @mb_group.range == "regional"} Regional
+              %option{value: 'nationwide', :selected => @mb_group.range == "nationwide"} Nationwide
+              %option{value: 'international', :selected => @mb_group.range == "international"} International
+            %br
+            %label Description:
+            %textarea{ name: 'group[description]', rows: "10", cols: "70"}=@mb_group.description
+            %br
+            %input{type: "submit", value: "Save"}
+            %a{href: '#mockingbird', class: 'cancel'}Cancel
+          -# Admin edit form
+        .form.admin_area.hidden
+          %form{action: "#{@mb_group.id}/approve", method: :post}
+            %h2 This is where admin controls go.
+            - if current_user.role == 'admin' && @mb_group.pending_user.present? && @mb_group.user.nil?
+              %label User Claim
+              %input{type: "text", name: 'group[name]', value: @mb_group.pending_user.email, :disabled => true}
+              %input{type: "submit", value: "Approve"}
         -# URL Edit Form
-        %form.submit_url.hidden{action: "#{@mb_group.id}/url", method: :post}
+        .form.url_area.hidden
           - if @mb_group.links.present?
             %ul.list
               - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
                 %li
-                  %a{href: "#{link.url}"}= link.name
+                  .url_link
+                    %a{href: "#{link.url}", object_id: "#{link.id}"}= link.name
                   .url_action_links
-                    %a{href: "#{link.id}/edit"}Edit
-                    |
-                    %a{href: "#{link.id}/delete"}Delete
-
-
+                    %a{href: "#{link.id}/edit", id: "edit_url_link_#{link.id}", class: 'edit_url_link', group_id: "#{link.id}"}Edit
+                    -#|
+                    -#%a{href: "#{link.id}/delete"}Delete
+            - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
+              %form.submit_url.hidden{action: "#{@mb_group.id}/url/#{link.id}", method: :post, id: "url_edit_form_#{link.id}", group_id: "#{link.id}"}
+                %select.url{name: 'link[type]', object_id: "#{link.id}"}
+                  %option{value: 'website', :selected => link.type == "website"} Website
+                  %option{value: 'facebook', :selected => link.type  == "facebook"} Facebook
+                  %option{value: 'twitter', :selected => link.type  == "twitter"} Twitter
+                  %option{value: 'blog', :selected => link.type  == "blog"} Blog
+                  %option{value: 'calendar', :selected => link.type == "calendar"} Calendar
+                %input.url{type: "text", name: 'link[url]', value: link.url, object_id: "#{link.id}"}
+                %br
+                %br
+                %input{type: "submit", value: "Save"}
+                %a{href: '#mockingbird', class: 'cancel'}Cancel
         -# Tags Edit Form
-        %form.submit_tags.hidden{action: "#{@mb_group.id}/url", method: :post}
-          %h2 This is where tags go.
+        .form.tags_area.hidden
+          %form#tags_from{action: "#{@mb_group.id}/url", method: :post}
+            %h2 This is where tags go.
 
 
     %section{id: 'meetup_view'}

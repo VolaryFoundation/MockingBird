@@ -18,17 +18,17 @@ $(document).ready(function() {
     e.preventDefault();
     $('section#mockingbird_view').hide();
     $('section#mockingbird_edit').show();
-    $('form#submit_groups').addClass('active_form');
+    $('.form.main_info_area').show().addClass('active_area');
+    $('#main_info_area').addClass('active')
   })
 
   //Event listener for link to form show proccess
   $("a.form_nav_link").click(function(e) {
     e.preventDefault();
-    $('form.active_form').hide().removeClass('active_form')
+    $('.form.active_area').hide().removeClass('active_area')
     $('a.active').removeClass('active')
     $(e.currentTarget).addClass('active')
-    $('.' + e.currentTarget.id).show().addClass('active_form')
-    console.log(e)
+    $('.' + e.currentTarget.id).show().addClass('active_area')
   })
 
   //Event listen for canel edit form
@@ -39,6 +39,17 @@ $(document).ready(function() {
     $("form#submit_groups")[0].reset()
     resetFroms()
   })
+  //URL edit form listeners
+  $('.edit_url_link').click( function(e) {
+    e.preventDefault();
+    $('.url_area .active').removeClass('active');
+    $(e.currentTarget).parent().parent().addClass('active');
+    $('form.submit_url').hide();
+    $("form[group_id='" + $(e.currentTarget).attr('group_id') + "']").show().addClass('active');
+  })
+
+  //URL Cancel link listener
+
   //AJAX Main Info Submit
   $(function() {
     $("form#submit_groups").submit(function(e){
@@ -75,14 +86,46 @@ $(document).ready(function() {
       });
     });
   });
+
+  //AJAX URL Submit
+    $(function() {
+    $("form.submit_url").submit(function(e){
+      e.preventDefault();
+      $("#url_error").hide().text("");
+      $.ajax({
+        type: "POST",
+        url: "/api/groups/" + $(e.currentTarget).attr('action'),
+        data: $(e.currentTarget).serialize(),
+        success: function(data){
+          data = JSON.parse(data);
+          $("a[object_id='" + data.id + "']").attr('href', data.url)
+          $("a[object_id='" + data.id + "']").text(data.url)
+          $("input[object_id='" + data.id + "']").attr('value', data.url)
+          $("select[object_id='" + data.id + "']").val(data.type)
+          resetFroms()
+          $('section#mockingbird_view').show();
+          $('section#mockingbird_edit').hide();
+        },
+        error: function(data){
+          $("#group_error").text("Unable to update the link. Please check the fields and try again").show();
+        }
+      });
+    });
+  });
 })
 
 function resetFroms() {
-  $('form.active_form').removeClass('active_form');
-  $('form.submit_groups').show();
+  $('.active_area').removeClass('active_area');
+  $('.active').removeClass('active');
+  $('.form.main_info_area').hide();
+  $('.form.url_area').hide();
+  $('.form.tags_area').hide();
+  $('.form.admin_area').hide();
   $('form.submit_url').hide();
-  $('form.submit_url').hide();
-  $('form.submit_url').hide();
+  form = $('form')
+  form.each( function(index) {
+    form[index].reset();
+  });
 };
 
 
