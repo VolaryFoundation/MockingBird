@@ -3,12 +3,13 @@
     %h1 Login
   #main
     %section
-      %form#login_user{action: '/login', method: :post}
-        %label Email:
-        %input{type: "text", name: 'user[email]', :required => true}
-        %br
-        %label Password:
-        %input{type:"password", name: 'user[password]', :required => true}
-        %br
-        %input{type: "submit", value: "Login"}
-      %a{href: '/password_reset/new'}Reset Password
+      .form
+        %form#login_user{action: '/login', method: :post}
+          %label Email:
+          %input{type: "text", name: 'user[email]', :required => true}
+          %br
+          %label Password:
+          %input{type:"password", name: 'user[password]', :required => true}
+          %br
+          %input{type: "submit", value: "Login"}
+        %a{href: '/password_reset/new'}Reset Password

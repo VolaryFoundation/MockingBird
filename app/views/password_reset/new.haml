@@ -3,9 +3,10 @@
     %h1 Request Password Reset Email
   #main
     %section
-      %form#request_reset{action: '/password_reset/create', method: :post}
-        %input{type: 'hidden', name: "_method", value: "put"}
-        %label Email:
-        %input{type: "text", name: 'user[email]', :required => true}
-        %br
-        %input{type: "submit", value: "Submit"}
+      .form
+        %form#request_reset{action: '/password_reset/create', method: :post}
+          %input{type: 'hidden', name: "_method", value: "put"}
+          %label Email:
+          %input{type: "text", name: 'user[email]', :required => true}
+          %br
+          %input{type: "submit", value: "Submit"}
