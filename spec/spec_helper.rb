@@ -8,8 +8,12 @@ require "#{SPEC_ROOT}/support/vcr.rb"
 
 FactoryGirl.find_definitions
 
+Capybara.app = Rack::Builder.parse_file(File.expand_path('../../config.ru', __FILE__)).first
+
 RSpec.configure do |config|
 
+  config.include Rack::Test::Methods
+  config.include Capybara::DSL
   config.include FactoryGirl::Syntax::Methods
   config.extend VCR::RSpec::Macros
   

@@ -31,4 +31,6 @@ group :test do
   gem "faker"
   gem "vcr"
   gem "fakeweb"
+  gem "capybara"
+  gem "launchy"
 end
