@@ -44,7 +44,9 @@ For Development
 
 For Testing
 ---------------
-We are using rspec to do unit testing.
+Unit test: Rspec
+Intergration test: Rspec and Capybara
+
 
 to run test: rake spec
 
