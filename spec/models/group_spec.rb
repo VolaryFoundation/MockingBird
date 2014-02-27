@@ -2,18 +2,18 @@
 require 'spec_helper'
 
 describe Group do
-  
+
   before do
     @group = build :group
   end
-  
+
   describe 'name' do
 
     it 'should require a name' do
       @group.name = nil
       @group.should_not be_valid
     end
-    
+
     it 'should have a unique name' do
       @group.save
       group = build :group, name: @group.name
@@ -27,20 +27,20 @@ describe Group do
       @group.size = nil
       @group.should be_valid
     end
-    
+
     it 'should have a size that eqauls spcific options' do
       @group.size = 'something wrong'
       @group.should_not be_valid
     end
   end
-  
+
   describe 'range' do
 
     it 'should have require a range' do
       @group.range = nil
       @group.should_not be_valid
     end
-    
+
     it 'should be invalid if range is not in options' do
       @group.range = 'something wrong'
       @group.should_not be_valid
@@ -57,20 +57,20 @@ describe Group do
       @group.status = nil
       @group.should_not be_valid
     end
-    
+
     it "should be invalid if an non-option is passed in" do
       @group.status = 'something wrong'
       @group.should_not be_valid
     end
   end
-  
+
   describe 'location' do
     it 'should be able to have a location' do
       org = build :group_with_loc
       org.should be_valid
     end
   end
-  
+
   describe 'link' do
     it 'should be able to have a link' do
       org = build :group_with_links
@@ -79,45 +79,45 @@ describe Group do
   end
 
   describe '.keywordize' do
-   
+
     it 'should format a string as an array of keywords' do
       keywords = Group.keywordize('foo BAR')
       keywords.should be == [ 'foo', 'bar' ]
-    end 
+    end
   end
 
   describe '.generate_keywords' do
-    
+
     it 'should assign keywordized name and description as .keywords array' do
       group = create :group, name: 'foo bar', description: 'bat baz'
       group.keywords.should include('foo', 'bar', 'bat', 'baz')
     end
   end
-  
+
   describe 'claim a group' do
-    
+
     before do
-      @user = build(:user) 
+      @user = build(:user)
     end
-    
+
     it 'should set pedding user when group is claimed' do
       @group.claim_group(@user)
       @group.pending_user.should eq(@user)
     end
-    
+
     it 'should be able to approve a claim' do
       @group.claim_group(@user)
       @group.respond_to_claim('approve')
       @group.user.should eq(@user)
     end
-    
+
     it 'should be able to reject a claim' do
       @group.claim_group(@user)
       @group.respond_to_claim('reject')
       @group.user.should be_nil
       @group.pending_user.should be_nil
     end
-    
+
   end
 
   describe '.search' do
@@ -174,6 +174,27 @@ describe Group do
         @query[:a].should be 1
         @query[:b].should be 2
       end
+    end
+
+    describe 'url' do
+      describe 'add' do
+        it "should add a unquie link" do
+          @group.links.count.should eq(0)
+          @group.links << build(:link)
+          @group.links.count.should eq(1)
+        end
+      end
+      describe 'remove' do
+        it 'should remove a link' do
+          group = build :group_with_links
+          link = group.links[0]
+          count = group.links.count
+          count.should > (0)
+          group.links.delete_if{|l| l.id == link.id}
+          group.links.count.should eq(count - 1)
+        end
+      end
+
     end
   end
 end

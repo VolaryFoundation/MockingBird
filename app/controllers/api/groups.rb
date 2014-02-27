@@ -54,6 +54,23 @@ module SC
           no_save
         end
       end
+
+      #post "/:group_id/delete_url/:url_id" do
+      #  user = User.find(session[:user_id])
+      #  @group = Group.find(params[:group_id])
+      #  link =  @group.links.find(params[:url_id])
+      #  @group.links.delete_if{|l| l.id  == link.id}
+      #  if user.present? && (@group.user == @user || user.role = 'admin')
+      #    if @group.save
+      #      ok link.id.to_json
+      #    else
+      #      # Figure out what to do for an error
+      #    end
+      #  else
+      #    no_save
+      #  end
+      #end
+
     end
   end
 end

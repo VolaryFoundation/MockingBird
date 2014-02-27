@@ -13,6 +13,7 @@ $(document).ready(function() {
       }
     }
   });
+
   //Event Listenr for Edit form
   $("a.edit_link", $('section#mockingbird_view')).click(function(e) {
     e.preventDefault();
@@ -48,73 +49,68 @@ $(document).ready(function() {
     $("form[group_id='" + $(e.currentTarget).attr('group_id') + "']").show().addClass('active');
   })
 
-  //URL Cancel link listener
-
-  //AJAX Main Info Submit
-  $(function() {
-    $("form#submit_groups").submit(function(e){
-      e.preventDefault();
-      $("#group_error").hide().text("");
-      $.ajax({
-        type: "POST",
-        url: "/api/groups/" + $("form#submit_groups").attr('action'),
-        data: $('form#submit_groups').serialize(),
-        success: function(data){
-          data = JSON.parse(data);
-          detailsUL = $('ul.mocking_bird_details')
-          //Update Location
-          locationLI = $('li.location', detailsUL)
-          $('span.text', locationLI).text(locationHelper(data.location))
-          //Update range
-          rangeLI = $('li.range', detailsUL)
-          $('span.text', rangeLI).text(data.range)
-          //Update name
-          nameLI = $('li.name', detailsUL)
-          $('span.text', nameLI).text(data.name)
-          //Update tags
-          descriptionLI = $('li.description', detailsUL)
-          $('span.text', descriptionLI).text(data.description)
-          //Update tags
-          tagsLI = $('li.tags', detailsUL)
-          $('span.text', tagsLI).text(data.tags.join(", "))
-          $('section#mockingbird_view').show();
-          $('section#mockingbird_edit').hide();
-        },
-        error: function(data){
+  //AJAX Submit
+  $("form").submit(function(e){
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "/api/groups/" + $(e.currentTarget).attr('action'),
+      data: $(e.currentTarget).serialize(),
+      success: function(data){
+        console.log(e);
+        data = JSON.parse(data);
+        if ($(e.currentTarget).hasClass('submit_url')) {urlChangeUpdates(data)}
+        else if ($(e.currentTarget).hasClass('submit_groups')) {mainInfoChangeUpdates(data);};
+      },
+      error: function(data){
+        if ($(e.currentTarget).hasClass('submit_url')) {
+          $("#url_error").text("Unable to update the link. Please check the fields and try again").show();
+        } else if ($(e.currentTarget).hasClass('submit_groups')) {
           $("#group_error").text("Unable to update the group. Please check the fields and try again").show();
         }
-      });
+      }
     });
   });
 
-  //AJAX URL Submit
-    $(function() {
-    $("form.submit_url").submit(function(e){
-      e.preventDefault();
-      $("#url_error").hide().text("");
-      $.ajax({
-        type: "POST",
-        url: "/api/groups/" + $(e.currentTarget).attr('action'),
-        data: $(e.currentTarget).serialize(),
-        success: function(data){
-          data = JSON.parse(data);
-          $("a[object_id='" + data.id + "']").attr('href', data.url)
-          $("a[object_id='" + data.id + "']").text(data.url)
-          $("input[object_id='" + data.id + "']").attr('value', data.url)
-          $("select[object_id='" + data.id + "']").val(data.type)
-          resetFroms()
-          $('section#mockingbird_view').show();
-          $('section#mockingbird_edit').hide();
-        },
-        error: function(data){
-          $("#group_error").text("Unable to update the link. Please check the fields and try again").show();
-        }
-      });
-    });
-  });
 })
 
+
+function mainInfoChangeUpdates(data) {
+  $("#group_error").hide().text("");
+  detailsUL = $('ul.mocking_bird_details')
+  //Update Location
+  locationLI = $('li.location', detailsUL)
+  $('span.text', locationLI).text(locationHelper(data.location))
+  //Update range
+  rangeLI = $('li.range', detailsUL)
+  $('span.text', rangeLI).text(data.range)
+  //Update name
+  nameLI = $('li.name', detailsUL)
+  $('span.text', nameLI).text(data.name)
+  //Update tags
+  descriptionLI = $('li.description', detailsUL)
+  $('span.text', descriptionLI).text(data.description)
+  //Update tags
+  tagsLI = $('li.tags', detailsUL)
+  $('span.text', tagsLI).text(data.tags.join(", "))
+  $('section#mockingbird_view').show();
+  $('section#mockingbird_edit').hide();
+}
+
+
+function urlChangeUpdates(data) {
+  $("#url_group_error").hide().text("");
+  $("a[object_id='" + data.id + "']").attr('href', data.url)
+  $("a[object_id='" + data.id + "']").text(data.url)
+  $("input[object_id='" + data.id + "']").attr('value', data.url)
+  $("select[object_id='" + data.id + "']").val(data.type)
+  resetFroms()
+  $('section#mockingbird_view').show();
+  $('section#mockingbird_edit').hide();
+}
+
 function resetFroms() {
+  $("#group_error").hide().text("");
   $('.active_area').removeClass('active_area');
   $('.active').removeClass('active');
   $('.form.main_info_area').hide();

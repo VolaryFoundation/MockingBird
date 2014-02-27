@@ -147,8 +147,8 @@
                     %a{href: "#{link.url}", object_id: "#{link.id}"}= link.name
                   .url_action_links
                     %a{href: "#{link.id}/edit", id: "edit_url_link_#{link.id}", class: 'edit_url_link', group_id: "#{link.id}"}Edit
-                    -#|
-                    -#%a{href: "#{link.id}/delete"}Delete
+                    |
+                    %a{href: "#{link.id}/delete", id: "delete_url_link_#{link.id}", class: 'delete_url_link', group_id: "#{link.id}"}Delete
             - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
               %form.submit_url.hidden{action: "#{@mb_group.id}/url/#{link.id}", method: :post, id: "url_edit_form_#{link.id}", group_id: "#{link.id}"}
                 %select.url{name: 'link[type]', object_id: "#{link.id}"}
