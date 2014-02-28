@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  var doc = $(document)
   //Add google map to blank image.
   $(".group_img").each(function(image) {
     if (this.getAttribute('src') == 'http://placehold.it/180x125.png') {
@@ -50,30 +51,45 @@ $(document).ready(function() {
   })
 
   //AJAX Submit
-  $("form").submit(function(e){
-    e.preventDefault();
-    $.ajax({
-      type: "POST",
-      url: "/api/groups/" + $(e.currentTarget).attr('action'),
-      data: $(e.currentTarget).serialize(),
-      success: function(data){
-        console.log(e);
-        data = JSON.parse(data);
-        if ($(e.currentTarget).hasClass('submit_url')) {urlChangeUpdates(data)}
-        else if ($(e.currentTarget).hasClass('submit_groups')) {mainInfoChangeUpdates(data);};
-      },
-      error: function(data){
-        if ($(e.currentTarget).hasClass('submit_url')) {
-          $("#url_error").text("Unable to update the link. Please check the fields and try again").show();
-        } else if ($(e.currentTarget).hasClass('submit_groups')) {
-          $("#group_error").text("Unable to update the group. Please check the fields and try again").show();
-        }
-      }
-    });
-  });
+  doc.on("submit", "form.ajax_submit", function(e) {ajaxSubmit(e)} );
+  doc.on("click", "a.ajax_submit", function(e) {ajaxSubmit(e)} );
+
 
 })
 
+function ajaxSubmit(e) {
+  e.preventDefault();
+  $.ajax({
+    type: "POST",
+    url: "/api/groups/" + $(e.currentTarget).attr('action'),
+    data: $(e.currentTarget).serialize(),
+    success: function(data){
+     console.log(e);
+     data = JSON.parse(data);
+     target = $(e.currentTarget)
+     if (target.hasClass('submit_url')) {urlChangeUpdates(data)}
+     else if (target.hasClass('submit_groups')) {mainInfoChangeUpdates(data);}
+     else if (target.hasClass('delete_url_link')) {urlDeleteUpdate(data)};
+    },
+    error: function(data){
+     if ($(e.currentTarget).hasClass('submit_url')) {
+       $("#url_error").text("Unable to update the link. Please check the fields and try again").show();
+     } else if ($(e.currentTarget).hasClass('submit_groups')) {
+       $("#group_error").text("Unable to update the group. Please check the fields and try again").show();
+     } else if ($(e.currentTarget).hasClass('submit_groups')) {
+       $("#url_error").text("Unable to delete the URL.").show();
+     }
+    }
+  });
+};
+
+function urlDeleteUpdate(data) {
+  $("[group_id='" + data.id + "']").remove();
+  $('section#mockingbird_view').show();
+  $('section#mockingbird_edit').hide();
+  resetFroms();
+  alert(data);
+}
 
 function mainInfoChangeUpdates(data) {
   $("#group_error").hide().text("");
