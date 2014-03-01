@@ -25,37 +25,73 @@ $(document).ready(function() {
   })
 
   //Event listener for link to form show proccess
-  $("a.form_nav_link").click(function(e) {
+  doc.on('click', "a.form_nav_link", function(e) {
     e.preventDefault();
     $('.form.active_area').hide().removeClass('active_area')
     $('a.active').removeClass('active')
     $(e.currentTarget).addClass('active')
     $('.' + e.currentTarget.id).show().addClass('active_area')
+    if(e.currentTarget.id == 'url_area') { 
+      resetAll()
+      setInitalUrlView()
+    }
   })
 
   //Event listen for canel edit form
-  $("a.cancel", $('section#mockingbird_edit')).click(function(e) {
+  $("a.cancel.main_info", $('section#mockingbird_edit')).click(function(e) {
     e.preventDefault();
+    $('.hideable').hide();
     $('section#mockingbird_view').show();
-    $('section#mockingbird_edit').hide();
-    $("form#submit_groups")[0].reset()
+    deactivateAll()
     resetFroms()
   })
-  //URL edit form listeners
-  $('.edit_url_link').click( function(e) {
+
+  doc.on('click', '.cancel.url', function(e) {
     e.preventDefault();
-    $('.url_area .active').removeClass('active');
+    resetAll()
+    setInitalUrlView()
+  })
+
+  //URL edit form listeners
+  doc.on('click', '.edit_url_link', function(e) {
+    e.preventDefault();
+    resetAll()
+    setInitalUrlView()
     $(e.currentTarget).parent().parent().addClass('active');
-    $('form.submit_url').hide();
+    $('#showAddForm').hide()
     $("form[group_id='" + $(e.currentTarget).attr('group_id') + "']").show().addClass('active');
   })
 
   //AJAX Submit
   doc.on("submit", "form.ajax_submit", function(e) {ajaxSubmit(e)} );
-  doc.on("click", "a.ajax_submit", function(e) {ajaxSubmit(e)} );
+  doc.on("click", "a.ajax_submit", function(e) {
+    r = confirm('This will permanently delete this link. Are you sure you want to do this?');
+    if(r == true){
+      ajaxSubmit(e)
+    } else {e.preventDefault();}
+  });
 
-
+  //Add url create form event listener
+  doc.on("click", '#showAddForm', function(e) {
+    e.preventDefault();
+    $(e.currentTarget).hide()
+    $('#add_url_form').show()
+  })
 })
+
+function resetAll() {
+    $('.hideable').hide();
+    deactivateAll();
+    resetFroms();
+}
+
+function setInitalUrlView(){
+  $('section#mockingbird_edit').show();
+  $('.url_area').show().addClass('active_area')
+  $('#url_area').addClass('active')
+  $('#showAddForm').show()
+
+}
 
 function ajaxSubmit(e) {
   e.preventDefault();
@@ -69,7 +105,8 @@ function ajaxSubmit(e) {
      target = $(e.currentTarget)
      if (target.hasClass('submit_url')) {urlChangeUpdates(data)}
      else if (target.hasClass('submit_groups')) {mainInfoChangeUpdates(data);}
-     else if (target.hasClass('delete_url_link')) {urlDeleteUpdate(data)};
+     else if (target.hasClass('delete_url_link')) {urlDeleteUpdate(data);}
+     else if (target.hasClass('add_url_link')) {urlAddUpdate(data)};
     },
     error: function(data){
      if ($(e.currentTarget).hasClass('submit_url')) {
@@ -83,13 +120,72 @@ function ajaxSubmit(e) {
   });
 };
 
+function buildEditLi(group, link) {
+  listItem = jQuery('<li />').attr({group_id: link.id})
+  theLinkDiv = jQuery('<div />').attr({class: 'url_link'}).append(jQuery('<a />').attr({href: link.url, group_id: link.id, object_id: link.id}).text(link.name))
+  theActionDiv = jQuery('<div />').attr({class: 'url_action_links'})
+  editLink = jQuery('<a />').attr({class: 'edit_url_link', group_id: link.id, href: link.id + '/edit', id: 'edit_url_link_' + link.id}).text('Edit')
+  deleteLink = jQuery('<a />').attr({action:  group.id + '/delete_url/' + link.id, class: 'delete_url_link ajax_submit', group_id: link.id, href: link.id + '/delete', id: 'delete_url_link_' + link.id}).text('Delete')
+  theActionDiv.append(editLink).append(' |').append(deleteLink)
+  listItem.append(theLinkDiv).append(theActionDiv)
+  return listItem
+}
+
+function urlAddUpdate(data) {
+  group = data[0]; //combined in array at controller level
+  link = data[1];
+  $('.form.url_area').append(buildEditUrlForm(group, link));
+  $('#edit_url_list').append(buildEditLi(group, link))
+  $('#view_url_list').append('<li group_id= ' + link.id + '><a href=' + link.url + ' object_id= ' + link.id + ' group_id= ' + link.id + '>' + link.url + '</a></li>')
+  deactivateAll()
+  resetFroms();
+  $('.hideable').hide();
+  $('section#mockingbird_edit').show();
+  $('.url_area').show().addClass('active_area')
+  $('#showAddForm').show()
+  $('#url_area').addClass('active')
+}
 function urlDeleteUpdate(data) {
   $("[group_id='" + data.id + "']").remove();
-  $('section#mockingbird_view').show();
-  $('section#mockingbird_edit').hide();
+  $('.hideable').hide();
+  deactivateAll()
+  $('section#mockingbird_edit').show();
+  $('.form.url_area').show()
+  $('#url_area').addClass('active_area');
+  $('#showAddForm').show()
   resetFroms();
-  alert(data);
 }
+
+function buildEditUrlForm(group, link) {
+  form = jQuery('<form />').attr({action: group.id + '/url/' + link.id, method: 'post', id: 'url_edit_form_' + link.id, group_id: link.id, class: 'hidden hideable ajax_submit submit_url' })
+  select = jQuery('<select />').attr({name: 'link[type]', class: 'url'})
+  options = ['website', 'facebook', 'twitter', 'blog', 'calendar', 'custom']
+  options.forEach(function(option){
+     currentOp = jQuery('<option />').attr({value: option})
+     if (currentOp.attr('value') == link.type) {
+       currentOp.attr({selected: true}).text(capFirstLetter(link.type))
+     }
+     currentOp.appendTo(select)
+  })
+  input = jQuery('<input type="text" />').attr({name: 'link[url]', value: link.url, object_id: link.id, class: 'url'})
+  submit = jQuery('<input type="submit" />').attr({value: 'Save'})
+  cancel = jQuery('<a />').attr({href: '#mockingbird', class: 'cancel url'}).text('Cancel')
+  elements = [select, input, jQuery('<br />'), jQuery('<br />'), submit, cancel]
+  elements.forEach(function(element) {
+    element.appendTo(form)
+  })
+  return form
+}
+
+function capFirstLetter(string){
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function deactivateAll() {
+  $('.active').removeClass('active')
+  $('.active_area').removeClass('active_area')
+}
+
 
 function mainInfoChangeUpdates(data) {
   $("#group_error").hide().text("");
@@ -115,25 +211,15 @@ function mainInfoChangeUpdates(data) {
 
 
 function urlChangeUpdates(data) {
-  $("#url_group_error").hide().text("");
+  resetAll()
   $("a[object_id='" + data.id + "']").attr('href', data.url)
   $("a[object_id='" + data.id + "']").text(data.url)
   $("input[object_id='" + data.id + "']").attr('value', data.url)
   $("select[object_id='" + data.id + "']").val(data.type)
-  resetFroms()
-  $('section#mockingbird_view').show();
-  $('section#mockingbird_edit').hide();
+  setInitalUrlView()
 }
 
 function resetFroms() {
-  $("#group_error").hide().text("");
-  $('.active_area').removeClass('active_area');
-  $('.active').removeClass('active');
-  $('.form.main_info_area').hide();
-  $('.form.url_area').hide();
-  $('.form.tags_area').hide();
-  $('.form.admin_area').hide();
-  $('form.submit_url').hide();
   form = $('form')
   form.each( function(index) {
     form[index].reset();

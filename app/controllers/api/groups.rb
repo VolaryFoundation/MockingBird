@@ -36,6 +36,24 @@ module SC
         end
       end
 
+
+      post "/:id/add_url" do
+        user = User.find(session[:user_id])
+        group = Group.find(params[:id])
+        link = Link.new(params[:link])
+        link.name = link.url
+        group.links << link
+        if user.present? && (group.user == user || user.role = 'admin')
+          if group.save
+            ok "[#{group.to_json},#{link.to_json}]"
+          else
+            no_post link.to_json
+          end
+        else
+          no_save
+        end
+      end
+
       post "/:group_id/url/:url_id" do
         user = User.find(session[:user_id])
         @group = Group.find(params[:group_id])

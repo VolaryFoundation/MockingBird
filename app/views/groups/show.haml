@@ -45,7 +45,7 @@
                 %a{href: "#{link.url}"}= link.name
         -else
           This group has no links.
-    %section{id: 'mockingbird_view'}
+    %section#mockingbird_view.hideable
       %h2 Secular Connect Info
       - if @mb_group.present?
         .edit_links
@@ -72,22 +72,18 @@
             %span.label Description:
             %br
             %span.text= @mb_group.description if @mb_group.description.present?
-          - if @mb_group.links.present?
-            %li
-              %span.label Links:
-              %ul.list
+          %li
+            %span.label Links:
+            %ul#view_url_list.list
+              - if @mb_group.links.present?
                 - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
                   %li{group_id: "#{link.id}"}
                     %a{href: "#{link.url}", object_id: "#{link.id}", group_id: "#{link.id}"}= link.name
-          -else
-            %li
-              %span.label Links:
-              This group has no links.
     -if current_user.present? && (current_user == @mb_group.user || current_user.role == 'admin')
-      %section{id: 'mockingbird_edit', class: 'hidden'}
+      %section{id: 'mockingbird_edit', class: 'hidden hideable'}
         %h2 Edit Secular Connect Info
         .edit_links
-          %a{href: '#mockingbird', class: 'edit_link cancel'}Cancel
+          %a{href: '#mockingbird', class: 'main_info edit_link cancel'}Cancel
         %ul.form_nav
           %li
             %a.form_nav_link#main_info_area{href: "#"} Main Info
@@ -98,8 +94,8 @@
           %li.hidden
             %a.form_nav_link#admin_area{href: "#"} Admin
         .form.main_info_area
-          #group_error.hidden
-          %form#submit_groups.submit_groups{action: "#{@mb_group.id}", method: :post}
+          #group_error.hidden.hideable
+          %form#submit_groups.submit_groups.ajax_submit{action: "#{@mb_group.id}", method: :post}
             %label Name:
             %input{type: "text", name: 'group[name]', value: @mb_group.name}
             %br
@@ -128,9 +124,9 @@
             %textarea{ name: 'group[description]', rows: "10", cols: "70"}=@mb_group.description
             %br
             %input{type: "submit", value: "Save"}
-            %a{href: '#mockingbird', class: 'cancel'}Cancel
+            %a{href: '#mockingbird', class: 'main_info cancel'}Cancel
           -# Admin edit form
-        .form.admin_area.hidden
+        .form.admin_area.hidden.hideable
           %form{action: "#{@mb_group.id}/approve", method: :post}
             %h2 This is where admin controls go.
             - if current_user.role == 'admin' && @mb_group.pending_user.present? && @mb_group.user.nil?
@@ -138,9 +134,9 @@
               %input{type: "text", name: 'group[name]', value: @mb_group.pending_user.email, :disabled => true}
               %input{type: "submit", value: "Approve"}
         -# URL Edit Form
-        .form.url_area.hidden
-          - if @mb_group.links.present?
-            %ul.list
+        .form.url_area.hidden.hideable
+          %ul.list#edit_url_list
+            - if @mb_group.links.present?
               - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
                 %li{group_id: "#{link.id}"}
                   .url_link
@@ -150,8 +146,8 @@
                     |
                     %a{href: "#{link.id}/delete", action: "#{@mb_group.id}/delete_url/#{link.id}", id: "delete_url_link_#{link.id}", class: 'delete_url_link ajax_submit', group_id: "#{link.id}"}Delete
             - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
-              %form.submit_url.hidden{action: "#{@mb_group.id}/url/#{link.id}", method: :post, id: "url_edit_form_#{link.id}", group_id: "#{link.id}"}
-                %select.url{name: 'link[type]', object_id: "#{link.id}"}
+              %form.submit_url.ajax_submit.hidden.hideable{action: "#{@mb_group.id}/url/#{link.id}", method: :post, id: "url_edit_form_#{link.id}", group_id: "#{link.id}"}
+                %select.url{name: 'link[type]'}
                   %option{value: 'website', :selected => link.type == "website"} Website
                   %option{value: 'facebook', :selected => link.type  == "facebook"} Facebook
                   %option{value: 'twitter', :selected => link.type  == "twitter"} Twitter
@@ -161,9 +157,28 @@
                 %br
                 %br
                 %input{type: "submit", value: "Save"}
-                %a{href: '#mockingbird', class: 'cancel'}Cancel
+                %a{href: '#mockingbird', class: 'cancel url'}Cancel
+          .url_add_form
+            #showAddForm.hideable
+              %a{href: "#showAddForm"}Add a Link
+              %a.cancel.main_info{href: "#cancel"}Done
+            %form.add_url_link.ajax_submit.hideable.hidden{action: "#{@mb_group.id}/add_url", method: :post, id: "add_url_form"}
+              %select.url{name: 'link[type]'}
+                %option{value: '', disabled: true, selected: true} Choose Type
+                %option{value: 'website'} Website
+                %option{value: 'facebook'} Facebook
+                %option{value: 'twitter'} Twitter
+                %option{value: 'blog'} Blog
+                %option{value: 'calendar'} Calendar
+              %input.url{type: "text", name: 'link[url]'}
+              %br
+              %br
+              %input{type: "submit", value: "Add"}
+              %a{href: '#mockingbird', class: 'cancel url'}Cancel
+
+
         -# Tags Edit Form
-        .form.tags_area.hidden
+        .form.tags_area.hidden.hideable
           %form#tags_from{action: "#{@mb_group.id}/url", method: :post}
             %h2 This is where tags go.
 
