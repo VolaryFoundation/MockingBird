@@ -2,10 +2,10 @@ require 'spec_helper.rb'
 
 describe "Group Edit" do
   before do
-    @group = create :group_with_mock_id
+    @group = create :group
     @user = create :admin
     login_helper(@user.email, @user.password)
-    visit "/groups/#{@group.eagle_id}"
+    visit "/groups/#{@group.id}"
   end
 
   it 'should switch to main info edit when link is clicked', vcr: true do
