@@ -11,6 +11,7 @@ module SC
         begin
           @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups?keys[location.state]=#{params[:state]}")
         rescue
+          puts "Had to rescue"
           @group = nil
         end
       elsif params[:city].present?
@@ -37,6 +38,7 @@ module SC
     end
     
     get "/:id" do
+      puts "#{ENV['EAGLE_SERVER']}groups/#{params[:id]}"
       begin
         @eagle_group = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups/#{params[:id]}")
       rescue

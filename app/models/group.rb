@@ -5,7 +5,7 @@ class Group
 
   before_save :generate_keywords
   
-  after_save :send_to_eagle
+  #after_save :send_to_eagle
 
   one :location
   belongs_to :user

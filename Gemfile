@@ -30,7 +30,7 @@ group :test do
   gem "factory_girl"
   gem "faker"
   gem "vcr"
-  gem "fakeweb"
+  gem "webmock"
   gem "capybara"
   gem "launchy"
 end

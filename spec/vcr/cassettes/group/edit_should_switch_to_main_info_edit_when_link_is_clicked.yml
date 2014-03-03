@@ -1,0 +1,47 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: http://localhost:3000/groups/refs
+    body:
+      encoding: UTF-8
+      string: '[{"mockingbird":"5313bfd94ba84d8130000001"},[]]'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate
+      content-type:
+      - application/json
+      content-length:
+      - '47'
+      user-agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      x-powered-by:
+      - Express
+      access-control-allow-origin:
+      - '*'
+      access-control-allow-headers:
+      - X-Requested-With
+      access-control-allow-methods:
+      - GET,PUT,POST,DELETE
+      content-type:
+      - text/html
+      date:
+      - Sun, 02 Mar 2014 23:33:46 GMT
+      connection:
+      - keep-alive
+      transfer-encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        Cannot PUT /groups/refs
+    http_version: '1.1'
+  recorded_at: Sun, 02 Mar 2014 23:33:46 GMT
+recorded_with: VCR 2.8.0

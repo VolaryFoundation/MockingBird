@@ -1,0 +1,166 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3000/groups/52def79decef61396c0bedaf
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Powered-By:
+      - Express
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Methods:
+      - GET,PUT,POST,DELETE
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '2650'
+      Etag:
+      - '"-1379336746"'
+      Date:
+      - Mon, 03 Mar 2014 00:21:17 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "_id": "52def79decef61396c0bedaf",
+          "description": null,
+          "images": [],
+          "keywords": [
+            "the",
+            "auckland",
+            "university",
+            "atheists"
+          ],
+          "links": [
+            {
+              "id": "52def79d2dfcea0002000002",
+              "name": "http://www.nzarh.org.nz/index.htm",
+              "type": "Website",
+              "url": "http://www.nzarh.org.nz/index.htm"
+            },
+            {
+              "id": "52def79d2dfcea0002000004",
+              "name": "http://www.atheistalliance.org/activities",
+              "type": "Calendar",
+              "url": "http://www.atheistalliance.org/activities"
+            }
+          ],
+          "location": {
+            "city": "Auckland",
+            "country": "nz",
+            "id": "52def79d2dfcea0002000003",
+            "lng_lat": [
+              174.7686842,
+              -36.8521252
+            ],
+            "postal_code": "1010",
+            "state": "auckland"
+          },
+          "name": "The Auckland University Atheists",
+          "props": {
+            "name": [
+              {
+                "value": "The Auckland University Atheists",
+                "source": "mockingbird",
+                "expires": 1393920441
+              }
+            ],
+            "location": [
+              {
+                "value": {
+                  "city": "Auckland",
+                  "country": "nz",
+                  "id": "52def79d2dfcea0002000003",
+                  "lng_lat": [
+                    174.7686842,
+                    -36.8521252
+                  ],
+                  "postal_code": "1010",
+                  "state": "auckland"
+                },
+                "source": "mockingbird",
+                "expires": 1393920441
+              }
+            ],
+            "range": [
+              {
+                "value": "local",
+                "source": "mockingbird",
+                "expires": 1393920441
+              }
+            ],
+            "links": [
+              {
+                "value": [
+                  {
+                    "id": "52def79d2dfcea0002000002",
+                    "name": "http://www.nzarh.org.nz/index.htm",
+                    "type": "Website",
+                    "url": "http://www.nzarh.org.nz/index.htm"
+                  },
+                  {
+                    "id": "52def79d2dfcea0002000004",
+                    "name": "http://www.atheistalliance.org/activities",
+                    "type": "Calendar",
+                    "url": "http://www.atheistalliance.org/activities"
+                  }
+                ],
+                "source": "mockingbird",
+                "expires": 1393920441
+              }
+            ],
+            "tags": [
+              {
+                "value": [
+                  "atheist",
+                  "secular"
+                ],
+                "source": "mockingbird",
+                "expires": 1393920441
+              }
+            ],
+            "keywords": [
+              {
+                "value": [
+                  "the",
+                  "auckland",
+                  "university",
+                  "atheists"
+                ],
+                "source": "mockingbird",
+                "expires": 1393920441
+              }
+            ]
+          },
+          "range": "local",
+          "refs": {
+            "mockingbird": "5555"
+          },
+          "size": null,
+          "tags": [
+            "atheist",
+            "secular"
+          ],
+          "website": "http://www.nzarh.org.nz/index.htm"
+        }
+    http_version: 
+  recorded_at: Mon, 03 Mar 2014 00:21:17 GMT
+recorded_with: VCR 2.8.0

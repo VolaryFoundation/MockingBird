@@ -23,7 +23,7 @@
             = @eagle_group['size'].present? ?  @eagle_group['size'] : 'Unknown'
           %li
             %span{class: 'label'}Last Updated:
-            = @mb_group.updated_at.present? ? @mb_group.updated_at : 'Unknown'
+            = (@mb_group.present? && @mb_group.updated_at.present?) ? @mb_group.updated_at : 'Unknown'
           %li
       #main-info-description
         -if @eagle_group['description']
@@ -38,7 +38,7 @@
             %li This group has no tags
       #main-info-description
         %h2 Links
-        - if @mb_group.links.present?
+        - if @mb_group.present? && @mb_group.links.present?
           %ul.list
             - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
               %li

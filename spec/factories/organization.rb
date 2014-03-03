@@ -5,13 +5,18 @@ FactoryGirl.define do
     size { Group::SIZE_OPTIONS.sample }
     range { Group::RANGE_OPTIONS.sample }
     tags { Faker::SC.tags }
-    
+    eagle_id '52def79decef61396c0bedaf'
+
+    factory :group_with_mock_id do
+      _id '5555'
+    end
+
     factory :group_with_loc do
        after(:build) do |org|
           org.location = FactoryGirl.create(:location)
        end
     end
-    
+
     factory :group_with_links do
        after(:build) do |org|
          ([*2..5].sample).times do
@@ -19,7 +24,7 @@ FactoryGirl.define do
          end
        end
     end
-    
+
   end
 end
 
