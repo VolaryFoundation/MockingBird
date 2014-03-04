@@ -31,6 +31,6 @@ group :test do
   gem "faker"
   gem "vcr"
   gem "webmock"
-  gem "capybara"
+  gem 'capybara-webkit'
   gem "launchy"
 end

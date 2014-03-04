@@ -123,7 +123,7 @@
             %label Description:
             %textarea{ name: 'group[description]', rows: "10", cols: "70"}=@mb_group.description
             %br
-            %input{type: "submit", value: "Save"}
+            %input#main_info_submit{type: "submit", value: "Save"}
             %a{href: '#mockingbird', class: 'main_info cancel'}Cancel
           -# Admin edit form
         .form.admin_area.hidden.hideable

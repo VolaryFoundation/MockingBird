@@ -1,5 +1,7 @@
 $(document).ready(function() {
   var doc = $(document)
+  $('.hideable').hide();
+  $('section#mockingbird_view').show();
   //Add google map to blank image.
   $(".group_img").each(function(image) {
     if (this.getAttribute('src') == 'http://placehold.it/180x125.png') {

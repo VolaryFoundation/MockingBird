@@ -10,6 +10,8 @@ require "#{SPEC_ROOT}/support/login_helper.rb"
 FactoryGirl.find_definitions
 
 Capybara.app = Rack::Builder.parse_file(File.expand_path('../../config.ru', __FILE__)).first
+Capybara.ignore_hidden_elements = true
+Capybara.javascript_driver = :webkit
 
 RSpec.configure do |config|
 
