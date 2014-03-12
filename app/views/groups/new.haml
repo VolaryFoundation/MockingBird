@@ -1,0 +1,42 @@
+#frame
+  #page_title
+    %h1= 'Create New Group'
+  #main
+    %section{id: 'mockingbird_edit'}
+      .form.main_info_area
+        -if @group.errors.present?
+          #group_error
+            - @group.errors.each do |key, error|
+              %li= "#{key}: #{error}"
+        %form{action: "create", method: :post}
+          %label Name:
+          %input{type: "text", name: 'group[name]', value: @group.name, required: 'true'}
+          %br
+          -#############Location Field####################
+          %label Location:
+          %input#autocomplete{value: "#{location_to_html(@group.location)}", onFocus: "geolocate()", type:"text", required: 'true'}
+          %br
+          -#############Google Crap Field####################
+          .hidden
+            %input.field#address{name: "group[location][address]", value: (@group.location.street_address if @group.location.street_address.present?)}
+            %input.field#street_number{name: "group[location][street_num]", value: (@group.location.street_num if @group.location.street_num.present?)}
+            %input.field#route{name: "group[location][street_address]", value: (@group.location.street_address if @group.location.street_address.present?)}
+            %input.field#locality{name: "group[location][city]", value: (@group.location.city if @group.location.city.present?)}
+            %input.field#administrative_area_level_1{name: "group[location][state]", value: (@group.location.state if @group.location.state.present?)}
+            %input.field#postal_code{name: "group[location][postal_code]", value: (@group.location.postal_code if @group.location.postal_code.present?)}
+            %input.field#country{name: "group[location][country]", value: (@group.location.country if @group.location.country.present?)}
+          -#############End Google Crap#####################
+          %label Range:
+          %select{name: 'group[range]'}
+            %option{value: 'local', :selected => @group.range == "local"} Local
+            %option{value: 'regional', :selected => @group.range == "regional"} Regional
+            %option{value: 'nationwide', :selected => @group.range == "nationwide"} Nationwide
+            %option{value: 'international', :selected => @group.range == "international"} International
+          %br
+          %label Description:
+          %textarea{ name: 'group[description]', rows: "10", cols: "70"}=@group.description
+          %br
+          %input#main_info_submit{type: "submit", value: "Save"}
+          %a{href: '#mockingbird', class: 'main_info cancel'}Cancel
+
+

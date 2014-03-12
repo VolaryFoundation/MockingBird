@@ -1,50 +1,55 @@
 #frame
   #page_title
-    %h1= @eagle_group['name']
+    %h1= @eagle_group.present? ? @eagle_group['name']: @mb_group.name
   #main
-    %section{id: 'composit_view'}
-      %h2 About this Group
-      #main-info-details
-        -if @eagle_group['images'].present? && @eagle_group['images'][0].present? && !@eagle_group['images'][0].empty?
-          %img.group_img.resize{src: @eagle_group['images'][0], extra_info_state: @eagle_group['location']['state'], extra_info_city: @eagle_group['location']['city']}
-        -else
-          %img.group_img.resize{src: "http://placehold.it/180x125.png", extra_info_state: @eagle_group['location']['state'], extra_info_city: @eagle_group['location']['city']}
-        %ul
-          %li
-            - if @eagle_group['location'].present?
-              %span{ class:'label'}= location_to_html(@eagle_group['location'])
-            - else
-              %span{ class:'label'}Location Unknown
-          %li
-            %span{class:'label'}Range of Operation:
-            = @eagle_group['range'].present? ?  @eagle_group['range'] : 'Local'
-          %li
-            %span{class:'label'}Number of Members:
-            = @eagle_group['size'].present? ?  @eagle_group['size'] : 'Unknown'
-          %li
-            %span{class: 'label'}Last Updated:
-            = (@mb_group.present? && @mb_group.updated_at.present?) ? @mb_group.updated_at : 'Unknown'
-          %li
-      #main-info-description
-        -if @eagle_group['description']
-          = @eagle_group['description']
-      #main-info-keywords
-        %ul
-          %li <span class='label'>Tags: </span>
-          -if @mb_group.present? && @mb_group.present?
-            - @mb_group.tags.each do |word|
-              %li=word.titleize
+    - if @eagle_group.present?
+      %section{id: 'composit_view'}
+        %h2 About this Group
+        #main-info-details
+          -if @eagle_group['images'].present? && @eagle_group['images'][0].present? && !@eagle_group['images'][0].empty?
+            %img.group_img.resize{src: @eagle_group['images'][0], extra_info_state: @eagle_group['location']['state'], extra_info_city: @eagle_group['location']['city']}
           -else
-            %li This group has no tags
-      #main-info-description
-        %h2 Links
-        - if @mb_group.present? && @mb_group.links.present?
-          %ul.list
-            - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
-              %li
-                %a{href: "#{link.url}"}= link.name
-        -else
-          This group has no links.
+            %img.group_img.resize{src: "http://placehold.it/180x125.png", extra_info_state: @eagle_group['location']['state'], extra_info_city: @eagle_group['location']['city']}
+          %ul
+            %li
+              - if @eagle_group['location'].present?
+                %span{ class:'label'}= location_to_html(@eagle_group['location'])
+              - else
+                %span{ class:'label'}Location Unknown
+            %li
+              %span{class:'label'}Range of Operation:
+              = @eagle_group['range'].present? ?  @eagle_group['range'] : 'Local'
+            %li
+              %span{class:'label'}Number of Members:
+              = @eagle_group['size'].present? ?  @eagle_group['size'] : 'Unknown'
+            %li
+              %span{class: 'label'}Last Updated:
+              = (@mb_group.present? && @mb_group.updated_at.present?) ? @mb_group.updated_at : 'Unknown'
+            %li
+        #main-info-description
+          -if @eagle_group['description']
+            = @eagle_group['description']
+        #main-info-keywords
+          %ul
+            %li <span class='label'>Tags: </span>
+            -if @mb_group.present? && @mb_group.present?
+              - @mb_group.tags.each do |word|
+                %li=word.titleize
+            -else
+              %li This group has no tags
+        #main-info-description
+          %h2 Links
+          - if @mb_group.present? && @mb_group.links.present?
+            %ul.list
+              - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
+                %li
+                  %a{href: "#{link.url}"}= link.name
+          -else
+            This group has no links.
+    -else
+      %section{id: 'composit_view'}
+        %h2 About this Group
+        %p We are not recieveing a composit view for this group. If it is new it will take some time for the collection server to grab all the info and create this view.
     %section#mockingbird_view.hideable
       %h2 Secular Connect Info
       - if @mb_group.present?
@@ -182,35 +187,35 @@
           %form#tags_from{action: "#{@mb_group.id}/url", method: :post}
             %h2 This is where tags go.
 
+    - if @eagle_group.present?
+      %section{id: 'meetup_view'}
+        %h2 Meetup Info
+        - if @meetup_group.kind_of?(Hash) && @meetup_group.any?
+          .edit_links
+            %a{href: "#{@eagle_group['refs']['meetup']}/manage", class: 'edit_link', target: '_blank'}Edit on Meetup.com
+          %ul
+            - @meetup_group.each do |key, value|
+              - unless key == 'keywords' || key == 'images'
+                %li
+                  %span.label="#{key.titleize}:"
+                  =attribute_seperator(value, key)
+        -elsif @meetup_group == nil
+          %p We do not have a Meetup link for this group
+        -elsif @meetup_group.kind_of?(Hash) && @meetup_group.empty?
+          %p We have a link to the Meetup Group but no information could be collected
 
-    %section{id: 'meetup_view'}
-      %h2 Meetup Info
-      - if @meetup_group.kind_of?(Hash) && @meetup_group.any?
-        .edit_links
-          %a{href: "#{@eagle_group['refs']['meetup']}/manage", class: 'edit_link', target: '_blank'}Edit on Meetup.com
-        %ul
-          - @meetup_group.each do |key, value|
-            - unless key == 'keywords' || key == 'images'
-              %li
-                %span.label="#{key.titleize}:"
-                =attribute_seperator(value, key)
-      -elsif @meetup_group == nil
-        %p We do not have a Meetup link for this group
-      -elsif @meetup_group.kind_of?(Hash) && @meetup_group.empty?
-        %p We have a link to the Meetup Group but no information could be collected
-
-    %section{id: 'facebook_view'}
-      %h2 Facebook Info
-      - if @facebook_group.kind_of?(Hash) && !@facebook_group.empty?
-        .edit_links
-          %a{href: "#{@eagle_group['refs']['facebook']}", class: 'edit_link', target: '_blank'}Edit on Facebook.com
-        %ul
-          - @facebook_group.each do |key, value|
-            - unless key == 'keywords' || key == 'images'
-              %li
-                %span.label="#{key.titleize}:"
-                =attribute_seperator(value, key)
-      -elsif @facebook_group == nil
-        %p We do not have a Facebook link for this group
-      -elsif @facebook_group.kind_of?(Hash) && @facebook_group.empty?
-        %p We have a link to the Facebook Group but no data could be collected
+      %section{id: 'facebook_view'}
+        %h2 Facebook Info
+        - if @facebook_group.kind_of?(Hash) && !@facebook_group.empty?
+          .edit_links
+            %a{href: "#{@eagle_group['refs']['facebook']}", class: 'edit_link', target: '_blank'}Edit on Facebook.com
+          %ul
+            - @facebook_group.each do |key, value|
+              - unless key == 'keywords' || key == 'images'
+                %li
+                  %span.label="#{key.titleize}:"
+                  =attribute_seperator(value, key)
+        -elsif @facebook_group == nil
+          %p We do not have a Facebook link for this group
+        -elsif @facebook_group.kind_of?(Hash) && @facebook_group.empty?
+          %p We have a link to the Facebook Group but no data could be collected

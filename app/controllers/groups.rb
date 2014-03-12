@@ -36,15 +36,41 @@ module SC
       @url = "#{ENV['WIDGET_SERVER']}groups-map.html?filters[subject]=groups&filters[keys][location.state]=#{abbreviate(state)}&size=645x600"
       haml :'groups/map'
     end
-    
+
+    get "/new" do
+      @group = Group.new()
+      @group.location = Location.new(street_address: nil, street_num: nil, city: nil, state: nil, country: nil, postal_code: nil)
+      haml :"groups/new"
+    end
+
+    post "/create" do
+      @group = Group.new(params[:group])
+      if params['group']['location'].present? && params['group']['location']['country'].present?
+        @group.location = Location.new(params[:group][:location])
+        result = Geocoder.search(location_to_html(params[:group][:location])).first
+        @group.location.lng_lat = [result.longitude, result.latitude]
+      end
+      if @group.save
+        flash[:notice] = "Your group has been created. Click edit fields here under the secular connect area to add more infromation or change current infromation"
+        redirect "groups/#{@group.id}"
+      else
+        debugger
+        flash[:alert] = "Group was unable to be created. See below for detailed errors."
+        haml :"groups/new"
+      end
+    end
+
     get "/:id" do
       @mb_group = Group.find(params[:id])
       if @mb_group.present?
-        begin
-          @eagle_group = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups/#{@mb_group.eagle_id}")
-        rescue
-          @eagle_group = nil
+        if @mb_group.eagle_id.present?
+          begin
+            @eagle_group = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups/#{@mb_group.eagle_id}")
+          rescue
+            @eagle_group = nil
+          end
         end
+
         if @eagle_group.present?
           @meetup_group = (@eagle_group['refs'].has_key?('meetup') ? @meetup_group = source_puller('meetup', @eagle_group) : nil)
           @facebook_group = (@eagle_group['refs'].has_key?('facebook') ? @facebook_group = source_puller('facebook', @eagle_group) : nil)
