@@ -67,7 +67,7 @@ $(document).ready(function() {
   //AJAX Submit
   doc.on("submit", "form.ajax_submit", function(e) {ajaxSubmit(e)} );
   doc.on("click", "a.ajax_submit", function(e) {
-    r = confirm('This will permanently delete this link. Are you sure you want to do this?');
+    r = confirm('This will permanently delete this ' + $(e.currentTarget).attr('object_type') + '. Are you sure you want to do this?');
     if(r == true){
       ajaxSubmit(e)
     } else {e.preventDefault();}
@@ -108,7 +108,8 @@ function ajaxSubmit(e) {
      if (target.hasClass('submit_url')) {urlChangeUpdates(data)}
      else if (target.hasClass('submit_groups')) {mainInfoChangeUpdates(data);}
      else if (target.hasClass('delete_url_link')) {urlDeleteUpdate(data);}
-     else if (target.hasClass('add_url_link')) {urlAddUpdate(data)};
+     else if (target.hasClass('add_url_link')) {urlAddUpdate(data)}
+     else if (target.hasClass('delete_group')) {groupDeleteUpdate(data)};;
     },
     error: function(data){
      if ($(e.currentTarget).hasClass('submit_url')) {
@@ -121,6 +122,10 @@ function ajaxSubmit(e) {
     }
   });
 };
+
+function groupDeleteUpdate(data) {
+  $('#frame').empty().html('<div id="page_title"><h1> Group Removed</h1><p> This group has been removed. If you believe this message is in error place contact support at {Add Email}</p></div>')
+}
 
 function buildEditLi(group, link) {
   listItem = jQuery('<li />').attr({group_id: link.id})

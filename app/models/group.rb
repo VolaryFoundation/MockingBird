@@ -37,6 +37,7 @@ class Group
   key :email
   key :memebership
   key :founded
+  key :deleted, Boolean, default: false
 
 
   def claim_group(user)
