@@ -9,7 +9,6 @@ describe "Group Edit" do
   end
 
   it 'should switch to main info edit when link is clicked', vcr: true, js: true do
-    expect(page).to have_content 'Auckland'
     page.should have_selector(:link_or_button, 'Edit fields here')
     page.should have_css('section#mockingbird_edit', visible: false)
     click_link('Edit fields here')
