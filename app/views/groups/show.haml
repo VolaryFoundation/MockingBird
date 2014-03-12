@@ -25,7 +25,7 @@
                 = @eagle_group['size'].present? ?  @eagle_group['size'] : 'Unknown'
               %li
                 %span{class: 'label'}Last Updated:
-                = (@mb_group.present? && @mb_group.updated_at.present?) ? @mb_group.updated_at : 'Unknown'
+                = (@mb_group.present? && @mb_group.updated_at.present?) ? @mb_group.updated_at.strftime("%B %d %Y") : 'Unknown'
               %li
           #main-info-description
             -if @eagle_group['description']
