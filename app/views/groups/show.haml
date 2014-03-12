@@ -153,19 +153,19 @@
                       %a{href: "#{link.id}/edit", id: "edit_url_link_#{link.id}", class: 'edit_url_link', group_id: "#{link.id}"}Edit
                       |
                       %a{href: "#{link.id}/delete", action: "#{@mb_group.id}/delete_url/#{link.id}", object_type: 'link', id: "delete_url_link_#{link.id}", class: 'delete_url_link ajax_submit', group_id: "#{link.id}"}Delete
-              - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
-                %form.submit_url.ajax_submit.hidden.hideable{action: "#{@mb_group.id}/url/#{link.id}", method: :post, id: "url_edit_form_#{link.id}", group_id: "#{link.id}"}
-                  %select.url{name: 'link[type]'}
-                    %option{value: 'website', :selected => link.type == "website"} Website
-                    %option{value: 'facebook', :selected => link.type  == "facebook"} Facebook
-                    %option{value: 'twitter', :selected => link.type  == "twitter"} Twitter
-                    %option{value: 'blog', :selected => link.type  == "blog"} Blog
-                    %option{value: 'calendar', :selected => link.type == "calendar"} Calendar
-                  %input.url{type: "text", name: 'link[url]', value: link.url, object_id: "#{link.id}"}
-                  %br
-                  %br
-                  %input{type: "submit", value: "Save"}
-                  %a{href: '#mockingbird', class: 'cancel url'}Cancel
+            - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
+              %form.submit_url.ajax_submit.hidden.hideable{action: "#{@mb_group.id}/url/#{link.id}", method: :post, id: "url_edit_form_#{link.id}", group_id: "#{link.id}"}
+                %select.url{name: 'link[type]'}
+                  %option{value: 'website', :selected => link.type == "website"} Website
+                  %option{value: 'facebook', :selected => link.type  == "facebook"} Facebook
+                  %option{value: 'twitter', :selected => link.type  == "twitter"} Twitter
+                  %option{value: 'blog', :selected => link.type  == "blog"} Blog
+                  %option{value: 'calendar', :selected => link.type == "calendar"} Calendar
+                %input.url{type: "text", name: 'link[url]', value: link.url, object_id: "#{link.id}"}
+                %br
+                %br
+                %input{type: "submit", value: "Save"}
+                %a{href: '#mockingbird', class: 'cancel url'}Cancel
             .url_add_form
               #showAddForm.hideable
                 %a{href: "#showAddForm"}Add a Link
