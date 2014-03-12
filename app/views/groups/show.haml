@@ -59,7 +59,7 @@
               -if (current_user.role == 'admin') || (current_user == @mb_group.user)
                 %a{href: '#mockingbird', class: 'edit_link'}Edit fields here
               -elsif @mb_group.pending_user.blank?
-                %form.no_form{action: "/groups/#{@mb_group.id}/claim", method: 'post'}
+                %form.form.no_form{action: "/groups/#{@mb_group.id}/claim", method: 'post'}
                   %input#claim_group_link.link.on_white{type: 'submit', :value => 'Claim Group'}
           %ul.mocking_bird_details
             %li.name
@@ -133,7 +133,9 @@
               %a{href: '#mockingbird', class: 'main_info cancel'}Cancel
             -# Admin edit form
           .form.admin_area.hidden.hideable
-            %a{href: "/delete", action: "#{@mb_group.id}/delete", id: "delete_group_#{@mb_group.id}", object_type: 'group', class: 'delete_group ajax_submit', group_id: "#{@mb_group.id}"}Delete
+            .delete_group_area
+              %p Delete this group from the database
+              %a{href: "/delete", action: "#{@mb_group.id}/delete", id: "delete_group_#{@mb_group.id}", object_type: 'group', class: 'delete_group ajax_submit danger', group_id: "#{@mb_group.id}"}Delete
             - if current_user.role == 'admin' && @mb_group.pending_user.present? && @mb_group.user.nil?
               %form{action: "#{@mb_group.id}/approve", method: :post}
                 %label User Claim

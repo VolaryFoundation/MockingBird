@@ -100,6 +100,16 @@
     float: right;
     margin-top: 7px;
     padding-right: 14px; }
+    .form a.danger {
+      color: white;
+      float: right;
+      padding: 0;
+      margin: -35px 0 0 0;
+      width: 90px;
+      height: 25px;
+      text-align: center;
+      background-color: red;
+      display: block; }
   .form ul.list li {
     float: none;
     overflow: auto;
@@ -117,6 +127,14 @@
       float: left; }
     .form ul.list li .url_action_links {
       float: right; }
+  .form .delete_group_area {
+    overflow: auto;
+    width: 90%;
+    float: left; }
+    .form .delete_group_area p {
+      width: 70%;
+      color: black;
+      font-size: large; }
 
 #group_error {
   background-color: #ff8080;
