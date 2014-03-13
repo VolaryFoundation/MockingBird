@@ -38,23 +38,21 @@ end
 def links_to_html(attribute)
   if attribute.present? && !attribute.empty?
     array = ["<ul class='list'>"]
-    if attribute.class == Hash
-      attribute.each do |link|
+    attribute.each do |link|
+      if link.class == Hash
         if link['url'].present? && link['name'].present?
           array << "<li><a href=#{link['url']}>#{link['name']}</a></li>"
         elsif link['url'].present?
           array << "<li><a href=#{link['url']}>#{link['url']}</a></li>"
         end
-      end
-    elsif attribute.class == Array
-      attribute.each do |link|
+      elsif link.class == Array
         link = link.split(' ')
         link.each do |real_link|
           array << "<li><a href=#{real_link}>#{real_link}</a></li>"
         end
       end
     end
-      
+    debugger
     array << "</ul>"
     return array.join("")
   end
