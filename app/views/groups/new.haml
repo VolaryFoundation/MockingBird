@@ -4,11 +4,13 @@
   #main
     %section{id: 'mockingbird_edit'}
       .form.main_info_area
-        -if @group.errors.present?
-          #group_error
-            - @group.errors.each do |key, error|
-              %li= "#{key}: #{error}"
         %form{action: "create", method: :post}
+          -if @group.errors.present?
+            #group_error
+              %ul
+                - @group.errors.each do |key, error|
+                  %li= "#{key.capitalize} #{error}"
+
           %label Name:
           %input{type: "text", name: 'group[name]', value: @group.name, required: 'true'}
           %br
