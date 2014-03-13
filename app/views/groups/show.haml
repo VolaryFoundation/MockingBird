@@ -55,9 +55,14 @@
             -if current_user.present?
               -if (current_user.role == 'admin') || (current_user == @mb_group.user)
                 %a{href: '#mockingbird', class: 'edit_link'}Edit fields here
-              -elsif @mb_group.pending_user.blank?
+              -elsif @mb_group.pending_user.blank? 
                 %form.form.no_form{action: "/groups/#{@mb_group.id}/claim", method: 'post'}
                   %input#claim_group_link.link.on_white{type: 'submit', :value => 'Claim Group'}
+            -else
+              - if @mb_group.pending_user.blank? 
+                %a{href: '/login', class: 'login_link'}Login to claim group
+              - else 
+                %a{href: '/login', class: 'login_link'}Login to edit group
           %ul.mocking_bird_detais
             %li.name
               %span.label Name:
