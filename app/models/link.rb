@@ -5,8 +5,6 @@ class Link
   key :name, required: true
   key :type
 
-  validate :custom_validation
-
   def self.url_connect?(url)
     new_url = url
     new_url = url_set_http(new_url) if !new_url.starts_with?('http')

@@ -14,10 +14,10 @@ describe Group do
       @group.should_not be_valid
     end
 
-    it 'should have a unique name' do
+    it 'should not have a unique name' do
       @group.save
       group = build :group, name: @group.name
-      group.should_not be_valid
+      group.should be_valid
     end
   end
 
