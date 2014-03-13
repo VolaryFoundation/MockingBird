@@ -11,7 +11,7 @@ class Link
     begin
       responce = RestClient.get(new_url)
     rescue
-      new_url = url_secure_switch(url)
+      new_url = url_secure_switch(new_url)
       begin
         responce = RestClient.get(new_url)
       rescue
@@ -39,7 +39,7 @@ class Link
     end
 
 
-    def self.url_secure_switch()
+    def self.url_secure_switch(url)
       if !url.starts_with?('http')
         return nil
       else
