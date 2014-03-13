@@ -29,3 +29,7 @@ end
 map "/password_reset" do
   run SC::PasswordResetController
 end
+
+map "/admin" do
+  run SC::AdminController
+end
