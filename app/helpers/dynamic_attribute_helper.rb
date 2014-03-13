@@ -52,7 +52,6 @@ def links_to_html(attribute)
         end
       end
     end
-    debugger
     array << "</ul>"
     return array.join("")
   end

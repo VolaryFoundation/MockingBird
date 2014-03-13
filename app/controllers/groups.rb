@@ -54,7 +54,6 @@ module SC
         flash[:notice] = "Your group has been created. Click edit fields here under the secular connect area to add more infromation or change current infromation"
         redirect "groups/#{@group.id}"
       else
-        debugger
         flash[:alert] = "Group was unable to be created. See below for detailed errors."
         haml :"groups/new"
       end
