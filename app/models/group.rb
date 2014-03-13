@@ -23,7 +23,7 @@ class Group
   STATUS_OPTIONS = ['pending', 'avtive', 'deactive', 'disabled']
 
   timestamps!
-  key :name, required: true, unique: true
+  key :name, required: true
   key :description
   key :status, default: 'pending', required: true, :in => STATUS_OPTIONS
   key :size, :in => SIZE_OPTIONS
