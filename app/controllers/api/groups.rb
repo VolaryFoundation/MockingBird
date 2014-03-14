@@ -59,12 +59,12 @@ module SC
         group = Group.find(params[:id])
         link = Link.new(params[:link])
         link.name = link.url
-        group.links << link
         if user.present? && (group.user == user || user.role = 'admin')
-          if group.save
+          if group.add_url(link)
             ok "[#{group.to_json},#{link.to_json}]"
           else
-            no_post link.to_json
+            debugger
+            no_save group.to_json
           end
         else
           no_save

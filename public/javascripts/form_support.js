@@ -149,8 +149,8 @@ function ajaxSubmit(e) {
        $("#url_error").text("Unable to update the link. Please check the fields and try again").show();
      } else if ($(e.currentTarget).hasClass('submit_groups')) {
        $("#group_error").text("Unable to update the group. Please check the fields and try again").show();
-     } else if ($(e.currentTarget).hasClass('submit_groups')) {
-       $("#url_error").text("Unable to delete the URL.").show();
+     } else if ($(e.currentTarget).hasClass('url')) {
+       $("#url_error").text("Can't have duplicate urls").show();
      }
     }
   });

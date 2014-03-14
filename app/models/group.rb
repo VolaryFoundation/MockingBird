@@ -45,6 +45,20 @@ class Group
     self.save! ? (return self) : (return nil)
   end
 
+  def add_url(new_link)
+    #validation
+    self.links.each do |link|
+      if link.url == new_link.url
+        errors.add(:links, "can't have duplicate urls")
+        return false
+      end
+    end
+    #Add if validated
+    self.links << new_link
+    self.save
+    return true
+  end
+
   def self.match_group(group)
     record = Group.all('name' => group.name)
     if record.count == 1

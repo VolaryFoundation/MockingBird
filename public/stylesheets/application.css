@@ -136,7 +136,7 @@
       color: black;
       font-size: large; }
 
-#group_error {
+.form_error {
   background-color: #ff8080;
   text-align: center;
   height: 20px; }

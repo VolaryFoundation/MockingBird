@@ -102,7 +102,7 @@
             %li
               %a.form_nav_link#admin_area{href: "#"} Admin
           .form.main_info_area
-            #group_error.hidden.hideable
+            #group_error.hidden.hideable.form_error
             %form#submit_groups.submit_groups.ajax_submit{action: "#{@mb_group.id}", method: :post}
               %label Name:
               %input{type: "text", name: 'group[name]', value: @mb_group.name}
@@ -145,6 +145,7 @@
                 %input{type: "submit", value: "Approve"}
           -# URL Edit Form
           .form.url_area.hidden.hideable
+            #url_error.form_error.hidden.hideable
             %ul.list#edit_url_list
               - if @mb_group.links.present?
                 - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
@@ -156,7 +157,7 @@
                       |
                       %a{href: "#{link.id}/delete", action: "#{@mb_group.id}/delete_url/#{link.id}", object_type: 'link', id: "delete_url_link_#{link.id}", class: 'delete_url_link ajax_submit', group_id: "#{link.id}"}Delete
             - @mb_group.links.select { |l| not l.url.include? "?op=leaders" }.each do |link|
-              %form.submit_url.ajax_submit.hidden.hideable{action: "#{@mb_group.id}/url/#{link.id}", method: :post, id: "url_edit_form_#{link.id}", group_id: "#{link.id}"}
+              %form.submit_url.ajax_submit.hidden.hideable.url{action: "#{@mb_group.id}/url/#{link.id}", method: :post, id: "url_edit_form_#{link.id}", group_id: "#{link.id}"}
                 %select.url{name: 'link[type]'}
                   %option{value: 'website', :selected => link.type == "website"} Website
                   %option{value: 'facebook', :selected => link.type  == "facebook"} Facebook
@@ -172,7 +173,7 @@
               #showAddForm.hideable
                 %a{href: "#showAddForm"}Add a Link
                 %a.cancel.main_info{href: "#cancel"}Done
-              %form.add_url_link.ajax_submit.hideable.hidden.link{action: "#{@mb_group.id}/add_url", method: :post, id: "add_url_form"}
+              %form.add_url_link.ajax_submit.hideable.hidden.link.url{action: "#{@mb_group.id}/add_url", method: :post, id: "add_url_form"}
                 %select.url{name: 'link[type]'}
                   %option{value: '', disabled: true, selected: true} Choose Type
                   %option{value: 'website'} Website
