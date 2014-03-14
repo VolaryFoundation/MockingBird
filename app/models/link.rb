@@ -18,11 +18,11 @@ class Link
       end
     end
     if responce.present? && responce.code == 200
-      return ((new_url != url) ?  [200, 'changed', new_url] : [200, true, url])
+      return ((new_url != url) ? {code: 200, status: 'changed', url: new_url} : {code: 200, status: true, url: url})
     elsif responce.present? && responce.code != 200
       return [responce.code, 'false', url]
     else
-      return [400, 'false', url]
+      return {code: 400, status: 'false', url: url}
     end
   end
 

@@ -65,7 +65,16 @@ $(document).ready(function() {
   })
 
   //AJAX Submit
-  doc.on("submit", "form.ajax_submit", function(e) {ajaxSubmit(e)} );
+  doc.on("submit", "form.ajax_submit", function(e) {
+    if ($(e.currentTarget).hasClass('link')) {
+      e.preventDefault();
+      url = $('input.url[type="text"]', e.currentTarget)[0].value
+      responce = checkUrl(url, e);
+    } else {
+      ajaxSubmit(e)
+    }
+  });
+
   doc.on("click", "a.ajax_submit", function(e) {
     r = confirm('This will permanently delete this ' + $(e.currentTarget).attr('object_type') + '. Are you sure you want to do this?');
     if(r == true){
@@ -80,6 +89,30 @@ $(document).ready(function() {
     $('#add_url_form').show()
   })
 })
+
+
+function checkUrl(url, e) {
+   $.ajax({
+    type: "GET",
+    url: "/link_checker?url=" + url,
+    success: function(data){
+      object = JSON.parse(data)
+      if (object.code == 200 && object.status == 'changed') {
+        $('input.url[type="text"]', e.currentTarget)[0].value = object.url
+        ajaxSubmit(e)
+      } else if (object.status == 'true'){
+        ajaxSubmit(e)
+      } else if (object.status == 'false'){
+        if (confrim("The url you are submiting is unreachable. Are you sure you want to submit it?")){
+          ajaxSubmit(e)
+        }
+      }
+    },
+    error: function(data){
+      alert(data)
+    }
+  });
+}
 
 function resetAll() {
     $('.hideable').hide();

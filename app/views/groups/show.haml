@@ -172,7 +172,7 @@
               #showAddForm.hideable
                 %a{href: "#showAddForm"}Add a Link
                 %a.cancel.main_info{href: "#cancel"}Done
-              %form.add_url_link.ajax_submit.hideable.hidden{action: "#{@mb_group.id}/add_url", method: :post, id: "add_url_form"}
+              %form.add_url_link.ajax_submit.hideable.hidden.link{action: "#{@mb_group.id}/add_url", method: :post, id: "add_url_form"}
                 %select.url{name: 'link[type]'}
                   %option{value: '', disabled: true, selected: true} Choose Type
                   %option{value: 'website'} Website
@@ -183,7 +183,7 @@
                 %input.url{type: "text", name: 'link[url]'}
                 %br
                 %br
-                %input{type: "submit", value: "Add"}
+                %input.url{type: "submit", value: "Add"}
                 %a{href: '#mockingbird', class: 'cancel url'}Cancel
 
 

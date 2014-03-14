@@ -30,5 +30,13 @@ module SC
       ok uri.to_json
       #redirect "../groups"
     end
+
+    get "/link_checker" do
+      if params[:url].present?
+        responce = Link.url_connect?(params[:url])
+      end
+      ok responce.to_json
+    end
+
   end
 end
