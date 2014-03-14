@@ -103,7 +103,7 @@ function checkUrl(url, e) {
       } else if (object.status == 'true'){
         ajaxSubmit(e)
       } else if (object.status == 'false'){
-        if (confrim("The url you are submiting is unreachable. Are you sure you want to submit it?")){
+        if (confirm("The url you are submiting is unreachable. Are you sure you want to submit it?")){
           ajaxSubmit(e)
         }
       }
