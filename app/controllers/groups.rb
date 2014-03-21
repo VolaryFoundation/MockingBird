@@ -85,7 +85,7 @@ module SC
       user = current_user
       if user.present? && group.present?
         group.claim_group(user)
-        @url = "http://directory.secularconnect.org/groups/#{group.id}"
+        @url = "http://#{request.host}:#{request.port}/groups/#{group.id}"
         Pony.mail(:to => 'netops@volary.org', :subject => 'Group Ownership Claim', :body => haml(:'email/user_claim', layout: false))
         flash[:notice] = "You are attempting to claim this group. An admin will contact you via email as soon as possible."
         redirect back
