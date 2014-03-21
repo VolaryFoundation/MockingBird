@@ -2,6 +2,7 @@ require APP_ROOT + "/models/group"
 require APP_ROOT + "/helpers/json_source_puller.rb"
 require APP_ROOT + "/helpers/dynamic_attribute_helper.rb"
 require APP_ROOT + "/helpers/abbreviation_helper.rb"
+require APP_ROOT + "/helpers/data_format_helper.rb"
 
 module SC
   class GroupsController < BaseController
