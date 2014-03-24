@@ -100,9 +100,9 @@ function checkUrl(url, e) {
       if (object.code == 200 && object.status == 'changed') {
         $('input.url[type="text"]', e.currentTarget)[0].value = object.url
         ajaxSubmit(e)
-      } else if (object.status == true){
+      } else if (object.status == "true"){
         ajaxSubmit(e)
-      } else if (object.status == false){
+      } else if (object.status == "false"){
         if (confirm("The url you are submiting is unreachable. Are you sure you want to submit it?")){
           ajaxSubmit(e)
         }
