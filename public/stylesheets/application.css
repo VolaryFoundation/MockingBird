@@ -221,6 +221,8 @@ p {
 a {
   color: RGB(60, 159, 201);
   text-decoration: none; }
+  a.white {
+    color: white; }
 
 .hidden {
   display: none; }
