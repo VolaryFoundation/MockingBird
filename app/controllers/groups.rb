@@ -10,20 +10,22 @@ module SC
     get "/" do
       if params[:state].present?
         begin
-          @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups?keys[location.state]=#{params[:state]}")
+          @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}cahce?type=group&&q[keys][location.state]=#{params[:state]}")
         rescue
           puts "Had to rescue"
           @group = nil
         end
       elsif params[:city].present?
         begin
-          @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups?keys[location.state]=#{params[:city]}")
+          @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}cahce?type=group&&q[keys][location.city]=#{params[:city]}")
         rescue
           @group = nil
         end
       else
         begin
-          @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups", {:params => {:limit => 30, :page => 0}})
+          @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}cache?type=group")
+          
+          
         rescue
           @group = nil
         end
