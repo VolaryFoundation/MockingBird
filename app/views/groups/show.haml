@@ -198,7 +198,7 @@
           %h2 Meetup Info
           - if @meetup_group.kind_of?(Hash) && @meetup_group.any?
             .edit_links
-              %a{href: "#{@eagle_group['refs']['meetup']}/manage", class: 'edit_link', target: '_blank'}Edit on Meetup.com
+              %a{href: "#{@meetup_group['ref']}/manage", class: 'edit_link', target: '_blank'}Edit on Meetup.com
             %ul
               - @meetup_group.each do |key, value|
                 - unless key == 'keywords' || key == 'images'

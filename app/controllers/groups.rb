@@ -8,35 +8,16 @@ module SC
   class GroupsController < BaseController
   
     get "/" do
-      if params[:state].present?
-        begin
-          @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}cahce?type=group&&q[keys][location.state]=#{params[:state]}")
-        rescue
-          puts "Had to rescue"
-          @group = nil
-        end
-      elsif params[:city].present?
-        begin
-          @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}cahce?type=group&&q[keys][location.city]=#{params[:city]}")
-        rescue
-          @group = nil
-        end
-      else
-        begin
-          @groups = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}cache?type=group")
-          
-          
-        rescue
-          @group = nil
-        end
-      end
+      results = Geocoder.search(request.ip)
+      state = (results.first.state.present? ? results.first.state : 'Colorado')
+      @url = "#{ENV['WIDGET_SERVER']}groups-map.html?filters[subject]=groups&filters[keys][location.state]=#{abbreviate(state)}&size=645x600&viewMode=list"
       haml :"groups/index"
     end
     
     get "/map" do
       results = Geocoder.search(request.ip)
       state = (results.first.state.present? ? results.first.state : 'Colorado')
-      @url = "#{ENV['WIDGET_SERVER']}groups-map.html?filters[subject]=groups&filters[keys][location.state]=#{abbreviate(state)}&size=645x600"
+      @url = "#{ENV['WIDGET_SERVER']}groups-map.html?filters[subject]=groups&filters[keys][location.state]=#{abbreviate(state)}&size=645x600&viewMode=map"
       haml :'groups/map'
     end
 
@@ -67,15 +48,16 @@ module SC
       if @mb_group.present?
         if @mb_group.eagle_id.present?
           begin
-            @eagle_group = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}groups/#{@mb_group.eagle_id}")
+            @eagle_group = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}cache/#{@mb_group.eagle_id}?type=group")
           rescue
             @eagle_group = nil
           end
         end
-
         if @eagle_group.present?
-          @meetup_group = (@eagle_group['refs'].has_key?('meetup') ? @meetup_group = source_puller('meetup', @eagle_group) : nil)
-          @facebook_group = (@eagle_group['refs'].has_key?('facebook') ? @facebook_group = source_puller('facebook', @eagle_group) : nil)
+          @eagle_group['_refs'].each do |ref|
+             @meetup_group = source_puller('meetup', @eagle_group) if ref['adapter'] == 'meetup'
+             @facebook_group = source_puller('facebook', @eagle_group) if ref['adapter'] == 'facebook' 
+          end
         end
         haml :"groups/show"
       else

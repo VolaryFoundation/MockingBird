@@ -1,22 +1,9 @@
 #frame
+  -#map_view
   #page_title
-    %h1 Groups
+    %h1 Groups List
+    :css
+      iframe { border: none; margin-top: 10px; overflow: hidden; }
   #main
-    %section#list-index
-      %ul.list
-        - if @groups.present?
-          - @groups.each do |group|
-            %li{id: "#{group['_id']}"}
-              -if group['images'].present? && group['images'][0].present? && !group['images'][0].empty?
-                %img.group_img.resize{src: group['images'][0]}
-              -elsif group['location'].present? && group['location']['state'].present? && group['location']['city'].present?
-                %img.group_img.resize{src: "http://placehold.it/180x125.png", extra_info_state: group['location']['state'], extra_info_city: group['location']['city']}
-              -else
-                %img.group_img.resize{src: "http://placehold.it/180x125.png"}
-              .main_info
-                -if group['props'].present? && group['props']['name'].present? && group['props']['name'][0].present?
-                  %a{href: "/groups/#{group['refs']['mockingbird']}"}= group['props']['name'][0]['value']
-                -if group['location'].present?
-                  %p= location_to_html(group['location'])
-        -else
-          %li Unable to collect groups at this time.
+    %div.volary-widget{:'data-src' => @url}
+      <script src="#{ENV['WIDGET_SERVER']}js/widget_loader.js"></script>
