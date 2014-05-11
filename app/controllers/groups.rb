@@ -52,7 +52,6 @@ module SC
       if @mb_group.present?
         if @mb_group.eagle_id.present?
           begin
-            debugger
             @eagle_group = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}cache/#{@mb_group.eagle_id}?type=group")
           rescue
             @eagle_group = nil
