@@ -214,7 +214,7 @@
           %h2 Facebook Info
           - if @facebook_group.kind_of?(Hash) && !@facebook_group.empty?
             .edit_links
-              %a{href: "#{@eagle_group['refs']['facebook']}", class: 'edit_link', target: '_blank'}Edit on Facebook.com
+              %a{href: "#{@facebook_group['ref']}", class: 'edit_link', target: '_blank'}Edit on Facebook.com
             %ul
               - @facebook_group.each do |key, value|
                 - unless key == 'keywords' || key == 'images'

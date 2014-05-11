@@ -44,10 +44,15 @@ module SC
     end
 
     get "/:id" do
-      @mb_group = Group.find(params[:id])
+      if params['source'] == 'eagle'
+        @mb_group = Group.find_by_eagle_id(params[:id])
+      else
+        @mb_group = Group.find(params[:id])
+      end
       if @mb_group.present?
         if @mb_group.eagle_id.present?
           begin
+            debugger
             @eagle_group = JSON.parse(RestClient.get "#{ENV['EAGLE_SERVER']}cache/#{@mb_group.eagle_id}?type=group")
           rescue
             @eagle_group = nil
