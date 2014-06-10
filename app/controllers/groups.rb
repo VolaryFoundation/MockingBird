@@ -109,6 +109,25 @@ module SC
       end
         
     end
+
+    post "/:id/review" do
+      if current_user.present? && current_user.role == 'admin'
+        group = Group.find(params[:id])
+        status = params['group']['status']
+        if group.present?
+          group.respond_to_claim(status)
+          flash[:notice] = "Claim was #{status}. Dont forget to email the user to let them know."
+          redirect back
+        else
+          flash[:notice] = "Unable to review the claim"
+          redirect back
+        end
+      else
+        flash[:alert] = "You are not authrized to submit this command"
+        redirect back
+      end
+        
+    end
     
   end
 end

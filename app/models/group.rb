@@ -5,8 +5,6 @@ class Group
 
   before_save :generate_keywords
   
-  #after_save :send_to_eagle
-
   one :location
   belongs_to :user
   belongs_to :pending_user, class_name: 'User'
@@ -97,7 +95,8 @@ class Group
   end
   
   def respond_to_claim(responce)
-    responce == 'approve' ? (self.user = self.pending_user) : (self.pending_user = nil)
+    debugger
+    responce.downcase == 'approved' ? (self.user = self.pending_user) : (self.pending_user = nil)
     self.save! ? (return self) : (return nil)
   end
   

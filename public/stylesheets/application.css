@@ -184,6 +184,9 @@ img.resize {
   width: 180px;
   height: auto; }
 
+.no_float {
+  clear: both; }
+
 h2 {
   width: 100%;
   border-bottom: 1px solid #d6d6d6;

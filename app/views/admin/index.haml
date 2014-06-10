@@ -7,7 +7,7 @@
       %ul.list
         - @group_claims.each do |group|
           %li
-            %a{href: "http://directory.secularconnect.org/groups/#{group.id}"}=group.name
+            %a{href: "http://directory.secularconnect.org/groups/#{group.id}"}="#{group.name} : #{pending_user_email(group.pending_user_id)}"
     %section{id: 'deleted_view'}
       %h2 Deleted Groups
       %ul.list

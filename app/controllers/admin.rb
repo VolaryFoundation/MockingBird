@@ -1,4 +1,5 @@
 require APP_ROOT + "/models/group"
+require APP_ROOT + "/helpers/admin_helper.rb"
 
 module SC
   class AdminController < BaseController

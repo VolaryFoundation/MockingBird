@@ -138,11 +138,16 @@
             .delete_group_area
               %p Delete this group from the database
               %a{href: "/delete", action: "#{@mb_group.id}/delete", id: "delete_group_#{@mb_group.id}", object_type: 'group', class: 'delete_group ajax_submit danger', group_id: "#{@mb_group.id}"}Delete
+              %br
             - if current_user.role == 'admin' && @mb_group.pending_user.present? && @mb_group.user.nil?
-              %form{action: "#{@mb_group.id}/approve", method: :post}
-                %label User Claim
-                %input{type: "text", name: 'group[name]', value: @mb_group.pending_user.email, :disabled => true}
-                %input{type: "submit", value: "Approve"}
+              .user_request_form.no_float
+                %form{action: "#{@mb_group.id}/review", method: :post}
+                  %label User Claim
+                  %input{type: "text", name: 'group[name]', value: @mb_group.pending_user.email, :disabled => true}
+                  %select{name: 'group[status]'}
+                    %option Approved
+                    %option Rejected
+                  %input{type: "submit", value: "Submit"}
           -# URL Edit Form
           .form.url_area.hidden.hideable
             #url_error.form_error.hidden.hideable
